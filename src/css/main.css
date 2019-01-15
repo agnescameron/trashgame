@@ -1,0 +1,93 @@
+
+/*main page elements*/
+
+#map{
+  position: fixed;
+  width: 1000px;
+  left: 50%;
+  margin-left: -500px;
+  height: 600px;
+  background-color: blue;
+    top: 90px;
+}
+
+#topbar{
+  top: 20px;
+  width: 1150px;
+  height: 60px;
+  background-color: yellow;
+  left: 50%;
+  margin-left: -575px;
+    position: fixed;
+}
+
+#footer{
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+}
+
+#menubar{
+  width: 1150px;
+  height: 70px;
+  background-color: pink;
+  margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+}
+
+#container{
+  width:100%;
+}
+
+/*alerts*/
+
+.modal{
+  position: relative;
+  display: none; 
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+    width: 400px;
+    height: 300px;
+    top:200px;
+    overflow: auto;
+    background-color: green;
+}
+
+.modalbutton{
+  width: 50px;
+  height: 20px;
+  float: right;
+}
+
+.modalcontent{
+  color: red;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/*menu items*/
+
+.menubutton{
+  width: 50px;
+  height: 50px;
+  margin: auto;
+  outline: 0px;
+  background-color: grey;
+  text-align: center;
+}
+
