@@ -37,16 +37,30 @@
   justify-content: center;
 }
 
-#medialab{
-  position: fixed;
-  z-index: 10;
-  width:100px;
-  height: 100px;
-}
-
 #container{
   width:100%;
 }
+
+
+/*buildings*/
+
+.building {
+  position: relative;
+  z-index: 10;
+  background-color: #69c647;
+  margin: 20px;
+}
+
+#medialab{
+  width:150px;
+  height: 200px;
+}
+
+#sloan{
+  width:400px;
+  height: 150px;
+}
+
 
 /*alerts*/
 

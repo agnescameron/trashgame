@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Menu from './scripts/Menu.js'
+import GameMap from './scripts/GameMap.js'
 import { connect } from 'react-redux';
 import './css/main.css';
 
@@ -62,7 +63,7 @@ constructor(props){
 			</div>
 		</div>
 		<div id="topbar"></div>
-		<div id="map"></div>
+		<GameMap />
 		<div id="footer">
 		<Menu />
 		</div>
