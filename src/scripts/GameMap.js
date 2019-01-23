@@ -30,7 +30,7 @@ class GameMap extends Component{
 		return(
 
 			<div id="map">
-			{buildings.map((d, i) => <div id={d} className="building">
+			{buildings.map((d, i) => <div id={d} key={i} className="building">
 				{d}
 			</div>)}
 			</div>

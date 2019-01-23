@@ -63,9 +63,7 @@ constructor(props){
 		</div>
 		<Stats />
 		<GameMap />
-		<div id="footer">
 		<Menu />
-		</div>
       </div>
     );
   }

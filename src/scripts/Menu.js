@@ -9,6 +9,8 @@ class Menu extends Component{
 	this.state = {
 	  username: '',
 	  mainMenu: [],
+	  hideMenu: true,
+	  menuSelected: '',
 	}
 	this.renderMainMenu = this.renderMainMenu.bind(this);
 	this.renderMenu = this.renderMenu.bind(this);
@@ -35,8 +37,12 @@ class Menu extends Component{
 	}
 
 	renderMenu = (menu, event) => {
-	  event.preventDefault();
-	  console.log('clicked', menu);
+		event.preventDefault();
+		this.setState({
+      		hideMenu: !this.state.hideMenu,
+      		menuSelected: menu
+    	})
+    	console.log('clicked', menu, "hideMenu is", this.state.hideMenu);
 	}
 
 	componentDidMount() {
@@ -47,11 +53,26 @@ class Menu extends Component{
 		let menuBar = this.state.mainMenu;
 
 		return(
-
+			<div>
+			<div id="footer">
 			<div id="menubar">
 			{menuBar.map((d, i) =>
-				<div className="menubutton" style={{width:50}} onClick={(event) => this.renderMenu(d, event)}>{d}</div>
+				<div className="menubutton" key={i} onClick={(event) => this.renderMenu(d, event)}>{d}</div>
 			)}
+			</div>
+			</div>
+			{!this.state.hideMenu && <Child menuSelected={this.state.menuSelected} />}
+			</div>
+		);
+	}
+}
+
+class Child extends Component {
+	
+	render() {
+		return(
+			<div id="menubox" className='menu'>
+				{this.props.menuSelected}
 			</div>
 		);
 	}

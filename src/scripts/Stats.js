@@ -38,11 +38,11 @@ class Stats extends Component{
 		messages: '',
 		day: ''
 	}
-	this.renderStats = this.renderStats.bind(this);	
+	this.updateStats = this.updateStats.bind(this);	
 }
 
 
-	renderStats= () => {
+	updateStats= () => {
 		this.setState( {money: 10000} );
 		return this.state.buildings;
 	}

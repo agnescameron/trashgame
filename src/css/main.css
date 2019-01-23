@@ -104,7 +104,7 @@
 /*menu items*/
 
 .menubutton{
-  width: 50px;
+  width: 70px;
   height: 50px;
   margin: auto;
   outline: 0px;
@@ -112,6 +112,16 @@
   text-align: center;
 }
 
+.menu{
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  top:200px;
+  left: 50%;
+  margin-left: -150px;
+  z-index: 20;
+  background-color: white;
+}
 
 /*stats*/
 
