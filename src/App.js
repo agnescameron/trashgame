@@ -1,26 +1,74 @@
 import React, { Component } from 'react';
+import Menu from './scripts/Menu.js'
+import { connect } from 'react-redux';
 import './css/main.css';
 
+const mapStateToProps = (state) => {
+  return {
+    username: state.appReducer.username,
+  };
+}
+
+
 class App extends Component {
+
+constructor(props){
+	super(props);
+	this.state = {
+		username: '',
+		buildings: {
+		  ML: true,
+		  arch: false,
+		  sloan: false
+		},
+		menus: {
+		  mainMenu: [],
+		  recyclingMenu: [],
+		  staffMenu: [],		  
+		},
+		money: 10000,
+		staff: {
+		  custodial: '',
+		  recycling: '',
+		  supervisors: '',
+		  managers: '',
+		},
+		waste: {
+		  recycling: '',
+		  compost: '',
+		  landfill: ''
+		},
+		population: {
+		  students: '',
+		  faculty: '',
+		  labManagers: '',
+		},
+		messages: '',
+		day: ''
+	}
+
+}
+
   render() {
+
     return (
       <div className="App">
         <header className="App-header">
         </header>
-		<body>
-		<div class="container">
-			<div id="dialog" class="modal">
-			  	<div id="modalcontent" class="modalcontent"></div>
-			  	<div id="modalbutton" class="modalbutton">aaaa</div>
+		<div className="container">
+			<div id="dialog" className="modal">
+			  	<div id="modalcontent" className="modalcontent"></div>
+			  	<div id="modalbutton" className="modalbutton">aaaa</div>
 			</div>
 		</div>
 		<div id="topbar"></div>
 		<div id="map"></div>
-		<div id="footer"><div id="menubar"></div></div>
-		</body>
+		<div id="footer">
+		<Menu />
+		</div>
       </div>
     );
   }
 }
 
-export default App;
+export default connect(mapStateToProps)(App);
