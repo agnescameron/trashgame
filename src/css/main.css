@@ -112,6 +112,13 @@
   text-align: center;
 }
 
+
+/*stats*/
+
+.statcontainer{
+  margin:20px;
+}
+
 /*typeface*/
 body { font-family: Nunito; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 20px; } 
 h1 { font-family: Nunito; font-size: 24px; font-style: normal; font-variant: normal; font-weight: bold; line-height: 26px; } 

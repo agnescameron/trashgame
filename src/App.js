@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Menu from './scripts/Menu.js'
 import GameMap from './scripts/GameMap.js'
+import Stats from './scripts/Stats.js'
 import { connect } from 'react-redux';
 import './css/main.css';
 
@@ -54,15 +55,13 @@ constructor(props){
 
     return (
       <div className="App">
-        <header className="App-header">
-        </header>
 		<div className="container">
 			<div id="dialog" className="modal">
 			  	<div id="modalcontent" className="modalcontent"></div>
 			  	<div id="modalbutton" className="modalbutton">aaaa</div>
 			</div>
 		</div>
-		<div id="topbar"></div>
+		<Stats />
 		<GameMap />
 		<div id="footer">
 		<Menu />
