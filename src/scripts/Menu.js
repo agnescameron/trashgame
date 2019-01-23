@@ -11,6 +11,7 @@ class Menu extends Component{
 	  mainMenu: [],
 	}
 	this.renderMainMenu = this.renderMainMenu.bind(this);
+	this.renderMenu = this.renderMenu.bind(this);
 	this.renderStaffMenu = this.renderStaffMenu.bind(this);
 	this.renderRecyclingMenu = this.renderRecyclingMenu.bind(this);	
 }
@@ -33,6 +34,11 @@ class Menu extends Component{
 		return this.recyclingMenu;
 	}
 
+	renderMenu = (menu, event) => {
+	  event.preventDefault();
+	  console.log('clicked', menu);
+	}
+
 	componentDidMount() {
 		this.renderMainMenu();
 	}
@@ -43,9 +49,9 @@ class Menu extends Component{
 		return(
 
 			<div id="menubar">
-			{menuBar.map((d, i) => <div id="menubar">
-				<div className="menubutton" onClick={(console.log('click'))}>{d}</div>
-			</div>)}
+			{menuBar.map((d, i) =>
+				<div className="menubutton" style={{width:50}} onClick={(event) => this.renderMenu(d, event)}>{d}</div>
+			)}
 			</div>
 		);
 	}
