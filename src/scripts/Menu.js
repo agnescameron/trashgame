@@ -42,7 +42,6 @@ class Menu extends Component{
       		hideMenu: !this.state.hideMenu,
       		menuSelected: menu
     	})
-    	console.log('clicked', menu, "hideMenu is", this.state.hideMenu);
 	}
 
 	componentDidMount() {

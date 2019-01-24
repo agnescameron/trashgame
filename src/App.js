@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Menu from './scripts/Menu.js'
-import GameMap from './scripts/GameMap.js'
-import Stats from './scripts/Stats.js'
+import Clock from './Clock.js';
+import Menu from './scripts/Menu.js';
+import GameMap from './scripts/GameMap.js';
 import { connect } from 'react-redux';
 import './css/main.css';
 
@@ -61,7 +61,7 @@ constructor(props){
 			  	<div id="modalbutton" className="modalbutton">aaaa</div>
 			</div>
 		</div>
-		<Stats />
+		<Clock />
 		<GameMap />
 		<Menu />
       </div>
