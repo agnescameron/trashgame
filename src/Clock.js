@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import Onboard from './scripts/Onboard';
+import { connect } from 'react-redux';
 import './css/main.css'
 
+
+//gets the stored username+uuid from the state
+const mapStateToProps = (state) => {
+  return{
+  	onboarded: state.appReducer.onboarded,
+  	day: state.appReducer.day,
+  }
+}
 
 class Clock extends Component{
   constructor(props) {
     super(props);
 	this.state = {
 		username: '',
+		onboarded: false,
 		buildings: {
 		  ML: true,
 		  arch: false,
@@ -65,11 +76,38 @@ class Clock extends Component{
 
 	timer = () => {
 	   	this.setState({ currentCount: this.state.currentCount+1 });
+	   	this.props.dispatch({
+		    type: 'NEXTDAY',
+		    day: this.state.currentCount,
+		});
+	}
+
+	reset = (event) => {
+		this.setState({onboarded: false});
+		this.setState({currentCount: 0});
+		clearInterval(this.state.day);
+		this.props.dispatch({
+		    type: 'RESET',
+		});
 	}
 
 	componentDidMount() {
-		var day = setInterval(this.timer, 5000);
-		this.setState({day: day});
+		this.setState({currentCount: this.props.day});
+		if(this.props.onboarded === true){
+			var dayLength = setInterval(this.timer, 5000);			
+		}
+		else{
+			this.setState({currentCount: 0});
+		}
+		return dayLength;
+	}
+
+	componentDidUpdate(prevProps) {
+	  // this is very hacky and there's probably a better way
+	  if (this.props.onboarded !== prevProps.onboarded) {
+	  	console.log('change');
+	    this.componentDidMount();
+	  }
 	}
 
 	componentWillUnmount() {
@@ -78,9 +116,13 @@ class Clock extends Component{
 
 	render() {
 		return(
+			<div>
 			<div id="topbar">
 				<div className="statcontainer">money: {this.state.money}</div>
-				<div className="statcontainer">day: {this.state.currentCount}</div>				
+				<div className="statcontainer">day: {this.state.currentCount}</div>
+				<div className="statcontainer" onClick={(event) => this.reset(event)}>reset</div>		
+			</div>
+			{this.props.onboarded===false && <Onboard />}
 			</div>
 		);
 	}
@@ -97,4 +139,4 @@ class Child extends Component {
 	}
 }
 
-export default Clock;
+export default connect(mapStateToProps)(Clock);
