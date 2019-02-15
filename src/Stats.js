@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-class Clock extends Component{
+class Stats extends Component{
   constructor(props) {
     super(props);
 	this.state = {
@@ -139,4 +139,4 @@ class Child extends Component {
 	}
 }
 
-export default connect(mapStateToProps)(Clock);
+export default connect(mapStateToProps)(Stats);

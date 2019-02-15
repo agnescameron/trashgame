@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Clock from './Clock.js';
+import Stats from './Stats.js';
 import Menu from './scripts/Menu.js';
 import GameMap from './scripts/GameMap.js';
+import GameLoop from './GameLoop.js';
 import { connect } from 'react-redux';
 import './css/main.css';
 
@@ -48,8 +49,22 @@ constructor(props){
 		messages: '',
 		day: ''
 	}
-
+	this.getTime=this.getTime.bind(this);
 }
+
+
+ componentWillMount() {
+    this.getTime(this.props);
+  }
+
+ componentWillUpdate() {
+    this.getTime(this.props);
+  }
+
+  getTime(props){
+  	// console.log("time is ", props.time);
+  }
+
 
   render() {
 
@@ -61,7 +76,7 @@ constructor(props){
 			  	<div id="modalbutton" className="modalbutton">aaaa</div>
 			</div>
 		</div>
-		<Clock />
+		<Stats />
 		<GameMap />
 		<Menu />
       </div>
@@ -69,4 +84,4 @@ constructor(props){
   }
 }
 
-export default connect(mapStateToProps)(App);
+export default GameLoop(App);
