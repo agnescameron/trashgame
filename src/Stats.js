@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
   return{
   	onboarded: state.appReducer.onboarded,
   	day: state.appReducer.day,
+  	money: state.appReducer.money
   }
 }
 
@@ -118,7 +119,7 @@ class Stats extends Component{
 		return(
 			<div>
 			<div id="topbar">
-				<div className="statcontainer">money: {this.state.money}</div>
+				<div className="statcontainer">money: {this.props.money}</div>
 				<div className="statcontainer">day: {this.state.currentCount}</div>
 				<div className="statcontainer" onClick={(event) => this.reset(event)}>reset</div>		
 			</div>

@@ -16,6 +16,15 @@ function appReducer (state, action) {
         onboarded: true,   
       });
 
+    case 'MONEY':
+      return Object.assign({}, state, {
+        money: action.money,   
+      });
+
+     case 'STAFF':
+      return Object.assign({}, state, {
+        staff: action.staff,
+      });
 
     case 'NEXTDAY':
       return Object.assign({}, state, {

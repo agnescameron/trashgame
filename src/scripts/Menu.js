@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
 import '../css/main.css'
+
+
+//gets the stored username+uuid from the state
+const mapStateToProps = (state) => {
+  return{
+  	money: state.appReducer.money,
+  	staff: state.appReducer.staff,
+  }
+}
+
 
 class Menu extends Component{
   constructor(props) {
@@ -11,12 +22,17 @@ class Menu extends Component{
 	  hideMenu: true,
 	  menuSelected: '',
 	  menuContents: [],
+	  money: 10000,
+	  staff: {
+		custodial: '',
+		recycling: '',
+		supervisors: '',
+		managers: '',
+	},
 	}
 	this.renderMenu = this.renderMenu.bind(this);
 	this.menuAction = this.menuAction.bind(this);
-	this.renderMainMenu = this.renderMainMenu.bind(this);
-	this.renderStaffMenu = this.renderStaffMenu.bind(this);
-	this.renderRecyclingMenu = this.renderRecyclingMenu.bind(this);			
+	this.renderMainMenu = this.renderMainMenu.bind(this);	
 }
 
 	renderMainMenu = () => {
@@ -24,23 +40,15 @@ class Menu extends Component{
 		return this.state.mainMenu;
 	}
 
-	renderStaffMenu = () => {
-		this.setState( {menuContents: ["staff", "education", "recycling"]} );
-		return this.state.menuContents;
-	}
-
-	renderRecyclingMenu = () => {
-		this.setState( {menuContents: ["bins", "staff", "vans", "offsite"]} );
-		return this.state.menuContents;
-	}	
-
 	renderMenu = (menu, event) => {
 		event.preventDefault();
 		console.log(menu)
 		if(menu === 'staff')
-			this.renderStaffMenu();
+			this.setState( {menuContents: ["hire", "fire", "train"]} );
 		if(menu === 'recycling')
-			this.renderRecyclingMenu();
+			this.setState( {menuContents: ["bins", "staff", "vans", "offsite"]} );
+		if(menu === 'education')
+			this.setState( {menuContents: ["lecture", "workshop", "signs", "advertising campaign"]} );
 		console.log("menu is ", this.state.menuContents)
 		this.setState({
       		hideMenu: !this.state.hideMenu,
@@ -52,6 +60,35 @@ class Menu extends Component{
 	menuAction = (action, event) => {
 		event.preventDefault();
 		console.log(action);
+	
+		switch(action){
+			case "hire":
+				this.setState({staff: this.state.staff+1});
+				this.setState({money: this.state.money-100});
+				break;
+			case 'fire':
+				this.setState({staff: this.state.staff-1});
+				this.setState({money: this.state.money+100});
+				break;
+			case 'train':
+				this.setState({money: this.state.money-100});
+				break;
+			case 'bins':
+				this.setState({bins: this.state.bins+1});
+				this.setState({money: this.state.money-10});
+				break;
+			case "vans":
+				this.setState({vans: this.state.vans+1});
+				this.setState({money: this.state.money-10000});
+				break;
+		}
+		this.props.dispatch({
+		 	type: 'MONEY',
+		   	money: this.state.money,
+		},
+		{	type: 'STAFF',
+		    staff: this.state.staff,
+		});		
 	}
 
 	componentDidMount() {
@@ -90,4 +127,4 @@ class Child extends Component {
 	}
 }
 
-export default Menu;
+export default connect(mapStateToProps)(Menu);
