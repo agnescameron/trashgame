@@ -12,16 +12,21 @@ class GameMap extends Component{
 	  showBuildingInfo: false,
 	  buildingSelected: '',
 	  mainMenu: [],
-	  buildings: [],
+	  buildings: [
+		  {
+		  	building: 'medialab',
+		  	visible: true,
+		  	faculty: 4,
+		  	students: 10,
+		  },
+		  {
+		  	building: 'sloan',
+		  	visible: true,
+		  	faculty: 10,
+		  	students: 20,
+		  },
+	  ],
 	  buildingInfo: '',
-	  medialab: {
-	  	faculty: 4,
-	  	students: 10,
-	  },
-	  sloan: {
-	  	faculty: 10,
-	  	students: 20,
-	  },
 	}
 }
 
@@ -29,16 +34,14 @@ class GameMap extends Component{
 		event.preventDefault();
 		this.setState({buildingSelected: building});
 		this.setState({showBuildingInfo: true});
-		switch(building){
-			case "medialab":
-				this.setState({buildingInfo: this.state.medialab})
-				break;
-			case "sloan":
-				this.setState({buildingInfo: this.state.sloan})
-				break;
-		}
 
-		console.log("clicked", building);
+		//figure out which building was clicked and returned info
+		var buildingInfo;
+		this.state.buildings.forEach(function(element) {
+		  if(element.building === building)
+		  	buildingInfo=element;
+		});
+		this.setState({buildingInfo: buildingInfo});
 	}
 
 	closeInfo = (event) => {
@@ -46,21 +49,16 @@ class GameMap extends Component{
 		this.setState({showBuildingInfo: false});
 	}
 
-	renderBuildings= () => {
-		this.setState( {buildings: ["medialab", "sloan"]} );
-		return this.state.buildings;
-	}
-
 	componentDidMount() {
-		this.renderBuildings();
+		// this.renderBuildings();
 	}
 
 	render() {
 		let buildings = this.state.buildings;
 		return(
 			<div id="map">
-			{buildings.map((d, i) => <div id={d} key={i} className="building" onClick={(event) => this.selectBuilding(d, event)}>
-				{d}
+			{buildings.map((d, i) => <div id={d.building} key={i} className="building" onClick={(event) => this.selectBuilding(d.building, event)}>
+				{d.building}
 			</div>)}
 			{this.state.showBuildingInfo && <Child buildingSelected={this.state.buildingSelected} buildingInfo={this.state.buildingInfo} closeInfo={this.closeInfo} />}
 			</div>
