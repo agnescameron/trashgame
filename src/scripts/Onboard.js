@@ -82,7 +82,7 @@ class Onboard extends Component{
 		return(
 			<div>
 				<div className="menu"> {messageText}   
-				<button onClick={(event) => this.nextPage(event)}> '>' </button>		
+				<button onClick={(event) => this.nextPage(event)}> > </button>		
 				</div>
 			</div>
 		);

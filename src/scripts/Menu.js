@@ -43,20 +43,23 @@ class Menu extends Component{
 
 	renderMenu = (menu, event) => {
 		event.preventDefault();
-		console.log(menu)
-		if(menu === 'staff')
-			this.setState( {menuContents: ["hire", "fire", "train"]} );
-		if(menu === 'recycling')
-			this.setState( {menuContents: ["bins", "staff", "vans", "offsite"]} );
-		if(menu === 'education')
-			this.setState( {menuContents: ["lecture", "workshop", "signs", "advertising campaign"]} );
+		switch(menu){
+			case "staff":
+				this.setState( {menuContents: ["hire", "fire", "train"]} );
+				break;
+			case "recycling":
+				this.setState( {menuContents: ["bins", "staff", "vans", "offsite"]} );
+				break;
+			case "education":
+				this.setState( {menuContents: ["lecture", "workshop", "signs", "advertising campaign"]} );
+				break;
+			}
 		console.log("menu is ", this.state.menuContents)
 		this.setState({
       		hideMenu: !this.state.hideMenu,
       		menuSelected: menu,
     	});
 	}
-
 
 	menuAction = (action, event) => {
 		event.preventDefault();
