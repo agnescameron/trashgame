@@ -30,7 +30,6 @@ class Stats extends Component{
 		  recyclingMenu: [],
 		  staffMenu: [],		  
 		},
-		money: 10000,
 		staff: {
 		  custodial: '',
 		  recycling: '',

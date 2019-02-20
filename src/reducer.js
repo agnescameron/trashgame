@@ -9,6 +9,7 @@ function appReducer (state, action) {
       return Object.assign({}, state, {
         onboarded: false,
         day: 0,    
+        money: 10000,
       });
 
     case 'ONBOARD':
@@ -21,9 +22,12 @@ function appReducer (state, action) {
         money: action.money,   
       });
 
-     case 'STAFF':
+     case 'STAFFMENU':
       return Object.assign({}, state, {
+        money: action.money,
         staff: action.staff,
+        bins: action.bins,
+        vans: action.vans
       });
 
     case 'NEXTDAY':

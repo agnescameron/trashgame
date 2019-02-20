@@ -13,7 +13,13 @@ class GameMap extends Component{
 	  buildings: [],
 	}
 	this.renderBuildings = this.renderBuildings.bind(this);	
+	this.selectBuilding = this.selectBuilding.bind(this);
 }
+
+	selectBuilding = (building, event) => {
+		event.preventDefault();
+		console.log("clicked", building);
+	}
 
 
 	renderBuildings= () => {
@@ -31,7 +37,7 @@ class GameMap extends Component{
 		return(
 
 			<div id="map">
-			{buildings.map((d, i) => <div id={d} key={i} className="building">
+			{buildings.map((d, i) => <div id={d} key={i} className="building" onClick={(event) => this.selectBuilding(d, event)}>
 				{d}
 			</div>)}
 			</div>

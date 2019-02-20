@@ -9,6 +9,8 @@ const mapStateToProps = (state) => {
   return{
   	money: state.appReducer.money,
   	staff: state.appReducer.staff,
+  	bins: state.appReducer.bins,
+  	vans: state.appReducer.vans,
   }
 }
 
@@ -22,7 +24,6 @@ class Menu extends Component{
 	  hideMenu: true,
 	  menuSelected: '',
 	  menuContents: [],
-	  money: 10000,
 	  staff: {
 		custodial: '',
 		recycling: '',
@@ -53,41 +54,44 @@ class Menu extends Component{
 		this.setState({
       		hideMenu: !this.state.hideMenu,
       		menuSelected: menu,
-    	})
+    	});
 	}
 
 
 	menuAction = (action, event) => {
 		event.preventDefault();
 		console.log(action);
-	
+		var newStaff = this.props.staff;
+		var newMoney = this.props.money;
+		var newBins = this.props.bins;
+		var newVans = this.props.vans;
 		switch(action){
 			case "hire":
-				this.setState({staff: this.state.staff+1});
-				this.setState({money: this.state.money-100});
+				newStaff+=1;
+				newMoney-=100;
 				break;
 			case 'fire':
-				this.setState({staff: this.state.staff-1});
-				this.setState({money: this.state.money+100});
+				newStaff-=1;
+				newMoney+=80;
 				break;
 			case 'train':
-				this.setState({money: this.state.money-100});
+				newMoney-=100;
 				break;
 			case 'bins':
-				this.setState({bins: this.state.bins+1});
-				this.setState({money: this.state.money-10});
+				newBins+=1;
+				newMoney-=10;
 				break;
 			case "vans":
-				this.setState({vans: this.state.vans+1});
-				this.setState({money: this.state.money-10000});
+				newVans+=1;
+				newMoney-=10000;				
 				break;
 		}
 		this.props.dispatch({
-		 	type: 'MONEY',
-		   	money: this.state.money,
-		},
-		{	type: 'STAFF',
-		    staff: this.state.staff,
+		 	type: 'STAFFMENU',
+		   	money: newMoney,
+		    staff: newStaff,
+		   	bins: newBins,
+		   	vans: newVans,
 		});		
 	}
 
