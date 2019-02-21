@@ -22,6 +22,24 @@ class Menu extends Component{
 	  username: '',
 	  mainMenu: [],
 	  hideMenu: true,
+	  menus: [
+	  	{
+	  		menu: 'main', 
+	  		items: ["staff", "education", "recycling"],
+	  	},
+	  	{
+	  		menu: 'staff', 
+	  		items: ["hire", "fire", "train"],
+	  	},
+	  	{
+	  		menu: 'recycling', 
+	  		items: ["bins", "staff", "vans", "offsite"],
+	  	},
+	  	{
+	  		menu: 'recycling', 
+	  		items: ["lecture", "workshop", "signs", "advertising campaign"],
+	  	}
+	  ],
 	  menuSelected: '',
 	  menuContents: [],
 	  staff: {
@@ -33,7 +51,6 @@ class Menu extends Component{
 	}
 	this.renderMenu = this.renderMenu.bind(this);
 	this.menuAction = this.menuAction.bind(this);
-	this.renderMainMenu = this.renderMainMenu.bind(this);	
 }
 
 	renderMainMenu = () => {
@@ -43,18 +60,13 @@ class Menu extends Component{
 
 	renderMenu = (menu, event) => {
 		event.preventDefault();
-		switch(menu){
-			case "staff":
-				this.setState( {menuContents: ["hire", "fire", "train"]} );
-				break;
-			case "recycling":
-				this.setState( {menuContents: ["bins", "staff", "vans", "offsite"]} );
-				break;
-			case "education":
-				this.setState( {menuContents: ["lecture", "workshop", "signs", "advertising campaign"]} );
-				break;
-			}
+		var menuContents = [];
+		this.state.menus.forEach(function(element) {
+		if(element.menu === menu)
+			menuContents=element.items;
+		});
 		console.log("menu is ", this.state.menuContents)
+		this.setState({menuContents: menuContents})
 		this.setState({
       		hideMenu: !this.state.hideMenu,
       		menuSelected: menu,
