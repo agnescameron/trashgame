@@ -5,6 +5,75 @@ function appReducer (state, action) {
 
   switch (action.type) {
 
+    //menu options
+
+    //staff menu
+    case 'hire':
+      return Object.assign({}, state, {
+        staff: state.staff+1,
+        money: state.money-100,
+      });
+
+    case 'fire':
+      return Object.assign({}, state, {
+        staff: state.staff-1,
+        money: state.money+80,
+      });
+
+    case 'train':
+      return Object.assign({}, state, {
+        money: state.money-100,
+      });
+
+
+    //education menu
+    case 'lecture':
+      return Object.assign({}, state, {
+        staff: state.staff+1,
+        money: state.money-100,
+      });
+
+    case 'workshop':
+      return Object.assign({}, state, {
+        staff: state.staff-1,
+        money: state.money+80,
+      });
+
+    case 'signs':
+      return Object.assign({}, state, {
+        money: state.money-100,
+      });
+
+    case 'adverts':
+      return Object.assign({}, state, {
+        money: state.money-100,
+      });
+
+    //recycling menu
+    case 'lecture':
+      return Object.assign({}, state, {
+        staff: state.staff+1,
+        money: state.money-100,
+      });
+
+    case 'workshop':
+      return Object.assign({}, state, {
+        staff: state.staff-1,
+        money: state.money+80,
+      });
+
+    case 'signs':
+      return Object.assign({}, state, {
+        money: state.money-100,
+      });
+
+    case 'adverts':
+      return Object.assign({}, state, {
+        money: state.money-100,
+      });
+
+
+    //other
     case 'RESET':
       return Object.assign({}, state, {
         onboarded: false,
@@ -15,19 +84,6 @@ function appReducer (state, action) {
     case 'ONBOARD':
       return Object.assign({}, state, {
         onboarded: true,   
-      });
-
-    case 'MONEY':
-      return Object.assign({}, state, {
-        money: action.money,   
-      });
-
-     case 'STAFFMENU':
-      return Object.assign({}, state, {
-        money: action.money,
-        staff: action.staff,
-        bins: action.bins,
-        vans: action.vans
       });
 
     case 'NEXTDAY':

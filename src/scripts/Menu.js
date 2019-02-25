@@ -36,8 +36,8 @@ class Menu extends Component{
 	  		items: ["bins", "staff", "vans", "offsite"],
 	  	},
 	  	{
-	  		menu: 'recycling', 
-	  		items: ["lecture", "workshop", "signs", "advertising campaign"],
+	  		menu: 'education', 
+	  		items: ["lecture", "workshop", "signs", "adverts"],
 	  	}
 	  ],
 	  menuSelected: '',
@@ -75,38 +75,8 @@ class Menu extends Component{
 
 	menuAction = (action, event) => {
 		event.preventDefault();
-		console.log(action);
-		var newStaff = this.props.staff;
-		var newMoney = this.props.money;
-		var newBins = this.props.bins;
-		var newVans = this.props.vans;
-		switch(action){
-			case "hire":
-				newStaff+=1;
-				newMoney-=100;
-				break;
-			case 'fire':
-				newStaff-=1;
-				newMoney+=80;
-				break;
-			case 'train':
-				newMoney-=100;
-				break;
-			case 'bins':
-				newBins+=1;
-				newMoney-=10;
-				break;
-			case "vans":
-				newVans+=1;
-				newMoney-=10000;				
-				break;
-		}
 		this.props.dispatch({
-		 	type: 'STAFFMENU',
-		   	money: newMoney,
-		    staff: newStaff,
-		   	bins: newBins,
-		   	vans: newVans,
+		 	type: action,
 		});		
 	}
 
