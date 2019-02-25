@@ -70,15 +70,15 @@ constructor(props){
 
     return (
       <div className="App">
-		<div className="container">
+		<Stats />
+		<GameMap />
+		<Menu />
+      		<div className="container">
 			<div id="dialog" className="modal">
 			  	<div id="modalcontent" className="modalcontent"></div>
 			  	<div id="modalbutton" className="modalbutton">aaaa</div>
 			</div>
 		</div>
-		<Stats />
-		<GameMap />
-		<Menu />
       </div>
     );
   }

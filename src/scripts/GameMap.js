@@ -25,6 +25,12 @@ class GameMap extends Component{
 		  	faculty: 10,
 		  	students: 20,
 		  },
+		  {
+		  	building: 'architecture',
+		  	visible: true,
+		  	faculty: 10,
+		  	students: 20,
+		  },
 	  ],
 	  buildingInfo: '',
 	}
@@ -57,9 +63,11 @@ class GameMap extends Component{
 		let buildings = this.state.buildings;
 		return(
 			<div id="map">
+			<div class="container">
 			{buildings.map((d, i) => <div id={d.building} key={i} className="building" onClick={(event) => this.selectBuilding(d.building, event)}>
 				{d.building}
 			</div>)}
+			</div>
 			{this.state.showBuildingInfo && <Child buildingSelected={this.state.buildingSelected} buildingInfo={this.state.buildingInfo} closeInfo={this.closeInfo} />}
 			</div>
 		);
