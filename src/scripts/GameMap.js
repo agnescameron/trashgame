@@ -21,13 +21,13 @@ class GameMap extends Component{
 		  },
 		  {
 		  	building: 'sloan',
-		  	visible: true,
+		  	visible: false,
 		  	faculty: 10,
 		  	students: 20,
 		  },
 		  {
 		  	building: 'architecture',
-		  	visible: true,
+		  	visible: false,
 		  	faculty: 10,
 		  	students: 20,
 		  },
@@ -55,12 +55,13 @@ class GameMap extends Component{
 		this.setState({showBuildingInfo: false});
 	}
 
-	componentDidMount() {
-		// this.renderBuildings();
-	}
-
 	render() {
-		let buildings = this.state.buildings;
+		var buildings = [];
+		this.state.buildings.forEach(function(element) {
+		  if(element.visible === true)
+		  	buildings.push(element);
+		});
+
 		return(
 			<div id="map">
 			<div class="container">
