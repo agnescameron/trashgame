@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Stats from './Stats.js';
+import Stats from './scripts/Stats.js';
 import Menu from './scripts/Menu.js';
 import GameMap from './scripts/GameMap.js';
 import GameLoop from './GameLoop.js';
@@ -24,22 +24,12 @@ constructor(props){
 		  arch: false,
 		  sloan: false
 		},
-		menus: {
-		  mainMenu: [],
-		  recyclingMenu: [],
-		  staffMenu: [],		  
-		},
 		money: 10000,
 		staff: {
 		  custodial: '',
 		  recycling: '',
 		  supervisors: '',
 		  managers: '',
-		},
-		waste: {
-		  recycling: '',
-		  compost: '',
-		  landfill: ''
 		},
 		population: {
 		  students: '',

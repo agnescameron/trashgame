@@ -62,20 +62,6 @@ class Onboard extends Component{
 		console.log('next page');
 	}
 
-	async componentDidMount() {
-		// await this.runOnboard(10000).then(
-		// 	(response) => {
-		// 		console.log('onboarded is', this.state.onboarded);
-		// 		this.setState({onboarded: true})
-		// 	    this.props.dispatch({
-		// 	        type: 'ONBOARD',
-		// 	    })
-		// 	});
-	}
-
-	componentWillUnmount() {
-	   clearInterval(this.state.day);
-	}
 
 	render() {
 	let messageText = this.state.onboard[this.state.progress];

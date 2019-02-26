@@ -72,18 +72,28 @@ function appReducer (state, action) {
         money: state.money-100,
       });
 
+    //messages
+    case 'addMessage':
+      return Object.assign({}, state, {
+        money: state.money-100,
+        messages: [...state.messages, action.message],
+    });
 
-    //other
+
+    //main (meta) functions
     case 'RESET':
       return Object.assign({}, state, {
         onboarded: false,
-        day: 0,    
+        day: 0,
         money: 10000,
+        staff: 0,
+        messages:[],
       });
 
     case 'ONBOARD':
       return Object.assign({}, state, {
-        onboarded: true,   
+        onboarded: true,
+        messages:[],
       });
 
     case 'NEXTDAY':
