@@ -73,9 +73,16 @@ function appReducer (state, action) {
 
     //messages
     case 'addMessage':
-      console.log('messages is ', state.messages);
       return Object.assign({}, state, {
         messages: [...state.messages, action.message],
+    });
+
+    case 'readMessage':
+      let messageArray =  Object.assign({}, state, {
+        [action.index]: {
+          ...state.messages[action.index],
+          read: true,
+        }
     });
 
 

@@ -65,6 +65,8 @@ class Stats extends Component{
 		    		contents: `how about hiring some staff?\
 		    		go to the staff menu and click 'hire'`,
 		    		read: false,
+		    		important: true,		    		
+		    		sender: 'management',
 		    	}
 			});
 		}
@@ -83,14 +85,18 @@ class Stats extends Component{
 			    type: 'WEEK',
 			    recyclingCost: this.state.recyclingCost,
 			});
-			this.props.dispatch({
-		    	type: 'addMessage',
-		    	message: {
-		    		contents: `it's been a week! Your recycling quality is at \
-		    		${this.state.recyclingQuality}%, costing $${this.state.recyclingCost}`,
-		    		read: false,
-				}
-		    });			
+
+		   	//this got too annoying
+			// this.props.dispatch({
+		 //    	type: 'addMessage',
+		 //    	message: {
+		 //    		contents: `it's been a week! Your recycling quality is at \
+		 //    		${this.state.recyclingQuality}%, costing $${this.state.recyclingCost}`,
+		 //    		read: false,
+		 //    		important: false,
+		 //    		sender: 'management',
+			// 	}
+		 //    });			
 		}
 
 		//each month do
@@ -98,15 +104,17 @@ class Stats extends Component{
 		   	this.props.dispatch(
 		   	{
 			    type: 'MONTH',
-			    wages: this.state.staff*100,
+			    wages: this.props.staff*100,
 			    budget: 10000,
 			});
 			this.props.dispatch({
 		    	type: 'addMessage',
 		    	message: {
-		    		contents: `it's been a week! Your recycling quality is at \
+		    		contents: `it's been a month! Your recycling quality is at \
 		    		${this.state.recyclingQuality}%, costing $${this.state.recyclingCost}`,
+		    		sender: 'management',
 		    		read: false,
+		    		important: false,
 				}
 		    });				
 		}
@@ -165,7 +173,7 @@ class Stats extends Component{
 				<div className="statcontainer" onClick={(event) => this.reset(event)}>reset</div>		
 			</div>
 			{this.props.onboarded===false && <Onboard />}
-			{this.state.showMessages===true && <Messages messages={this.props.messages}/>}
+			{this.state.showMessages===true && <Messages messages={this.props.messages} showMessages={this.showMessages}/>}
 			</div>
 		);
 	}
