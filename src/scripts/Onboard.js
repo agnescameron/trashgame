@@ -7,6 +7,9 @@ import '../css/main.css'
 //gets the stored username+uuid from the state
 const mapStateToProps = (state) => {
   console.log(state.appReducer.onboarded);
+  return{
+  	onboarded: state.appReducer.onboarded,
+  }
 }
 
 
