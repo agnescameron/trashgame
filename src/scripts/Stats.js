@@ -57,17 +57,16 @@ class Stats extends Component{
 	}	
 
 	timer = () => {
-	   	this.setState({ currentCount: this.state.currentCount+1 });
-	   	
+	   	this.setState({ currentCount: this.state.currentCount+1 });  	
 		if(this.state.currentCount === 5 && this.props.staff < 1){
 			this.props.dispatch({
 		    	type: 'addMessage',
 		    	message: {
-		    		contents: `how about hiring some staff? go to the staff menu and click 'hire'`,
+		    		contents: `how about hiring some staff?\
+		    		go to the staff menu and click 'hire'`,
 		    		read: false,
 		    	}
 			});
-			this.setState({messageNumber: this.props.messages.length})
 		}
 
 	   	this.props.dispatch({
@@ -82,10 +81,9 @@ class Stats extends Component{
 			console.log('recycling cost is', this.state.recyclingCost);
 		   	this.props.dispatch({
 			    type: 'WEEK',
-			    day: this.state.currentCount,
 			    recyclingCost: this.state.recyclingCost,
-			},
-			{
+			});
+			this.props.dispatch({
 		    	type: 'addMessage',
 		    	message: {
 		    		contents: `it's been a week! Your recycling quality is at \
@@ -97,12 +95,23 @@ class Stats extends Component{
 
 		//each month do
 		if(this.state.currentCount%30 === 0){
-		   	this.props.dispatch({
+		   	this.props.dispatch(
+		   	{
 			    type: 'MONTH',
-			    day: this.state.currentCount,
-			});			
+			    wages: this.state.staff*100,
+			    budget: 10000,
+			});
+			this.props.dispatch({
+		    	type: 'addMessage',
+		    	message: {
+		    		contents: `it's been a week! Your recycling quality is at \
+		    		${this.state.recyclingQuality}%, costing $${this.state.recyclingCost}`,
+		    		read: false,
+				}
+		    });				
 		}
-
+		
+		this.setState({messageNumber: this.props.messages.length});
 	}
 
 	reset = (event) => {

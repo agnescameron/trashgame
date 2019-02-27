@@ -50,30 +50,30 @@ function appReducer (state, action) {
       });
 
     //recycling menu
-    case 'lecture':
+    case 'bins':
       return Object.assign({}, state, {
-        staff: state.staff+1,
-        money: state.money-100,
+        staff: state.bins+1,
+        money: state.money-10,
       });
 
-    case 'workshop':
+    case 'staff':
       return Object.assign({}, state, {
-        staff: state.staff-1,
-        money: state.money+80,
+        staff: state.recyclingStaff+1,
+        money: state.money-150,
       });
 
-    case 'signs':
+    case 'vans':
       return Object.assign({}, state, {
-        money: state.money-100,
+        money: state.money-10000,
+        vans: state.vans+1,
       });
 
-    case 'adverts':
-      return Object.assign({}, state, {
-        money: state.money-100,
-      });
+    case 'offsite':
+      return state;
 
     //messages
     case 'addMessage':
+      console.log('messages is ', state.messages);
       return Object.assign({}, state, {
         messages: [...state.messages, action.message],
     });
