@@ -16,8 +16,8 @@ class GameMap extends Component{
 		  {
 		  	building: 'medialab',
 		  	visible: true,
-		  	faculty: 4,
-		  	students: 10,
+		  	faculty: 1,
+		  	students: 3,
 		  },
 		  {
 		  	building: 'sloan',

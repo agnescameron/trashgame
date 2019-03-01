@@ -19,11 +19,6 @@ constructor(props){
 	super(props);
 	this.state = {
 		username: '',
-		buildings: {
-		  ML: true,
-		  arch: false,
-		  sloan: false
-		},
 		money: 10000,
 		staff: {
 		  custodial: '',

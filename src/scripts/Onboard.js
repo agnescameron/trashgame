@@ -53,6 +53,11 @@ class Onboard extends Component{
 		return new Promise(resolve => setTimeout(resolve, ms));
 	}
 
+	highlightMenu = (menu) => {
+		
+	}
+
+
 	nextPage = (event) => {
 		event.preventDefault();
 		if(this.state.onboard[this.state.progress + 1]===undefined){
@@ -62,12 +67,21 @@ class Onboard extends Component{
 			})			
 		}
 		else (this.setState({progress: this.state.progress+1}))
-		console.log('next page');
 	}
 
 
 	render() {
-	let messageText = this.state.onboard[this.state.progress];
+		let messageText = this.state.onboard[this.state.progress];
+		if (this.state.progress === 4){
+			this.highlightMenu('recycling');
+		}
+		if(this.state.progress === 6){
+			this.highlightMenu('staff');
+		}
+		if (this.state.progress === 7){
+			this.highlightMenu('education');
+		}
+
 		return(
 			<div>
 				<div className="menu"> {messageText}   

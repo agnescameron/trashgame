@@ -92,7 +92,7 @@ class Menu extends Component{
 			<div id="footer">
 			<div id="menubar">
 			{menuBar.map((d, i) =>
-				<div className="menubutton" key={i} onClick={(event) => this.renderMenu(d, event)}>{d}</div>
+				<div className="menubutton" id={d} key={i} onClick={(event) => this.renderMenu(d, event)}>{d}</div>
 			)}
 			</div>
 			</div>

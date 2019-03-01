@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import Onboard from '../scripts/Onboard';
 import Messages from '../scripts/Messages';
 import { connect } from 'react-redux';
+import { rollDice } from './Events.js'
+import helpers from './helpers/helpers'
 import '../css/main.css'
 
 
@@ -31,76 +33,54 @@ class Stats extends Component{
 	}
 }
 
-
-	calculateRecyclingQuality = () => {
-		var recyclingQuality = 100-((this.state.faculty+this.state.students)-10*this.props.staff)-((this.state.faculty+this.state.students)-10*this.props.bins);
-		this.setState({recyclingQuality: recyclingQuality});
-
-		var recyclingCost;
-		if (recyclingQuality<98){
-			recyclingCost = 500;			
-		}
-
-		if (recyclingQuality<95){
-			recyclingCost = 1000;			
-		}
-		
-		if (recyclingQuality<90){
-			recyclingCost = 2000;			
-		}
-
-		if (recyclingQuality<80){
-			console.log('trash');
-			recyclingCost = 2500;			
-		}
-		this.setState({recyclingCost: recyclingCost});
-	}	
-
-	timer = () => {
-	   	this.setState({ currentCount: this.state.currentCount+1 });  	
-		if(this.state.currentCount === 5 && this.props.staff < 1){
-			this.props.dispatch({
-		    	type: 'addMessage',
-		    	message: {
-		    		contents: `how about hiring some staff?\
-		    		go to the staff menu and click 'hire'`,
-		    		read: false,
-		    		important: true,		    		
-		    		sender: 'management',
-		    	}
-			});
-		}
+	eachDay = () => {
+	   	this.setState({ currentCount: this.state.currentCount+1 });
 
 	   	this.props.dispatch({
 		    type: 'DAY',
 		    day: this.state.currentCount,
 		});
 
+	}
 
-		//each week do
-		if(this.state.currentCount%7 === 0){
-			this.calculateRecyclingQuality();
+
+	eachWeek = () => {
+			//take the recycling to Casella
+			var recyclingQuality = helpers.calculateRecyclingQuality(this.state, this.props);
+			this.setState({recyclingQuality: recyclingQuality});
+			var recyclingCost = helpers.calculateRecyclingCost(this.state, this.props);
+			this.setState({recyclingCost: recyclingCost});
+
+
+			// var wasteCost = helpers.calculateWasteCost(this.state, this.props);
+			// this.setState({wasteCost: wasteCost});
+
+
 			console.log('recycling cost is', this.state.recyclingCost);
 		   	this.props.dispatch({
 			    type: 'WEEK',
 			    recyclingCost: this.state.recyclingCost,
+			    //wasteCost: this.state.wasteCost,
 			});
 
 		   	//this got too annoying
-			// this.props.dispatch({
-		 //    	type: 'addMessage',
-		 //    	message: {
-		 //    		contents: `it's been a week! Your recycling quality is at \
-		 //    		${this.state.recyclingQuality}%, costing $${this.state.recyclingCost}`,
-		 //    		read: false,
-		 //    		important: false,
-		 //    		sender: 'management',
-			// 	}
-		 //    });			
-		}
+			this.props.dispatch({
+		    	type: 'addMessage',
+		    	message: {
+		    		contents: `it's been a week! Your recycling quality is at \
+		    		${this.state.recyclingQuality}%, costing $${this.state.recyclingCost}`,
+		    		read: false,
+		    		important: false,
+		    		sender: 'management',
+				}
+		    });
+	}
 
+
+	eachMonth = () => {
 		//each month do
-		if(this.state.currentCount%30 === 0){
+		var recyclingCost = helpers.calculateRecyclingQuality(this.state, this.props);
+		this.setState({recyclingCost: recyclingCost})
 		   	this.props.dispatch(
 		   	{
 			    type: 'MONTH',
@@ -116,10 +96,41 @@ class Stats extends Component{
 		    		read: false,
 		    		important: false,
 				}
-		    });				
-		}
-		
+		    });
+	}
+
+
+	check = () => {
 		this.setState({messageNumber: this.props.messages.length});
+		if(this.state.currentCount === 5 && this.props.staff < 1){
+			this.props.dispatch({
+		    	type: 'addMessage',
+		    	message: {
+		    		contents: `how about hiring some staff?\
+		    		go to the staff menu and click 'hire'`,
+		    		read: false,
+		    		important: true,		    		
+		    		sender: 'management',
+		    	}
+			});
+		}		
+	}
+
+	timer = () => {
+		this.eachDay();
+
+		//each week do
+		if(this.state.currentCount%7 === 0){
+			this.eachWeek();			
+		}
+
+		//each week do
+		if(this.state.currentCount%30 === 0){
+			this.eachMonth();			
+		}
+
+		this.check();
+		
 	}
 
 	reset = (event) => {
@@ -141,7 +152,7 @@ class Stats extends Component{
 	componentDidMount() {
 		this.setState({currentCount: this.props.day});
 		if(this.props.onboarded === true){
-			var dayLength = setInterval(this.timer, 5000);			
+			var dayLength = setInterval(this.timer, 15000);			
 		}
 		else{
 			this.setState({currentCount: 0});
@@ -168,18 +179,20 @@ class Stats extends Component{
 			<div>
 			<div id="topbar">
 				<div className="statcontainer">money: {this.props.money}</div>
-				<div className="statcontainer">day: {this.state.currentCount}</div>
+				<div className="statcontainer" onClick={(event) => rollDice(event)}>day: {this.state.currentCount}</div>
 				<div className="statcontainer" onClick={(event) => this.showMessages(event)}>messages: {this.state.messageNumber}</div>
 				<div className="statcontainer" onClick={(event) => this.reset(event)}>reset</div>		
 			</div>
 			{this.props.onboarded===false && <Onboard />}
-			{this.state.showMessages===true && <Messages messages={this.props.messages} showMessages={this.showMessages}/>}
+			{this.state.showMessages===true && <Messages messages={this.props.messages} showMessages={this.showMessages}/>}			
+			{this.state.showStats===true && <StatsView day={this.state.currentCount}/>}
 			</div>
 		);
 	}
 }
 
-class Child extends Component {
+
+class StatsView extends Component {
 	
 	render() {
 		return(
