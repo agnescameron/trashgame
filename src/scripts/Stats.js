@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import Onboard from '../scripts/Onboard';
 import Messages from '../scripts/Messages';
 import { connect } from 'react-redux';
-import { rollDice } from './Events.js'
-import helpers from './helpers/helpers'
+import helpers from './helpers/helpers';
 import '../css/main.css'
 
 
@@ -17,6 +16,7 @@ const mapStateToProps = (state) => {
   	bins: state.appReducer.bins,
   	money: state.appReducer.money,
   	messages: state.appReducer.messages,
+  	budget: state.appReducer.budget,
   }
 }
 
@@ -25,6 +25,7 @@ class Stats extends Component{
     super(props);
 	this.state = {
 		showMessages: '',
+		showStats: '',
 		messages: '',
 		faculty: 5,
 		students: 20,
@@ -48,7 +49,7 @@ class Stats extends Component{
 			//take the recycling to Casella
 			var recyclingQuality = helpers.calculateRecyclingQuality(this.state, this.props);
 			this.setState({recyclingQuality: recyclingQuality});
-			var recyclingCost = helpers.calculateRecyclingCost(this.state, this.props);
+			var recyclingCost = helpers.calculateRecyclingCost(recyclingQuality);
 			this.setState({recyclingCost: recyclingCost});
 
 
@@ -145,8 +146,12 @@ class Stats extends Component{
 
 	showMessages = (event) => {
 		event.preventDefault();
-		console.log('showMessages');
 		this.setState(prevState => ({showMessages: !prevState.showMessages}));
+	}
+
+	showStats = (event) => {
+		event.preventDefault();
+		this.setState(prevState => ({showStats: !prevState.showStats}));
 	}
 
 	componentDidMount() {
@@ -175,17 +180,19 @@ class Stats extends Component{
 	}
 
 	render() {
+		var population = this.props.faculty+ this.props.students;
 		return(
 			<div>
 			<div id="topbar">
 				<div className="statcontainer">money: {this.props.money}</div>
-				<div className="statcontainer" onClick={(event) => rollDice(event)}>day: {this.state.currentCount}</div>
+				<div className="statcontainer" onClick={(event) => this.showStats(event)}>day: {this.state.currentCount}</div>
 				<div className="statcontainer" onClick={(event) => this.showMessages(event)}>messages: {this.state.messageNumber}</div>
 				<div className="statcontainer" onClick={(event) => this.reset(event)}>reset</div>		
 			</div>
 			{this.props.onboarded===false && <Onboard />}
 			{this.state.showMessages===true && <Messages messages={this.props.messages} showMessages={this.showMessages}/>}			
-			{this.state.showStats===true && <StatsView day={this.state.currentCount}/>}
+			{this.state.showStats===true && <StatsView day={this.state.currentCount} staff={this.props.staff} recyclingQuality={this.state.recyclingQuality} 
+			budget={this.props.budget} population={population}/>}
 			</div>
 		);
 	}
@@ -196,7 +203,19 @@ class StatsView extends Component {
 	
 	render() {
 		return(
-			<div id="menubox" className='menu'>
+			<div className="statsbox">
+				<div className="row">
+					<div className="column">
+					recycling staff: {this.props.staff}<br/><br/>
+					custodial staff: {this.props.staff}<br/><br/>
+					population: {this.props.population}<br/><br/>
+					</div>
+					<div className="column">
+					buildings: 1 <br/><br/>
+					recycling cost: {this.props.recyclingCost}<br/><br/>
+					recycling quality: {this.props.recyclingQuality}<br/><br/>
+					</div>
+				</div>
 				{this.props.currentCount}
 			</div>
 		);

@@ -47,10 +47,10 @@ class Messages extends Component{
 		return(
 			<div>
 			<div id="menubox" className='menu'>
-				<button onClick={(event) => this.props.showMessages(event)}> x </button>
-				<h1>{'messages'}</h1>
-				{messages.map((d, i) =>
-					<div className="menuelement" key={i} onClick={(event) => this.readMessage(i, event)}>{d.sender}</div>
+				<button className="closebutton" onClick={(event) => this.props.showMessages(event)}> x </button>
+				<h1 className='menutitle'>{'messages'}</h1>
+				{messages.reverse().map((d, i) =>
+					<div className="menuelement" key={i} onClick={(event) => this.readMessage(i, event)}><b>{d.sender}</b> <br/> {d.contents.substring(0, 40)}...</div>
 				)}
 			</div>
 			{this.state.readMessage===true && <Child messageIndex={this.state.messageIndex} messages={this.props.messages} closeMessage={this.closeMessage}/>}
@@ -62,8 +62,10 @@ class Messages extends Component{
 class Child extends Component {
 	render() {
 	var messageContents = this.props.messages[this.props.messageIndex].contents;
+	var sender = this.props.messages[this.props.messageIndex].sender;
 		return(
 			<div id="menubox" className='menu'>
+				<div className="menuTitle"> {sender} </div>
 				{messageContents}
 				<button onClick={(event) => this.props.closeMessage(event)}> x </button>
 			</div>

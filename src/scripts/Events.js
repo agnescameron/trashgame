@@ -12,12 +12,6 @@ const mapStateToProps = (state) => {
 	}
 
 
-	//push probabilities 1 way or the other
- 	export const rollDice = (event) => {
-		console.log('rollin');
-	}
-
-
 class Events extends Component{
   constructor(props) {
     super(props);
