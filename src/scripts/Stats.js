@@ -31,6 +31,8 @@ class Stats extends Component{
 		students: 20,
 		messageNumber:'',
 		recyclingQuality: '',
+		recyclingCost: '',
+		collectionRate: '',
 	}
 }
 
@@ -49,9 +51,12 @@ class Stats extends Component{
 			//take the recycling to Casella
 			var recyclingQuality = helpers.calculateRecyclingQuality(this.state, this.props);
 			this.setState({recyclingQuality: recyclingQuality});
+
 			var recyclingCost = helpers.calculateRecyclingCost(recyclingQuality);
 			this.setState({recyclingCost: recyclingCost});
 
+			// var collectionRate = helpers.calculateCollectionRate(this.state, this.props);
+			// this.setState({collectionRate: collectionRate});
 
 			// var wasteCost = helpers.calculateWasteCost(this.state, this.props);
 			// this.setState({wasteCost: wasteCost});
@@ -180,7 +185,10 @@ class Stats extends Component{
 	}
 
 	render() {
-		var population = this.props.faculty+ this.props.students;
+		var population = this.props.faculty+this.props.students;
+		var collectionBar = '90%' //this.state.collectionRate.toString().concat('%');
+		var qualityBar = this.state.recyclingQuality.toString().concat('%');
+
 		return(
 			<div>
 			<div id="topbar">
@@ -188,6 +196,12 @@ class Stats extends Component{
 				<div className="statcontainer" onClick={(event) => this.showStats(event)}>day: {this.state.currentCount}</div>
 				<div className="statcontainer" onClick={(event) => this.showMessages(event)}>messages: {this.state.messageNumber}</div>
 				<div className="statcontainer" onClick={(event) => this.reset(event)}>reset</div>		
+			</div>
+			<div id="statbar">
+				<div className="statcontainer">recycling quality: <div className="progressbar">
+					<div className="progress" style={{width: qualityBar}}></div></div></div>
+				<div className="statcontainer">collection rate: <div className="progressbar">
+					<div className="progress" style={{width: collectionBar}}></div></div></div>
 			</div>
 			{this.props.onboarded===false && <Onboard />}
 			{this.state.showMessages===true && <Messages messages={this.props.messages} showMessages={this.showMessages}/>}			

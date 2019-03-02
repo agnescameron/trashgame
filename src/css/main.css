@@ -8,7 +8,7 @@
   margin-left: -500px;
   height: 600px;
   background-color: blue;
-    top: 90px;
+  top: 120px;
 }
 
 #topbar{
@@ -168,9 +168,21 @@
 
 /*stats*/
 
+
+#statbar{
+  top: 80px;
+  width: 1150px;
+  height: 40px;
+  background-color: yellow;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
 .statcontainer{
   margin: auto;
   z-index: 20;
+  display: flex;
 }
 
 .statsbox{
@@ -195,6 +207,19 @@
   content: "";
   display: table;
   clear: both;
+}
+
+.progressbar {
+  margin-top: 2px;
+  width: 100px;
+  height: 15px;
+  margin-left: 10px;
+  background-color: grey;
+}
+
+.progress {
+  height: 15px;
+  background-color: green;
 }
 
 /*typeface*/

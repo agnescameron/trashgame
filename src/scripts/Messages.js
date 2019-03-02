@@ -28,8 +28,10 @@ class Messages extends Component{
 	}
 
 
-	readMessage = (index, event) => {
+	readMessage = (i, event) => {
 		event.preventDefault();
+		console.log('messages length is ', this.props.messages.length)
+		var index = this.props.messages.length - i -1;
 		this.setState({messageIndex: index});
 		this.setState({readMessage: true});
 		this.props.dispatch({
