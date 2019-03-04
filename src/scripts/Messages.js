@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import {management, processing, recycling, van, students, faculty} from './helpers/constants';
 import '../css/main.css'
 
 
@@ -31,7 +32,7 @@ class Messages extends Component{
 	readMessage = (i, event) => {
 		event.preventDefault();
 		console.log('messages length is ', this.props.messages.length)
-		var index = this.props.messages.length - i -1;
+		var index = this.props.messages.length - i - 1;
 		this.setState({messageIndex: index});
 		this.setState({readMessage: true});
 		this.props.dispatch({

@@ -94,29 +94,49 @@ function appReducer (state, action) {
 
     case 'WEEK':
       return Object.assign({}, state, {
+        recyclingQuality: action.recyclingQuality,
+        recyclingCost: action.recyclingCost,
+        collectionRate: action.collectionRate,
+        wasteCost: action.wasteCost,
         money: state.money-action.recyclingCost,
+        week: state.week + 1,
       });
 
     case 'MONTH':
       return Object.assign({}, state, {
         money: state.money-action.wages+action.budget,
+        month: state.month + 1,
       });
 
+//initial setup of the state
     case 'RESET':
       return Object.assign({}, state, {
-        onboarded: false,
+        labs: 0,
         day: 0,
+        week: 0,
+        month: 0,
         money: 10000,
         staff: 0,
         bins: 0,
+        collectionRate: 0,
+        recyclingQuality: 0,
         messages:[],
+      });
+
+    case 'RUNSCRIPT':
+      return Object.assign({}, state, {
+        runScript: true,
+      });
+
+    case 'ENDSCRIPT':
+      return Object.assign({}, state, {
+        runScript: false,
       });
 
     case 'ONBOARD':
       return Object.assign({}, state, {
         onboarded: true,
       });
-
 
     default:
       return state;

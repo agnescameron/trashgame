@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Onboard from '../scripts/Onboard';
+import Story from '../scripts/Story';
 import Messages from '../scripts/Messages';
 import { connect } from 'react-redux';
 import helpers from './helpers/helpers';
@@ -11,12 +11,16 @@ import '../css/main.css'
 const mapStateToProps = (state) => {
   return{
   	onboarded: state.appReducer.onboarded,
+  	runScript: state.appReducer.runScript,
   	day: state.appReducer.day,
   	staff: state.appReducer.staff,
   	bins: state.appReducer.bins,
   	money: state.appReducer.money,
   	messages: state.appReducer.messages,
   	budget: state.appReducer.budget,
+  	recyclingQuality: state.appReducer.recyclingQuality,
+  	collectionRate: state.appReducer.collectionRate,
+  	week: state.appReducer.week,
   }
 }
 
@@ -30,9 +34,10 @@ class Stats extends Component{
 		faculty: 5,
 		students: 20,
 		messageNumber:'',
-		recyclingQuality: '',
+		recyclingQuality: 0,
 		recyclingCost: '',
-		collectionRate: '',
+		collectionRate: 0,
+		wasteCost: '',
 	}
 }
 
@@ -50,26 +55,26 @@ class Stats extends Component{
 	eachWeek = () => {
 			//take the recycling to Casella
 			var recyclingQuality = helpers.calculateRecyclingQuality(this.state, this.props);
-			this.setState({recyclingQuality: recyclingQuality});
+			this.setState({recyclingQuality: recyclingQuality});	
 
-			var recyclingCost = helpers.calculateRecyclingCost(recyclingQuality);
+			var recyclingCost = helpers.calculateRecyclingCost(this.state, this.props);
 			this.setState({recyclingCost: recyclingCost});
 
-			// var collectionRate = helpers.calculateCollectionRate(this.state, this.props);
-			// this.setState({collectionRate: collectionRate});
+			var collectionRate = helpers.calculateCollectionRate(this.state, this.props);
+			this.setState({collectionRate: collectionRate});
 
-			// var wasteCost = helpers.calculateWasteCost(this.state, this.props);
-			// this.setState({wasteCost: wasteCost});
+			var wasteCost = helpers.calculateWasteCost(this.state, this.props);
+			this.setState({wasteCost: wasteCost});
 
-
-			console.log('recycling cost is', this.state.recyclingCost);
 		   	this.props.dispatch({
 			    type: 'WEEK',
-			    recyclingCost: this.state.recyclingCost,
-			    //wasteCost: this.state.wasteCost,
+			 	recyclingQuality: recyclingQuality,
+			 	recyclingCost: recyclingCost,
+			 	collectionRate: collectionRate,
+			 	wasteCost: wasteCost,
 			});
 
-		   	//this got too annoying
+		if(this.props.week === 1){
 			this.props.dispatch({
 		    	type: 'addMessage',
 		    	message: {
@@ -80,6 +85,7 @@ class Stats extends Component{
 		    		sender: 'management',
 				}
 		    });
+		}
 	}
 
 
@@ -139,11 +145,23 @@ class Stats extends Component{
 		
 	}
 
+
+	runScript = (script) => {
+		this.setState({
+			runScript: true,
+			script: script})
+		this.props.dispatch({
+			type: 'RUNSCRIPT',
+		})
+	}
+
+
 	reset = (event) => {
 		event.preventDefault();
 		this.setState({onboarded: false});
 		this.setState({currentCount: 0});
 		clearInterval(this.state.day);
+		this.runScript('onboard');
 		this.props.dispatch({
 		    type: 'RESET',
 		});
@@ -162,7 +180,7 @@ class Stats extends Component{
 	componentDidMount() {
 		this.setState({currentCount: this.props.day});
 		if(this.props.onboarded === true){
-			var dayLength = setInterval(this.timer, 15000);			
+			var dayLength = setInterval(this.timer, 5000);			
 		}
 		else{
 			this.setState({currentCount: 0});
@@ -186,24 +204,27 @@ class Stats extends Component{
 
 	render() {
 		var population = this.props.faculty+this.props.students;
-		var collectionBar = '90%' //this.state.collectionRate.toString().concat('%');
+		var collectionBar = this.state.collectionRate.toString().concat('%');
 		var qualityBar = this.state.recyclingQuality.toString().concat('%');
 
 		return(
 			<div>
+
 			<div id="topbar">
 				<div className="statcontainer">money: {this.props.money}</div>
 				<div className="statcontainer" onClick={(event) => this.showStats(event)}>day: {this.state.currentCount}</div>
 				<div className="statcontainer" onClick={(event) => this.showMessages(event)}>messages: {this.state.messageNumber}</div>
 				<div className="statcontainer" onClick={(event) => this.reset(event)}>reset</div>		
 			</div>
+
 			<div id="statbar">
 				<div className="statcontainer">recycling quality: <div className="progressbar">
 					<div className="progress" style={{width: qualityBar}}></div></div></div>
 				<div className="statcontainer">collection rate: <div className="progressbar">
 					<div className="progress" style={{width: collectionBar}}></div></div></div>
 			</div>
-			{this.props.onboarded===false && <Onboard />}
+
+			{this.props.runScript===true && <Story script={'onboard'} />}
 			{this.state.showMessages===true && <Messages messages={this.props.messages} showMessages={this.showMessages}/>}			
 			{this.state.showStats===true && <StatsView day={this.state.currentCount} staff={this.props.staff} recyclingQuality={this.state.recyclingQuality} 
 			budget={this.props.budget} population={population}/>}

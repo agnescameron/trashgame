@@ -64,7 +64,7 @@ class GameMap extends Component{
 
 		return(
 			<div id="map">
-			<div class="container">
+			<div className="container">
 			{buildings.map((d, i) => <div id={d.building} key={i} className="building" onClick={(event) => this.selectBuilding(d.building, event)}>
 				{d.building}
 			</div>)}
