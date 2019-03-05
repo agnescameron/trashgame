@@ -4,6 +4,14 @@ import { connect } from 'react-redux';
 import '../css/main.css'
 
 
+const mapStateToProps = (state) => {
+console.log('buildings visible is ', state.appReducer.buildingsVisible)
+  return{
+  	buildingsVisible: state.appReducer.buildingsVisible,
+  }
+}
+
+
 class GameMap extends Component{
   constructor(props) {
     super(props);
@@ -12,29 +20,60 @@ class GameMap extends Component{
 	  showBuildingInfo: false,
 	  buildingSelected: '',
 	  mainMenu: [],
-	  buildings: [
-		  {
-		  	building: 'medialab',
-		  	visible: true,
-		  	faculty: 1,
-		  	students: 3,
-		  },
-		  {
-		  	building: 'sloan',
-		  	visible: false,
-		  	faculty: 10,
-		  	students: 20,
-		  },
-		  {
-		  	building: 'architecture',
-		  	visible: false,
-		  	faculty: 10,
-		  	students: 20,
-		  },
-	  ],
 	  buildingInfo: '',
+	  buildingsVisible: '',
+	  buildings: [
+          {
+            building: 'medialab',
+            faculty: 1,
+            students: 3,
+            labs: 0,
+          },
+          {
+            building: 'sloan',
+            faculty: 4,
+            students: 14,
+            labs: 0,
+          },
+          {
+            building: 'architecture',
+            faculty: 10,
+            students: 20,
+            labs: 0,
+          },
+          {
+            building: 'CSAIL',
+            faculty: 20,
+            students: 30,
+            labs: 0,
+          },
+          {
+            building: 'broad',
+            faculty: 10,
+            students: 15,
+            labs: 2,
+          },
+          {
+            building: 'mcgovern',
+            faculty: 8,
+            students: 16,
+            labs: 3,
+          },
+          {
+            building: 'studentcenter',
+            faculty: 0,
+            students: 50,
+            labs: 0,
+          },                
+          {
+            building: 'physics',
+            faculty: 15,
+            students: 17,
+            labs: 1,
+          },  
+        ],
+		}
 	}
-}
 
 	selectBuilding = (building, event) => {
 		event.preventDefault();
@@ -55,12 +94,27 @@ class GameMap extends Component{
 		this.setState({showBuildingInfo: false});
 	}
 
+
+	componentDidMount() {
+
+	}
+
+
+	componentDidUpdate(prevProps) {
+		if (this.props.buildingsVisible !== prevProps.buildingsVisible) {
+	  		console.log('change');
+	    	this.componentDidMount();
+	  	} 
+	}
+
+
 	render() {
-		var buildings = [];
-		this.state.buildings.forEach(function(element) {
-		  if(element.visible === true)
-		  	buildings.push(element);
-		});
+		//super hacky, gets buildings visible from props
+		var visible;
+		if(this.props.buildingsVisible === undefined)
+			visible = 1;
+		else visible = this.props.buildingsVisible;
+		var buildings = this.state.buildings.slice(0, visible);
 
 		return(
 			<div id="map">
@@ -89,4 +143,4 @@ class Child extends Component {
 }
 
 
-export default GameMap;
+export default connect(mapStateToProps)(GameMap);

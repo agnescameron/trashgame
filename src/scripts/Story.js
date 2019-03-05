@@ -58,7 +58,7 @@ class Story extends Component{
 				],
 			},
 			{
-				script: 'newBuilding',
+				script: 'addBuilding',
 				contents: ["Things seem to be going pretty well here!",
 				`you've got the recycling and waste collection under control, and your staff are ${getStaffSentiment()}`,
 				"it's time we gave you some more responsibilities!"

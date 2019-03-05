@@ -1,3 +1,5 @@
+import { PURGE } from 'redux-persist';
+
 function appReducer (state, action) {
   if(state === undefined) {
     return {};
@@ -86,6 +88,12 @@ function appReducer (state, action) {
     });
 
 
+    //buildings
+    case 'addBuilding':
+      return Object.assign({}, state, {
+          buildingsVisible: state.buildingsVisible + 1
+    });
+
     //main (meta) functions
     case 'DAY':
       return Object.assign({}, state, {
@@ -109,7 +117,10 @@ function appReducer (state, action) {
       });
 
 //initial setup of the state
-    case 'RESET':
+    case 'PURGE':
+      return {};
+
+    case 'INITIALISE':
       return Object.assign({}, state, {
         labs: 0,
         day: 0,
@@ -121,6 +132,9 @@ function appReducer (state, action) {
         collectionRate: 0,
         recyclingQuality: 0,
         messages:[],
+        buildingsVisible: 1,
+        onboarded: false,
+        runScript: true,
       });
 
     case 'RUNSCRIPT':

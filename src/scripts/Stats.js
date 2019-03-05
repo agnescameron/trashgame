@@ -114,7 +114,7 @@ class Stats extends Component{
 
 	check = () => {
 		this.setState({messageNumber: this.props.messages.length});
-		if(this.state.currentCount === 5 && this.props.staff < 1){
+		if(this.props.day === 5 && this.props.staff < 1){
 			this.props.dispatch({
 		    	type: 'addMessage',
 		    	message: {
@@ -126,6 +126,13 @@ class Stats extends Component{
 		    	}
 			});
 		}		
+
+		if(this.props.day === 10){			
+			this.runScript('addBuilding');
+			this.props.dispatch({
+		    	type: 'addBuilding',
+			});
+		}	
 	}
 
 	timer = () => {
@@ -163,7 +170,10 @@ class Stats extends Component{
 		clearInterval(this.state.day);
 		this.runScript('onboard');
 		this.props.dispatch({
-		    type: 'RESET',
+			type: 'PURGE'
+		});
+		this.props.dispatch({
+			type: 'INITIALISE'
 		});
 	}
 
@@ -224,7 +234,7 @@ class Stats extends Component{
 					<div className="progress" style={{width: collectionBar}}></div></div></div>
 			</div>
 
-			{this.props.runScript===true && <Story script={'onboard'} />}
+			{this.props.runScript===true && <Story script={this.state.script} />}
 			{this.state.showMessages===true && <Messages messages={this.props.messages} showMessages={this.showMessages}/>}			
 			{this.state.showStats===true && <StatsView day={this.state.currentCount} staff={this.props.staff} recyclingQuality={this.state.recyclingQuality} 
 			budget={this.props.budget} population={population}/>}
