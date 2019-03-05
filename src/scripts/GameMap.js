@@ -5,7 +5,6 @@ import '../css/main.css'
 
 
 const mapStateToProps = (state) => {
-console.log('buildings visible is ', state.appReducer.buildingsVisible)
   return{
   	buildingsVisible: state.appReducer.buildingsVisible,
   }

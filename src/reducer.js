@@ -54,7 +54,7 @@ function appReducer (state, action) {
     //recycling menu
     case 'bins':
       return Object.assign({}, state, {
-        staff: state.bins+1,
+        bins: state.bins+1,
         money: state.money-10,
       });
 
@@ -80,12 +80,13 @@ function appReducer (state, action) {
     });
 
     case 'readMessage':
-      let messageArray =  Object.assign({}, state, {
+      let messageArray = Object.assign({}, state, {
         [action.index]: {
           ...state.messages[action.index],
           read: true,
         }
     });
+      return messageArray;
 
 
     //buildings

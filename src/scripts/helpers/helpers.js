@@ -5,6 +5,9 @@ const helpers = {
  
 	calculateRecyclingQuality: function(state, props) {
 		var recyclingQuality = 100-((state.faculty+state.students)-10*props.staff)-((state.faculty+state.students)-10*props.bins);
+		if(recyclingQuality > 100)
+			recyclingQuality = 100;
+		console.log('recyclingQuality is', recyclingQuality);
 		return recyclingQuality;
 	},
 
@@ -26,7 +29,6 @@ const helpers = {
 			}
 
 			if (recyclingQuality<80){
-				console.log('trash');
 				recyclingCost = 2500;			
 			}
 		
@@ -35,6 +37,8 @@ const helpers = {
 
 	calculateCollectionRate: function(state, props) {
 		var collectionRate = 100-((state.faculty+state.students)-10*props.staff)-((state.faculty+state.students)-10*props.bins);
+		if(collectionRate > 100)
+			collectionRate = 100;
 		return collectionRate;
 	},
 

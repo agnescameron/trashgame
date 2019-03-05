@@ -219,6 +219,8 @@ class Stats extends Component{
 		var collectionBar = this.state.collectionRate.toString().concat('%');
 		var qualityBar = this.state.recyclingQuality.toString().concat('%');
 
+		// console.log('staff is ', this.props.staff);
+
 		return(
 			<div>
 
