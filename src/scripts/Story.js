@@ -8,6 +8,7 @@ import '../css/main.css'
 const mapStateToProps = (state) => {
   return{
   	runScript: state.appReducer.runScript,
+  	onboarded: state.appReducer.onboarded,
   }
 }
 
@@ -97,7 +98,14 @@ class Story extends Component{
 		if(element.script === script)
 			scriptSelected = element.contents;		
 		});
-		this.setState({scriptSelected: scriptSelected});
+		
+		//hacky: if reset without auto loading script
+		if(scriptSelected === undefined){
+			console.log('here', this.state.scripts[0].contents)
+			this.setState({scriptSelected: this.state.scripts[0].contents})
+		}
+		else
+			this.setState({scriptSelected: scriptSelected});
 	}
 
 

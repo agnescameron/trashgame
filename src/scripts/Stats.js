@@ -12,6 +12,8 @@ const mapStateToProps = (state) => {
   return{
   	onboarded: state.appReducer.onboarded,
   	runScript: state.appReducer.runScript,
+  	faculty: state.appReducer.faculty,
+  	students: state.appReducer.students,
   	day: state.appReducer.day,
   	staff: state.appReducer.staff,
   	bins: state.appReducer.bins,
@@ -237,7 +239,7 @@ class Stats extends Component{
 			{this.props.runScript===true && <Story script={this.state.script} />}
 			{this.state.showMessages===true && <Messages messages={this.props.messages} showMessages={this.showMessages}/>}			
 			{this.state.showStats===true && <StatsView day={this.state.currentCount} staff={this.props.staff} recyclingQuality={this.state.recyclingQuality} 
-			budget={this.props.budget} population={population}/>}
+			budget={this.props.budget} population={population} buildingsVisible={this.props.buildingsVisible}/>}
 			</div>
 		);
 	}
@@ -256,7 +258,7 @@ class StatsView extends Component {
 					population: {this.props.population}<br/><br/>
 					</div>
 					<div className="column">
-					buildings: 1 <br/><br/>
+					buildings: {this.props.buildingsVisible} <br/><br/>
 					recycling cost: {this.props.recyclingCost}<br/><br/>
 					recycling quality: {this.props.recyclingQuality}<br/><br/>
 					</div>
