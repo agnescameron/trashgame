@@ -43,7 +43,13 @@ const helpers = {
 	calculateWasteCost: function(state, props) {
 		var wasteCost = (props.faculty+props.students)*state.collectionRate + props.labs*100*state.collectionRate;
 		return wasteCost;
-	},			
+	},
+
+	calculateRecyclingRate: function(state, props) {
+		var recyclingRate = 20;
+		return recyclingRate;
+	},
+
 }
 
 export default helpers;

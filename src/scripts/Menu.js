@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import { menus } from './helpers/menus.js'
+import ReactTooltip from 'react-tooltip'
 import '../css/main.css'
 
 
@@ -22,26 +24,9 @@ class Menu extends Component{
 	  username: '',
 	  mainMenu: [],
 	  hideMenu: true,
-	  menus: [
-	  	{
-	  		menu: 'main', 
-	  		items: ["staff", "education", "recycling"],
-	  	},
-	  	{
-	  		menu: 'staff', 
-	  		items: ["hire", "fire", "train"],
-	  	},
-	  	{
-	  		menu: 'recycling', 
-	  		items: ["bins", "staff", "vans", "offsite"],
-	  	},
-	  	{
-	  		menu: 'education', 
-	  		items: ["lecture", "workshop", "signs", "adverts"],
-	  	}
-	  ],
-	  menuSelected: '',
+	  menuSelected: [],
 	  menuContents: [],
+	  menus: menus,
 	  staff: {
 		custodial: '',
 		recycling: '',
@@ -54,7 +39,7 @@ class Menu extends Component{
 }
 
 	renderMainMenu = () => {
-		this.setState( {mainMenu: ["staff", "education", "recycling"]} );
+		this.setState( {mainMenu: ["custodial", "education", "recycling", "speciality"]} );
 		return this.state.mainMenu;
 	}
 
@@ -104,12 +89,12 @@ class Menu extends Component{
 
 class Child extends Component {
 	render() {
-	let menuList = this.props.menuContents;		
+	let menuList = this.props.menuContents;	
 		return(
 			<div id="menubox" className='menu'>
-				<h1>{this.props.menuSelected}</h1>
+				<h1 className="menuTitle">{this.props.menuSelected}</h1>
 				{menuList.map((d, i) =>
-					<div className="menuelement" key={i} onClick={(event) => this.props.menuAction(d, event)}>{d}</div>
+					<div className="menuelement" key={i}  onClick={(event) => this.props.menuAction(d.item, event)}><b>{d.item} ${d.cost}</b> <br/> {d.info}</div>
 				)}
 			</div>
 		);

@@ -40,13 +40,14 @@ class Stats extends Component{
 		recyclingCost: '',
 		collectionRate: 0,
 		wasteCost: '',
+		recyclingRate: 20,
 	}
 }
 
 
 	addBuilding = () => {
-		var newStudents = buildings[this.props.buildingsVisible+1].students;
-		var newFaculty = buildings[this.props.buildingsVisible+1].faculty;
+		var newStudents = buildings[this.props.buildingsVisible].students;
+		var newFaculty = buildings[this.props.buildingsVisible].faculty;
 		console.log('new faculty, new students')
 
 			this.props.dispatch({
@@ -82,10 +83,14 @@ class Stats extends Component{
 			var wasteCost = helpers.calculateWasteCost(this.state, this.props);
 			this.setState({wasteCost: wasteCost});
 
+			var recyclingRate = helpers.calculateRecyclingRate(this.state, this.props);
+			this.setState({recyclingRate: recyclingRate});
+
 		   	this.props.dispatch({
 			    type: 'WEEK',
 			 	recyclingQuality: recyclingQuality,
 			 	recyclingCost: recyclingCost,
+			 	recyclingRate: recyclingRate,
 			 	collectionRate: collectionRate,
 			 	wasteCost: wasteCost,
 			});
@@ -143,7 +148,8 @@ class Stats extends Component{
 			});
 		}		
 
-		if(this.props.day === 10){
+		if(this.props.day === 14 && this.props.collectionRate === 100){
+			console.log('adding building, buildings cviaible is ', this.state.buildingsVisible)
 			this.addBuilding();
 		}
 	}
@@ -228,6 +234,7 @@ class Stats extends Component{
 	render() {
 		var population = this.props.faculty+this.props.students;
 		var collectionBar = this.state.collectionRate.toString().concat('%');
+		var rateBar = this.state.recyclingRate.toString().concat('%');
 		var qualityBar = this.state.recyclingQuality.toString().concat('%');
 
 		console.log('staff is ', this.props.staff);
