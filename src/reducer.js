@@ -92,7 +92,9 @@ function appReducer (state, action) {
     //buildings
     case 'addBuilding':
       return Object.assign({}, state, {
-          buildingsVisible: state.buildingsVisible + 1
+          buildingsVisible: state.buildingsVisible + 1,
+          faculty: state.faculty + action.faculty,
+          students: state.students + action.students,
     });
 
     //main (meta) functions
@@ -130,6 +132,8 @@ function appReducer (state, action) {
         money: 10000,
         staff: 0,
         bins: 0,
+        students: 3,
+        faculty: 1,
         collectionRate: 0,
         recyclingQuality: 0,
         messages:[],

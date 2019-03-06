@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Story from '../scripts/Story';
 import Messages from '../scripts/Messages';
 import { connect } from 'react-redux';
+import {buildings} from './helpers/buildings.js'
 import helpers from './helpers/helpers';
 import '../css/main.css'
 
@@ -20,6 +21,7 @@ const mapStateToProps = (state) => {
   	money: state.appReducer.money,
   	messages: state.appReducer.messages,
   	budget: state.appReducer.budget,
+  	buildingsVisible: state.appReducer.buildingsVisible,
   	recyclingQuality: state.appReducer.recyclingQuality,
   	collectionRate: state.appReducer.collectionRate,
   	week: state.appReducer.week,
@@ -33,8 +35,6 @@ class Stats extends Component{
 		showMessages: '',
 		showStats: '',
 		messages: '',
-		faculty: 5,
-		students: 20,
 		messageNumber:'',
 		recyclingQuality: 0,
 		recyclingCost: '',
@@ -42,6 +42,20 @@ class Stats extends Component{
 		wasteCost: '',
 	}
 }
+
+
+	addBuilding = () => {
+		var newStudents = buildings[this.props.buildingsVisible+1].students;
+		var newFaculty = buildings[this.props.buildingsVisible+1].faculty;
+		console.log('new faculty, new students')
+
+			this.props.dispatch({
+		    	type: 'addBuilding',
+		    	students: newStudents,
+		    	faculty: newFaculty,
+			});
+			this.runScript('addBuilding');
+	}
 
 	eachDay = () => {
 	   	this.setState({ currentCount: this.state.currentCount+1 });
@@ -129,12 +143,9 @@ class Stats extends Component{
 			});
 		}		
 
-		if(this.props.day === 10){			
-			this.runScript('addBuilding');
-			this.props.dispatch({
-		    	type: 'addBuilding',
-			});
-		}	
+		if(this.props.day === 10){
+			this.addBuilding();
+		}
 	}
 
 	timer = () => {
@@ -219,7 +230,7 @@ class Stats extends Component{
 		var collectionBar = this.state.collectionRate.toString().concat('%');
 		var qualityBar = this.state.recyclingQuality.toString().concat('%');
 
-		// console.log('staff is ', this.props.staff);
+		console.log('staff is ', this.props.staff);
 
 		return(
 			<div>
@@ -238,10 +249,10 @@ class Stats extends Component{
 					<div className="progress" style={{width: collectionBar}}></div></div></div>
 			</div>
 
-			{this.props.runScript===true && <Story script={this.state.script} />}
+			{this.props.runScript===true && <Story script={this.state.script} buildings={this.props.buildingsVisible}/>}
 			{this.state.showMessages===true && <Messages messages={this.props.messages} showMessages={this.showMessages}/>}			
 			{this.state.showStats===true && <StatsView day={this.state.currentCount} staff={this.props.staff} recyclingQuality={this.state.recyclingQuality} 
-			budget={this.props.budget} population={population} buildingsVisible={this.props.buildingsVisible}/>}
+			 recyclingCost={this.state.recyclingCost} budget={this.props.budget} population={population} buildingsVisible={this.props.buildingsVisible}/>}
 			</div>
 		);
 	}

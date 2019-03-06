@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import {buildings} from './helpers/buildings.js'
 import '../css/main.css'
 
 
@@ -9,6 +10,7 @@ const mapStateToProps = (state) => {
   return{
   	runScript: state.appReducer.runScript,
   	onboarded: state.appReducer.onboarded,
+  	buildingsVisible: state.appReducer.buildingsVisible,
   }
 }
 
@@ -20,7 +22,6 @@ const clickRecycling = () => {
 	console.log('recycling');
 }
 
-
 class Story extends Component{
   constructor(props) {
     super(props);
@@ -31,9 +32,9 @@ class Story extends Component{
 		scripts: [
 			{
 				script: 'onboard',
-				contents: ["Hello and welcome to 'let's play, waste at MIT'\
+				contents: [`Hello and welcome to 'let's play, waste at MIT'\
 				You are the new head of waste management at the Media Lab.\
-				We're glad to have you on the team!",
+				We're glad to have you on the team!`,
 				"You're in charge of solid waste, which covers trash, recycling and compost",
 				"Right now, the biggest challenge that the lab is facing is landfill: 100% of our waste gets thrown away, and that's a problem!\
 				it can be hard to get people to listen...\
@@ -62,7 +63,8 @@ class Story extends Component{
 				script: 'addBuilding',
 				contents: ["Things seem to be going pretty well here!",
 				`you've got the recycling and waste collection under control, and your staff are ${getStaffSentiment()}`,
-				"it's time we gave you some more responsibilities!"
+				"It's time we gave you some more responsibilities!",
+				`We're asking you to take charge of ${buildings[this.props.buildingsVisible].building}`
 				],
 			},
 			{
@@ -116,15 +118,6 @@ class Story extends Component{
 
 	render() {
 		let messageText = this.state.scriptSelected[this.state.progress];
-		// if (this.state.progress === 4){
-		// 	this.highlightMenu('recycling');
-		// }
-		// if(this.state.progress === 6){
-		// 	this.highlightMenu('staff');
-		// }
-		// if (this.state.progress === 7){
-		// 	this.highlightMenu('education');
-		// }
 
 		return(
 			<div>

@@ -1,4 +1,5 @@
-        {
+   export const buildings =[     
+          {
             building: 'medialab',
             visible: true,
             faculty: 1,
@@ -53,4 +54,7 @@
             faculty: 15,
             students: 17,
             labs: 1,
-          }, 
+          },
+      ]
+
+  export default { buildings, };
