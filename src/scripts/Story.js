@@ -64,13 +64,22 @@ class Story extends Component{
 				contents: ["Things seem to be going pretty well here!",
 				`you've got the recycling and waste collection under control, and your staff are ${getStaffSentiment()}`,
 				"It's time we gave you some more responsibilities!",
-				`We're asking you to take charge of ${buildings[this.props.buildingsVisible-1].building}`
+				`We're asking you to take charge of ${buildings[this.props.buildingsVisible-1].building}. They have a budget\
+				of ${buildings[this.props.buildingsVisible-1].budget}, with ${buildings[this.props.buildingsVisible-1].faculty} faculty,\
+				with ${buildings[this.props.buildingsVisible-1].students} students, and with ${buildings[this.props.buildingsVisible-1].labs} \
+				specialised labs.`,
+				`We think you'll do great! Let me know if you need any help`,
+				`thanks!`
 				],
 			},
 			{
-				script: 'newGroup',
-				contents:["Things seem to be going pretty well here!",
-				"you've got the recycling and waste collection under control"
+				script: 'rodents',
+				contents: [`We realise that this is a difficult time right now -- you've only been at the job for ${this.props.week} weeks,\
+				but we really need you to do something about the waste collection rate`,
+				`The rodent population was under control before, but it's spiking again! The custodial staff -- not to mention\
+				the faculty and the students \
+				are going to be super unhappy if this continues!`,
+				`Sort it out before the mice go out of control!`
 				],
 			},
 		],

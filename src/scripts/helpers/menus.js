@@ -83,21 +83,20 @@ export const menus = [
 	  		items: [
 		  		{
 		  			item: "compost",
-		  			cost: 10,
-		  			info: "Clear signage is key to communicating what to recycle or not!\
-		  			You need to get a sign for each bin you buy."
+		  			cost: 1000,
+		  			info: "Want to start diverting food waste from landfill? Good shout!\
+		  			Compost collection costs $500 per building each month (+ some starting costs), \
+		  			and you'll need to tell people about it before they use it!"
 		  		},
 		  		{
 		  			item: "batteries",
-		  			cost: 1000,
-		  			info: "Talk to the student newspaper! Maybe if people are more aware\
-		  			then they'll recycle better."
+		  			cost: 500,
+		  			info: "A specialist battery stream is a great idea! This will cost about $500/month to run"
 		  		},
 		  		{
 		  			item: "clothing",
-		  			cost: 2000, 
-		  			info: "Get everyone together to talk about recycling! This takes time\
-		  			and money, but might up the quality"
+		  			cost: 500, 
+		  			info: "A specialist clothing stream is a great idea! This will cost about $500/month to run"
 		  		},
 	  		],
 	  	}

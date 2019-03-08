@@ -58,7 +58,8 @@ class Menu extends Component{
     	});
 	}
 
-	menuAction = (action, event) => {
+	menuAction = (action, i, event) => {
+		setTimeout(function() {document.getElementById(i).blur();}, 100);
 		event.preventDefault();
 		this.props.dispatch({
 		 	type: action,
@@ -94,7 +95,7 @@ class Child extends Component {
 			<div id="menubox" className='menu'>
 				<h1 className="menuTitle">{this.props.menuSelected}</h1>
 				{menuList.map((d, i) =>
-					<div className="menuelement" key={i}  onClick={(event) => this.props.menuAction(d.item, event)}><b>{d.item} ${d.cost}</b> <br/> {d.info}</div>
+					<div className="menuelement" id={i} key={i} tabindex="1" onClick={(event) => this.props.menuAction(d.item, i, event)}><b>{d.item} ${d.cost}</b> <br/> {d.info}</div>
 				)}
 			</div>
 		);

@@ -4,7 +4,7 @@ import Story from '../scripts/Story';
 import Messages from '../scripts/Messages';
 import { connect } from 'react-redux';
 import {buildings} from './helpers/buildings.js'
-import helpers from './helpers/helpers';
+import economics from './helpers/economics';
 import '../css/main.css'
 
 
@@ -71,20 +71,25 @@ class Stats extends Component{
 
 	eachWeek = () => {
 			//take the recycling to Casella
-			var recyclingQuality = helpers.calculateRecyclingQuality(this.state, this.props);
+			var recyclingQuality = economics.calculateRecyclingQuality(this.state, this.props);
 			this.setState({recyclingQuality: recyclingQuality});	
+			console.log('quality is', recyclingQuality);
 
-			var recyclingCost = helpers.calculateRecyclingCost(this.state, this.props);
+			var recyclingCost = economics.calculateRecyclingCost(this.state, this.props);
 			this.setState({recyclingCost: recyclingCost});
+			console.log('cost is', recyclingCost);
 
-			var collectionRate = helpers.calculateCollectionRate(this.state, this.props);
+			var collectionRate = economics.calculateCollectionRate(this.state, this.props);
 			this.setState({collectionRate: collectionRate});
+			console.log('collectionRate is', collectionRate);
 
-			var wasteCost = helpers.calculateWasteCost(this.state, this.props);
+			var wasteCost = economics.calculateWasteCost(this.state, this.props);
 			this.setState({wasteCost: wasteCost});
+			console.log('waste cost is', wasteCost);
 
-			var recyclingRate = helpers.calculateRecyclingRate(this.state, this.props);
+			var recyclingRate = economics.calculateRecyclingRate(this.state, this.props);
 			this.setState({recyclingRate: recyclingRate});
+			console.log('recyclingRate is', recyclingRate);
 
 		   	this.props.dispatch({
 			    type: 'WEEK',
@@ -112,7 +117,7 @@ class Stats extends Component{
 
 	eachMonth = () => {
 		//each month do
-		var recyclingCost = helpers.calculateRecyclingQuality(this.state, this.props);
+		var recyclingCost = economics.calculateRecyclingQuality(this.state, this.props);
 		this.setState({recyclingCost: recyclingCost})
 		   	this.props.dispatch(
 		   	{
@@ -148,10 +153,26 @@ class Stats extends Component{
 			});
 		}		
 
-		if(this.props.day === 14 && this.props.collectionRate === 100){
+		if(this.props.day === 14 && this.props.collectionRate > 95){
 			console.log('adding building, buildings cviaible is ', this.state.buildingsVisible)
 			this.addBuilding();
 		}
+		
+		if(this.props.day === 24 && this.props.collectionRate > 95){
+			console.log('adding building, buildings cviaible is ', this.state.buildingsVisible)
+			this.addBuilding();
+		}
+
+		if(this.props.day === 34 && this.props.collectionRate > 95){
+			console.log('adding building, buildings cviaible is ', this.state.buildingsVisible)
+			this.addBuilding();
+		}
+
+		if(this.props.day === 44 && this.props.collectionRate > 95){
+			console.log('adding building, buildings cviaible is ', this.state.buildingsVisible)
+			this.addBuilding();
+		}
+
 	}
 
 	timer = () => {
@@ -252,6 +273,8 @@ class Stats extends Component{
 			<div id="statbar">
 				<div className="statcontainer">recycling quality: <div className="progressbar">
 					<div className="progress" style={{width: qualityBar}}></div></div></div>
+				<div className="statcontainer">recycling rate: <div className="progressbar">
+					<div className="progress" style={{width: rateBar}}></div></div></div>
 				<div className="statcontainer">collection rate: <div className="progressbar">
 					<div className="progress" style={{width: collectionBar}}></div></div></div>
 			</div>

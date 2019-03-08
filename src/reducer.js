@@ -70,8 +70,25 @@ function appReducer (state, action) {
         vans: state.vans+1,
       });
 
-    case 'offsite':
-      return state;
+    //recycling menu
+    case 'compost':
+      return Object.assign({}, state, {
+        compost: true,
+        money: state.money-1000,
+      });
+
+    case 'batteries':
+      return Object.assign({}, state, {
+        batteries: true,
+        money: state.money-500,
+      });
+
+    case 'clothing':
+      return Object.assign({}, state, {
+        clothing: true,
+        money: state.money-500,
+      });
+
 
     //messages
     case 'addMessage':
