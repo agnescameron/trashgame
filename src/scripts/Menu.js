@@ -59,7 +59,7 @@ class Menu extends Component{
 	}
 
 	menuAction = (action, i, event) => {
-		setTimeout(function() {document.getElementById(i).blur();}, 100);
+		setTimeout(function() {document.getElementById(i).blur();}, 150);
 		event.preventDefault();
 		this.props.dispatch({
 		 	type: action,
@@ -82,7 +82,7 @@ class Menu extends Component{
 			)}
 			</div>
 			</div>
-			{!this.state.hideMenu && <Child menuSelected={this.state.menuSelected} menuContents={this.state.menuContents} menuAction={this.menuAction}/>}
+			{!this.state.hideMenu && <Child menuSelected={this.state.menuSelected} menuContents={this.state.menuContents} renderMenu={this.renderMenu} menuAction={this.menuAction}/>}
 			</div>
 		);
 	}
@@ -93,6 +93,7 @@ class Child extends Component {
 	let menuList = this.props.menuContents;	
 		return(
 			<div id="menubox" className='menu'>
+				<button onClick={(event) => this.props.renderMenu(0, event)}> x </button>
 				<h1 className="menuTitle">{this.props.menuSelected}</h1>
 				{menuList.map((d, i) =>
 					<div className="menuelement" id={i} key={i} tabindex="1" onClick={(event) => this.props.menuAction(d.item, i, event)}><b>{d.item} ${d.cost}</b> <br/> {d.info}</div>
