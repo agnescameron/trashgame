@@ -153,23 +153,7 @@ class Stats extends Component{
 			});
 		}		
 
-		if(this.props.day === 14 && this.props.collectionRate > 95){
-			console.log('adding building, buildings cviaible is ', this.state.buildingsVisible)
-			this.addBuilding();
-		}
-		
-		if(this.props.day === 24 && this.props.collectionRate > 95){
-			console.log('adding building, buildings cviaible is ', this.state.buildingsVisible)
-			this.addBuilding();
-		}
-
-		if(this.props.day === 34 && this.props.collectionRate > 95){
-			console.log('adding building, buildings cviaible is ', this.state.buildingsVisible)
-			this.addBuilding();
-		}
-
-		if(this.props.day === 44 && this.props.collectionRate > 95){
-			console.log('adding building, buildings cviaible is ', this.state.buildingsVisible)
+		if(this.props.day%21 === 0 && this.props.collectionRate > 95){
 			this.addBuilding();
 		}
 

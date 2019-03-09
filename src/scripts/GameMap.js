@@ -73,6 +73,9 @@ class GameMap extends Component{
 			<div className="container">
 			{buildings.map((d, i) => <div id={d.building} key={i} className="building" onClick={(event) => this.selectBuilding(d.building, event)}>
 				{d.building}
+				{(d.labs >= 1) ? <div className='lab'>lab</div> : ''}
+				{(d.labs >= 2) ? <div className='lab'>lab</div> : ''}
+				{(d.labs >= 3) ? <div className='lab'>lab</div> : ''}
 			</div>)}
 			</div>
 			{this.state.showBuildingInfo && <Child buildingSelected={this.state.buildingSelected} buildingInfo={this.state.buildingInfo} closeInfo={this.closeInfo} />}
@@ -88,6 +91,7 @@ class Child extends Component {
 				<h1>{this.props.buildingSelected}</h1>
 				<p>faculty: {this.props.buildingInfo.faculty}</p>
 				<p>students: {this.props.buildingInfo.students}</p>
+				<p>labs: {this.props.buildingInfo.labs}</p>
 				<button onClick={(event) => this.props.closeInfo(event)}> x </button>
 			</div>
 		);
