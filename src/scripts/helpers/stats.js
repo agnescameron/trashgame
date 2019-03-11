@@ -1,8 +1,8 @@
 //should start introducing variable costs here
 
-const stats = {
+export const stats = {
 
- 	//high is lucky
+ 	//high is lucky, returns a number between 'luck' and 1
 	rollDice: function(luck) {
 		var score
 		do {

@@ -16,9 +16,15 @@ const mapStateToProps = (state) => {
   	faculty: state.appReducer.faculty,
   	students: state.appReducer.students,
   	day: state.appReducer.day,
-  	staff: state.appReducer.staff,
+  	recyclingStaff: state.appReducer.recyclingStaff,
+  	custodialStaff: state.appReducer.custodialStaff,
+  	compost: state.appReducer.compost,
   	bins: state.appReducer.bins,
+  	vans: state.appReducer.vans,
   	money: state.appReducer.money,
+  	signs: state.appReducer.signs,
+  	outreach: state.appReducer.outreach,
+  	workshops: state.appReducer.workshops,
   	messages: state.appReducer.messages,
   	budget: state.appReducer.budget,
   	buildingsVisible: state.appReducer.buildingsVisible,
@@ -36,11 +42,16 @@ class Stats extends Component{
 		showStats: '',
 		messages: '',
 		messageNumber:'',
-		recyclingQuality: 0,
+		educationLevel: '',
+		recyclingQuality: '',
 		recyclingCost: '',
-		collectionRate: 0,
+		totalWaste:'',
+		totalCompost:'',
+		collectionRate: '',
 		wasteCost: '',
-		recyclingRate: 20,
+		recyclingRate: '',
+		population:'',
+		luck: '',
 	}
 }
 
@@ -61,35 +72,72 @@ class Stats extends Component{
 	eachDay = () => {
 	   	this.setState({ currentCount: this.state.currentCount+1 });
 
-	   	this.props.dispatch({
-		    type: 'DAY',
-		    day: this.state.currentCount,
-		});
+			this.setState({population: this.props.faculty+this.props.students});
+			console.log('population is', this.state.population)
 
-	}
+			//first, calculate the education level
+			var luck = economics.calculateLuck(this.state, this.props);
+			this.setState({luck: luck});
+			console.log('luck is', luck);
 
+			//first, calculate the education level
+			var educationLevel = economics.calculateEducationLevel(this.state, this.props);
+			this.setState({educationLevel: educationLevel});
+			console.log('educationLevel is', educationLevel);
 
-	eachWeek = () => {
+			//then, calculate all the waste being generated
+			var totalWaste = economics.calculateTotalWaste(this.state, this.props);
+			this.setState({totalWaste: totalWaste});
+			console.log('totalWaste is', totalWaste);
+
+			//is all the waste collected? if not: rodents
+			var collectionRate = economics.calculateCollectionRate(this.state, this.props);
+			this.setState({collectionRate: collectionRate});
+			console.log('collectionRate is', collectionRate);
+
+			//how much is getting put in recycling
+			var recyclingRate = economics.calculateRecyclingRate(this.state, this.props);
+			this.setState({recyclingRate: recyclingRate});
+			console.log('recyclingRate is', recyclingRate);
+
+			//if compost: how much is composted?
+			if(this.props.compost === true){
+				var totalCompost = economics.calculateTotalCompost(this.state, this.props);
+				var compostCost = economics.calculateCompostCost(this.state, this.props);
+			}
+
+			//is all the recycling collected? if not: run out of space
+			var recyclingCollectionRate = economics.calculateRecyclingCollectionRate(this.state, this.props);
+			if(recyclingCollectionRate !== 100){
+				console.log('running out of space, recyclingcollectionRate is ', recyclingCollectionRate);
+			}
+
 			//take the recycling to Casella
 			var recyclingQuality = economics.calculateRecyclingQuality(this.state, this.props);
 			this.setState({recyclingQuality: recyclingQuality});	
 			console.log('quality is', recyclingQuality);
 
+			//how much did it cost?
 			var recyclingCost = economics.calculateRecyclingCost(this.state, this.props);
 			this.setState({recyclingCost: recyclingCost});
 			console.log('cost is', recyclingCost);
 
-			var collectionRate = economics.calculateCollectionRate(this.state, this.props);
-			this.setState({collectionRate: collectionRate});
-			console.log('collectionRate is', collectionRate);
-
+			//take away the (collected) recycling and compost: how much waste is left, how much did
+			//it cost to dispose of
 			var wasteCost = economics.calculateWasteCost(this.state, this.props);
 			this.setState({wasteCost: wasteCost});
 			console.log('waste cost is', wasteCost);
 
-			var recyclingRate = economics.calculateRecyclingRate(this.state, this.props);
-			this.setState({recyclingRate: recyclingRate});
-			console.log('recyclingRate is', recyclingRate);
+			//are there rodents?
+			var rodents;
+			if(this.state.collectionRate !==1)
+				rodents = economics.calculateRodents(this.state);
+			else rodents = 0;
+			   	this.props.dispatch({
+				    type: 'DAY',
+				    day: this.state.currentCount,
+				});
+
 
 		   	this.props.dispatch({
 			    type: 'WEEK',
@@ -101,19 +149,26 @@ class Stats extends Component{
 			});
 
 		if(this.props.week === 1){
-			this.props.dispatch({
-		    	type: 'addMessage',
-		    	message: {
-		    		contents: `it's been a week! Your recycling quality is at \
-		    		${this.state.recyclingQuality}%, costing $${this.state.recyclingCost}`,
-		    		read: false,
-		    		important: false,
-		    		sender: 'management',
-				}
-		    });
+			// this.props.dispatch({
+		 //    	type: 'addMessage',
+		 //    	message: {
+		 //    		contents: `it's been a week! Your recycling quality is at \
+		 //    		${this.state.recyclingQuality}%, costing $${this.state.recyclingCost}`,
+		 //    		read: false,
+		 //    		important: false,
+		 //    		sender: 'management',
+			// 	}
+		 //    });
+
+		 	this.runScript('week');
 		}
 	}
 
+
+	eachWeek = () => {
+
+		console.log('a week')
+	}
 
 	eachMonth = () => {
 		//each month do
@@ -122,7 +177,7 @@ class Stats extends Component{
 		   	this.props.dispatch(
 		   	{
 			    type: 'MONTH',
-			    wages: this.props.staff*100,
+			    wages: this.props.recyclingStaff*200 + this.props.custodialStaff*100,
 			    budget: 10000,
 			});
 			this.props.dispatch({
@@ -140,7 +195,7 @@ class Stats extends Component{
 
 	check = () => {
 		this.setState({messageNumber: this.props.messages.length});
-		if(this.props.day === 5 && this.props.staff < 1){
+		if(this.props.day === 5 && this.props.custodialStaff < 1){
 			this.props.dispatch({
 		    	type: 'addMessage',
 		    	message: {
@@ -238,18 +293,18 @@ class Stats extends Component{
 
 	render() {
 		var population = this.props.faculty+this.props.students;
-		var collectionBar = this.state.collectionRate.toString().concat('%');
-		var rateBar = this.state.recyclingRate.toString().concat('%');
-		var qualityBar = this.state.recyclingQuality.toString().concat('%');
+		var collectionBar = (this.state.collectionRate).toString().concat('%');
+		var rateBar = (this.state.recyclingRate*100).toString().concat('%');
+		var qualityBar = (this.state.recyclingQuality).toString().concat('%');
 
-		console.log('staff is ', this.props.staff);
+		console.log('custodial staff is ', this.props.custodialStaff);
 
 		return(
 			<div>
 
 			<div id="topbar">
 				<div className="statcontainer">money: {this.props.money}</div>
-				<div className="statcontainer" onClick={(event) => this.showStats(event)}>day: {this.state.currentCount}</div>
+				<div className="statcontainer" onClick={(event) => this.showStats(event)}>day: {this.props.day}</div>
 				<div className="statcontainer" onClick={(event) => this.showMessages(event)}>messages: {this.state.messageNumber}</div>
 				<div className="statcontainer" onClick={(event) => this.reset(event)}>reset</div>		
 			</div>
@@ -265,7 +320,7 @@ class Stats extends Component{
 
 			{this.props.runScript===true && <Story script={this.state.script} buildings={this.props.buildingsVisible}/>}
 			{this.state.showMessages===true && <Messages messages={this.props.messages} showMessages={this.showMessages}/>}			
-			{this.state.showStats===true && <StatsView day={this.state.currentCount} staff={this.props.staff} recyclingQuality={this.state.recyclingQuality} 
+			{this.state.showStats===true && <StatsView day={this.state.currentCount} custodialStaff={this.props.custodialStaff} recyclingStaff={this.props.recyclingStaff} recyclingQuality={this.state.recyclingQuality} 
 			 recyclingCost={this.state.recyclingCost} budget={this.props.budget} population={population} buildingsVisible={this.props.buildingsVisible}/>}
 			</div>
 		);
@@ -280,8 +335,8 @@ class StatsView extends Component {
 			<div className="statsbox">
 				<div className="row">
 					<div className="column">
-					recycling staff: {this.props.staff}<br/><br/>
-					custodial staff: {this.props.staff}<br/><br/>
+					recycling staff: {this.props.recyclingStaff}<br/><br/>
+					custodial staff: {this.props.custodialStaff}<br/><br/>
 					population: {this.props.population}<br/><br/>
 					</div>
 					<div className="column">

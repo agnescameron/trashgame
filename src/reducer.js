@@ -9,16 +9,16 @@ function appReducer (state, action) {
 
     //menu options
 
-    //staff menu
+    //custodial staff menu
     case 'hire':
       return Object.assign({}, state, {
-        staff: state.staff+1,
+        custodialStaff: state.custodialStaff+1,
         money: state.money-100,
       });
 
     case 'fire':
       return Object.assign({}, state, {
-        staff: state.staff-1,
+        custodialStaff: state.custodialStaff-1,
         money: state.money+80,
       });
 
@@ -27,27 +27,21 @@ function appReducer (state, action) {
         money: state.money-100,
       });
 
-
-    //education menu
-    case 'lecture':
-      return Object.assign({}, state, {
-        staff: state.staff+1,
-        money: state.money-100,
-      });
-
     case 'workshop':
       return Object.assign({}, state, {
-        staff: state.staff-1,
+        workshops: state.workshops+1,
         money: state.money+80,
       });
 
     case 'signs':
       return Object.assign({}, state, {
+        signs: state.signs+1,
         money: state.money-100,
       });
 
-    case 'adverts':
+    case 'outreach':
       return Object.assign({}, state, {
+        outreach: state.outreach+10,
         money: state.money-100,
       });
 
@@ -60,7 +54,7 @@ function appReducer (state, action) {
 
     case 'staff':
       return Object.assign({}, state, {
-        staff: state.recyclingStaff+1,
+        recyclingStaff: state.recyclingStaff+1,
         money: state.money-150,
       });
 
@@ -147,8 +141,13 @@ function appReducer (state, action) {
         week: 0,
         month: 0,
         money: 10000,
-        staff: 0,
-        bins: 0,
+        recyclingStaff: 0,
+        custodialStaff: 0,
+        bins: 1,
+        vans: 1,
+        signs: 0,
+        workshops: 0,
+        outreach: 0,
         students: 3,
         faculty: 1,
         collectionRate: 0,

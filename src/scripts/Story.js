@@ -11,6 +11,9 @@ const mapStateToProps = (state) => {
   	runScript: state.appReducer.runScript,
   	onboarded: state.appReducer.onboarded,
   	buildingsVisible: state.appReducer.buildingsVisible,
+  	recyclingQuality: state.appReducer.recyclingQuality,
+  	recyclingCost: state.appReducer.recyclingCost,
+  	recyclingRate: state.appReducer.recyclingRate,
   }
 }
 
@@ -20,6 +23,27 @@ const getStaffSentiment = () => {
 
 const clickRecycling = () => {
 	console.log('recycling');
+}
+
+const weekQuality = (quality) => {
+	console.log('quality is', quality);
+
+	var message;
+
+	if(quality < 95)
+		message = `which is pretty good. If you can get higher, our costs will decrease!`
+	if(quality < 90)		
+		message = `it's OK, but see if you can do something to reduce the contamination rate.\
+		You might need to reach out to people, let them know what they can and can't recycle! If \
+		the quality goes up, our costs go down, win-win!`
+	if(quality < 80)
+		message = `it's pretty poor: you've got to try and reduce the contamination rate! At this\
+		purity level, everything we take over is basically landfill, sad but it's true. It's also costing\
+		us a lot! You've got to educate people on what they can and can't recycle!`
+	else
+		message = `making the cost per weight really low: you're doing great!`
+
+	return message;
 }
 
 class Story extends Component{
@@ -59,6 +83,16 @@ class Story extends Component{
 				...I'll be in touch once you've made some progress",
 				],
 			},
+
+			{
+				script: 'week',
+				contents: [`it's been a week! Your recycling rate is at \
+		    		${this.props.recyclingRate}%, costing $${this.props.recyclingCost}`,
+		    		`The quality of the last load was ${this.props.recyclingQuality}%: \
+		    		${weekQuality(this.props.recyclingQuality)}`
+				],
+			},
+
 			{
 				script: 'addBuilding',
 				contents: ["Things seem to be going pretty well here!",

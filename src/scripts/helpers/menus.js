@@ -65,7 +65,7 @@ export const menus = [
 		  			You need to get a sign for each bin you buy."
 		  		},
 		  		{
-		  			item: "ad campaign",
+		  			item: "outreach",
 		  			cost: 1000,
 		  			info: "Talk to the student newspaper! Maybe if people are more aware\
 		  			then they'll recycle better."

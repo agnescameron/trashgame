@@ -25,7 +25,7 @@
             faculty: 20,
             students: 30,
             budget: 10500,
-            labs: 2,
+            labs: 0,
           },
           {
             building: 'broad',
