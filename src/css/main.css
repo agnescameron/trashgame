@@ -197,11 +197,14 @@
 }
 
 .boxpic{
-  margin:30px;
-  height:240px;
-  width:240px;
+  margin: 0px 70px 0px 50px;
+  height:130px;
+  width:190px;
   background-image: url("./img/coffee.jpeg");
-  background-color: lightblue;
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  z-index:20;
 }
 
 /*stats*/

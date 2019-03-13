@@ -212,7 +212,7 @@ class Stats extends Component{
 			});
 		}		
 
-		if(this.props.day%21 === 0 && this.props.collectionRate > 95){
+		if(this.props.day%21 === 0 && this.props.collectionRate > 98){
 			this.addBuilding();
 		}
 
