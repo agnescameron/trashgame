@@ -6,7 +6,7 @@ const economics = {
 
 	calculateLuck: function(state, props) {
 		var luck;
-		if(props.clothing === true || props.batteries == true) {
+		if(props.clothing === true || props.batteries === true) {
 			luck=0.8;
 		}
 		else luck = 0.6;
@@ -71,7 +71,7 @@ const economics = {
 			collectionRate = 1 - (recyclingUnits - constant.vanCapacity*props.vans)/recyclingUnits;
 		else
 			collectionRate = 1;
-		return collectionRate;
+		return collectionRate*100;
 	},
 
 	//function of: education, signage, outreach, recycling staff
@@ -129,16 +129,20 @@ const economics = {
 
 	calculateRodents: function(state){
 		//calculate leftover waste
-		var leftoverWaste = (1-state.collectionRate)*state.totalWaste;
-		var rodents = 1-state.collectionRate;
+		// var leftoverWaste = (100-state.collectionRate)*state.totalWaste;
+		var rodents = 100-state.collectionRate;
 		return rodents;
-		//calculate historical leftovers
 	},
 
 	calculateWasteCost: function(state, props) {
 		var totalLandfill = (state.totalWaste - state.totalCompost - state.recyclingRate*state.totalWaste); //+ props.labs*100*state.collectionRate;
 		var landfillCost = totalLandfill*constant.landfillUnitCost;
 		return landfillCost;
+	},
+
+	calculateStaffHappiness: function(state, props) {
+		var staffHappiness = 100-state.rodents;
+		return staffHappiness;
 	},
 
 	// calculateTotalLandfill: function(state, props){

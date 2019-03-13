@@ -96,7 +96,7 @@ class Child extends Component {
 				<button onClick={(event) => this.props.renderMenu(0, event)}> x </button>
 				<h1 className="menuTitle">{this.props.menuSelected}</h1>
 				{menuList.map((d, i) =>
-					<div className="menuelement" id={i} key={i} tabindex="1" onClick={(event) => this.props.menuAction(d.item, i, event)}><b>{d.item} ${d.cost}</b> <br/> {d.info}</div>
+					<div className="menuelement" id={i} key={i} tabIndex="1" onClick={(event) => this.props.menuAction(d.item, i, event)}><b>{d.item} ${d.cost}</b> <br/> {d.info}</div>
 				)}
 			</div>
 		);

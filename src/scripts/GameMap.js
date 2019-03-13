@@ -88,11 +88,13 @@ class Child extends Component {
 	render() {
 		return(
 			<div id="menubox" className='menu'>
+				<div className="scriptText">
 				<h1>{this.props.buildingSelected}</h1>
 				<p>faculty: {this.props.buildingInfo.faculty}</p>
 				<p>students: {this.props.buildingInfo.students}</p>
 				<p>labs: {this.props.buildingInfo.labs}</p>
 				<button onClick={(event) => this.props.closeInfo(event)}> x </button>
+				</div>
 			</div>
 		);
 	}

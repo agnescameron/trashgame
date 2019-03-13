@@ -52,6 +52,7 @@ class Stats extends Component{
 		recyclingRate: '',
 		population:'',
 		luck: '',
+		rodentNotification: '',
 	}
 }
 
@@ -130,42 +131,45 @@ class Stats extends Component{
 
 			//are there rodents?
 			var rodents;
-			if(this.state.collectionRate !==1)
+			if(this.state.collectionRate !==100){
 				rodents = economics.calculateRodents(this.state);
+				console.log('rodents!', rodents);
+				if(rodents>10 && this.state.rodentNotification !== true){
+					this.runScript('rodents');
+					this.state.rodentNotification = true;
+				}				
+			}
+
 			else rodents = 0;
-			   	this.props.dispatch({
-				    type: 'DAY',
-				    day: this.state.currentCount,
-				});
 
+			//take away the (collected) recycling and compost: how much waste is left, how much did
+			//it cost to dispose of
+			var staffHappiness = economics.calculateStaffHappiness(this.state, this.props);
+			this.setState({staffHappiness: staffHappiness});
+			console.log('waste cost is', staffHappiness);
 
-		   	this.props.dispatch({
-			    type: 'WEEK',
+			   	
+			this.props.dispatch({
+			    type: 'DAY',
+			    day: this.state.currentCount,
 			 	recyclingQuality: recyclingQuality,
 			 	recyclingCost: recyclingCost,
 			 	recyclingRate: recyclingRate,
 			 	collectionRate: collectionRate,
+			 	staffHappiness: staffHappiness,
 			 	wasteCost: wasteCost,
 			});
-
-		if(this.props.week === 1){
-			// this.props.dispatch({
-		 //    	type: 'addMessage',
-		 //    	message: {
-		 //    		contents: `it's been a week! Your recycling quality is at \
-		 //    		${this.state.recyclingQuality}%, costing $${this.state.recyclingCost}`,
-		 //    		read: false,
-		 //    		important: false,
-		 //    		sender: 'management',
-			// 	}
-		 //    });
-
-		 	this.runScript('week');
-		}
 	}
 
 
 	eachWeek = () => {
+		   	this.props.dispatch({
+			    type: 'WEEK',
+			});
+
+		if(this.props.week === 1){
+		 	this.runScript('week');
+		}
 
 		console.log('a week')
 	}
@@ -210,6 +214,10 @@ class Stats extends Component{
 
 		if(this.props.day%21 === 0 && this.props.collectionRate > 95){
 			this.addBuilding();
+		}
+
+		if(this.props.day%3 === 0 && this.props.recyclingQuality < 95){
+			this.runScript('contaminant');
 		}
 
 	}
@@ -269,7 +277,7 @@ class Stats extends Component{
 	componentDidMount() {
 		this.setState({currentCount: this.props.day});
 		if(this.props.onboarded === true){
-			var dayLength = setInterval(this.timer, 5000);			
+			var dayLength = setInterval(this.timer, 15000);			
 		}
 		else{
 			this.setState({currentCount: 0});
@@ -293,9 +301,9 @@ class Stats extends Component{
 
 	render() {
 		var population = this.props.faculty+this.props.students;
-		var collectionBar = (this.state.collectionRate).toString().concat('%');
-		var rateBar = (this.state.recyclingRate*100).toString().concat('%');
-		var qualityBar = (this.state.recyclingQuality).toString().concat('%');
+		var collectionBar = (Math.round(this.state.collectionRate)).toString().concat('%');
+		var rateBar = (Math.round(this.state.recyclingRate*100)).toString().concat('%');
+		var qualityBar = (Math.round(this.state.recyclingQuality)).toString().concat('%');
 
 		console.log('custodial staff is ', this.props.custodialStaff);
 
@@ -310,11 +318,11 @@ class Stats extends Component{
 			</div>
 
 			<div id="statbar">
-				<div className="statcontainer">recycling quality: <div className="progressbar">
+				<div className="statcontainer">recycling quality: {qualityBar}<div className="progressbar">
 					<div className="progress" style={{width: qualityBar}}></div></div></div>
-				<div className="statcontainer">recycling rate: <div className="progressbar">
+				<div className="statcontainer">recycling rate: {rateBar}<div className="progressbar">
 					<div className="progress" style={{width: rateBar}}></div></div></div>
-				<div className="statcontainer">collection rate: <div className="progressbar">
+				<div className="statcontainer">collection rate: {collectionBar}<div className="progressbar">
 					<div className="progress" style={{width: collectionBar}}></div></div></div>
 			</div>
 

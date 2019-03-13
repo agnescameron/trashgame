@@ -111,16 +111,17 @@ function appReducer (state, action) {
     //main (meta) functions
     case 'DAY':
       return Object.assign({}, state, {
+        recyclingQuality: action.recyclingQuality,
+        recyclingCost: action.recyclingCost,
+        recyclingRate: action.recyclingRate,
+        collectionRate: action.collectionRate,
+        wasteCost: action.wasteCost,
+        money: state.money-action.recyclingCost,
         day: action.day,   
       });
 
     case 'WEEK':
       return Object.assign({}, state, {
-        recyclingQuality: action.recyclingQuality,
-        recyclingCost: action.recyclingCost,
-        collectionRate: action.collectionRate,
-        wasteCost: action.wasteCost,
-        money: state.money-action.recyclingCost,
         week: state.week + 1,
       });
 
@@ -156,6 +157,7 @@ function appReducer (state, action) {
         buildingsVisible: 1,
         onboarded: false,
         runScript: true,
+        staffHappiness: 100,
       });
 
     case 'RUNSCRIPT':

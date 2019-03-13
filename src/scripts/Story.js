@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import {characters} from './helpers/characters.js'
 import { connect } from 'react-redux';
 import {buildings} from './helpers/buildings.js'
 import '../css/main.css'
@@ -13,12 +14,18 @@ const mapStateToProps = (state) => {
   	buildingsVisible: state.appReducer.buildingsVisible,
   	recyclingQuality: state.appReducer.recyclingQuality,
   	recyclingCost: state.appReducer.recyclingCost,
+  	staffHappiness: state.appReducer.staffHappiness,
   	recyclingRate: state.appReducer.recyclingRate,
+  	week: state.appReducer.week,
+  	onboarded: state.appReducer.onboarded,
   }
 }
 
-const getStaffSentiment = () => {
-	return '50% happy';
+const randomContaminant = () => {
+	var contaminants = ["food", "coffee cups", "plastic bags", "greasy paper", "clothing", "styrofoam"];
+	var rand = Math.floor(Math.random()*contaminants.length)
+	var contaminant = contaminants[rand];
+	return contaminant;
 }
 
 const clickRecycling = () => {
@@ -26,8 +33,6 @@ const clickRecycling = () => {
 }
 
 const weekQuality = (quality) => {
-	console.log('quality is', quality);
-
 	var message;
 
 	if(quality < 95)
@@ -53,13 +58,15 @@ class Story extends Component{
 		username: '',
 		runScript: true,
 		scriptSelected: [],
+		contaminantImage: '',
 		scripts: [
 			{
 				script: 'onboard',
 				contents: [`Hello and welcome to 'let's play, waste at MIT'\
 				You are the new head of waste management at the Media Lab.\
 				We're glad to have you on the team!`,
-				"You're in charge of solid waste, which covers trash, recycling and compost",
+				"You're in charge of solid waste, which currently covers trash and recycling",
+				"In an ideal world, we'd have speciality streams too, though at the moment nobody's implemented anything 🤷🏽‍♀️",
 				"Right now, the biggest challenge that the lab is facing is landfill: 100% of our waste gets thrown away, and that's a problem!\
 				it can be hard to get people to listen...\
 				but we're sure you'll be fine!",
@@ -67,20 +74,32 @@ class Story extends Component{
 				...so you'll need to hire new staff to deal with the extra waste\
 				Also: if you do a good job here, we'll ask you to expand to more buildings on campus",
 				//show campus
-				"this is the whole campus:\
+				"the map in the centre represents the whole campus:\
 				right now, the only building you have to worry about is this one:\
 				the only people in the building are 1 faculty and 3 students\
 				they've not got a lot of funding yet, so won't be ordering a lot of materials, or producing much waste",
-				`for now, you should focus on getting recycling up and running in the lab\
-				to bring up the recycling menu, click the symbol here ${clickRecycling()}`,
+				`for now, you need to hire some custodians, and some recycling staff\
+				 -- without them, you won't be able to collect any waste at all!`,
+				 `hire and train custodial staff in the 'custodial' menu, and use the 'recycling' menu to hire\
+				 specialised staff, and buy equipment like bins and vans.`,
+				 `After you've got collection under control, you'll want to look at the recycling quality: you see, people might want\
+				 to recycle, but if they don't know what should go where, it's easy for that recycling to\
+				 get contaminated.`,
+				 `use signs, workshops and outreach to educate people!`,
 				//show recycling
 				"that's how the menu starts: as you get more buildings, more items will be added\
-				as you acquire items and staff, the percentage of recycling will increase\
-				but be careful not to go over budget!",
-				"also, if you want to hire and train custodial staff, press here",
-				"and to run outreach and education campaigns, press here",
-				"that's all from me right now. for the help menu, press here\
+				as you acquire items and staff, the percentage of recycling will increase:\
+				be careful not to go over budget!",
+				"that's all from me right now.\
 				...I'll be in touch once you've made some progress",
+				],
+			},
+
+			{
+				script: 'e-waste',
+				contents: [`a number of students have been asking about the possibilities\
+				for disposing of e-waste: a lot of it's ending up in the trash, and that's a bad thing!`,
+				`if you can fund an e-waste programme for campus, `
 				],
 			},
 
@@ -94,9 +113,16 @@ class Story extends Component{
 			},
 
 			{
+				script: 'contaminant',
+				contents: [`custodial staff keep finding contaminants in the recycling! \
+				You need to remind people that ${randomContaminant()} can't be recycled!`
+				],
+			},
+
+			{
 				script: 'addBuilding',
 				contents: ["Things seem to be going pretty well here!",
-				`you've got the recycling and waste collection under control, and your staff are ${getStaffSentiment()}`,
+				`you've got the recycling and waste collection under control, and your staff are ${this.props.staffHappiness}% happy`,
 				"It's time we gave you some more responsibilities!",
 				`We're asking you to take charge of ${buildings[this.props.buildingsVisible-1].building}. They have a budget\
 				of ${buildings[this.props.buildingsVisible-1].budget}, with ${buildings[this.props.buildingsVisible-1].faculty} faculty,\
@@ -108,7 +134,7 @@ class Story extends Component{
 			},
 			{
 				script: 'rodents',
-				contents: [`We realise that this is a difficult time right now -- you've only been at the job for ${this.props.week} weeks,\
+				contents: [`We realise that this is a difficult time right now ,\
 				but we really need you to do something about the waste collection rate`,
 				`The rodent population was under control before, but it's spiking again! The custodial staff -- not to mention\
 				the faculty and the students \
@@ -145,9 +171,16 @@ class Story extends Component{
 		});
 		
 		//hacky: if reset without auto loading script
+		// if(scriptSelected === undefined && this.props.onboarded === true){
+		// 	console.log('here', this.state.scripts[0].contents)
+		// }
 		if(scriptSelected === undefined){
 			console.log('here', this.state.scripts[0].contents)
 			this.setState({scriptSelected: this.state.scripts[0].contents})
+		}		
+		else if(script === 'contaminant'){
+			this.setState({contaminantImage: true});			
+			this.setState({scriptSelected: scriptSelected});
 		}
 		else
 			this.setState({scriptSelected: scriptSelected});
@@ -162,10 +195,14 @@ class Story extends Component{
 	render() {
 		let messageText = this.state.scriptSelected[this.state.progress];
 
+
 		return(
 			<div>
-				<div className="menu"> {messageText}   
-				<button onClick={(event) => this.nextPage(event)}> > </button>		
+				<div className="menu"> 
+				<h1 className="menutitle">{characters.management}</h1>
+				<div className="scriptText">{messageText} </div>
+				<button className="nextButton" onClick={(event) => this.nextPage(event)}> > </button>
+				{this.state.contaminantImage === true && <div className="boxpic"></div>}
 				</div>
 			</div>
 		);
