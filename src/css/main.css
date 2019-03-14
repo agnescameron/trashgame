@@ -197,14 +197,13 @@
 }
 
 .boxpic{
-  margin: 0px 70px 0px 50px;
-  height:130px;
-  width:190px;
-  background-image: url("./img/coffee.jpeg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  position: absolute;
+  margin: 0px 90px 0px 50px;
   z-index:20;
+}
+
+.boxpic > img {
+   height:130px;
+  width:130px; 
 }
 
 /*stats*/

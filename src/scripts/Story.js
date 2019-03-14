@@ -59,6 +59,7 @@ class Story extends Component{
 		runScript: true,
 		scriptSelected: [],
 		contaminantImage: '',
+		contaminant: '',
 		scripts: [
 			{
 				script: 'onboard',
@@ -106,8 +107,8 @@ class Story extends Component{
 			{
 				script: 'week',
 				contents: [`it's been a week! Your recycling rate is at \
-		    		${this.props.recyclingRate}%, costing $${this.props.recyclingCost}`,
-		    		`The quality of the last load was ${this.props.recyclingQuality}%: \
+		    		${Math.round(this.props.recyclingRate)}%, costing $${this.props.recyclingCost}`,
+		    		`The quality of the last load was ${Math.round(this.props.recyclingQuality)}%: \
 		    		${weekQuality(this.props.recyclingQuality)}`
 				],
 			},
@@ -115,7 +116,7 @@ class Story extends Component{
 			{
 				script: 'contaminant',
 				contents: [`custodial staff keep finding contaminants in the recycling! \
-				You need to remind people that ${randomContaminant()} can't be recycled!`
+				You need to remind people that ${this.randomContaminant()} can't be recycled!`
 				],
 			},
 
@@ -146,6 +147,17 @@ class Story extends Component{
 		progress: 0,
 	}
 	}
+
+
+randomContaminant = () => {
+	var contaminants = ["food", "coffee cups", "plastic bags", "greasy paper", "clothing", "styrofoam"];
+	var rand = Math.floor(Math.random()*contaminants.length);
+	var contaminant = contaminants[rand];
+	this.setState({contaminant: contaminant});
+	console.log('contaminant is ', contaminant);
+	return contaminant;
+	}
+
 
 	nextPage = (event) => {
 		event.preventDefault();
@@ -194,7 +206,7 @@ class Story extends Component{
 
 	render() {
 		let messageText = this.state.scriptSelected[this.state.progress];
-
+		let contaminant = this.state.contaminant;
 
 		return(
 			<div>
@@ -202,7 +214,8 @@ class Story extends Component{
 				<h1 className="menutitle">{characters.management}</h1>
 				<div className="scriptText">{messageText} </div>
 				<button className="nextButton" onClick={(event) => this.nextPage(event)}> > </button>
-				{this.state.contaminantImage === true && <div className="boxpic"></div>}
+				{this.state.contaminantImage === true && <div className="boxpic"> 
+					<img src={ require(`../css/img/${contaminant}.jpeg`) } /></div>}
 				</div>
 			</div>
 		);

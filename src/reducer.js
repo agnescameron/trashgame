@@ -109,6 +109,12 @@ function appReducer (state, action) {
     });
 
     //main (meta) functions
+    case 'NEXTDAY':
+    console.log('calling nextday, day is', state.day);
+      return Object.assign({}, state, {
+        day: state.day+1,
+      })
+
     case 'DAY':
       return Object.assign({}, state, {
         recyclingQuality: action.recyclingQuality,
@@ -116,8 +122,7 @@ function appReducer (state, action) {
         recyclingRate: action.recyclingRate,
         collectionRate: action.collectionRate,
         wasteCost: action.wasteCost,
-        money: state.money-action.recyclingCost,
-        day: action.day,   
+        money: state.money-action.recyclingCost,  
       });
 
     case 'WEEK':

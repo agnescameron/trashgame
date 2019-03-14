@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Story from '../scripts/Story';
+import { createStore, applyMiddleware } from 'redux'
+import ReduxThunk from 'redux-thunk' 
 import Messages from '../scripts/Messages';
 import { connect } from 'react-redux';
 import {buildings} from './helpers/buildings.js'
 import economics from './helpers/economics';
 import '../css/main.css'
-
 
 //gets the stored username+uuid from the state
 const mapStateToProps = (state) => {
@@ -31,6 +32,7 @@ const mapStateToProps = (state) => {
   	recyclingQuality: state.appReducer.recyclingQuality,
   	collectionRate: state.appReducer.collectionRate,
   	week: state.appReducer.week,
+  	month: state.appReducer.month,
   }
 }
 
@@ -53,9 +55,32 @@ class Stats extends Component{
 		population:'',
 		luck: '',
 		rodentNotification: '',
+		rodents: '',
+		dayLength:'',
+		timerId: '',
 	}
 }
+	
+	tick = () => {
+		this.props.dispatch({
+			type: 'NEXTDAY',
+		})
+		console.log("called start timer")
+		this.setState({currentCount: this.props.day});	
+		this.startTimer();
+	}
 
+	startTimer = () => {
+		console.log("starting timer")
+		this.setState({timerId: setTimeout(() => this.tick(), 15000)})
+		console.log("setting", this.state.timerId);		
+		// this.setState({timerId: timerId})
+	}
+
+	stopTimer = () => {
+		console.log("clearing", this.state.timerId);
+		clearTimeout(this.state.timerId);
+	}
 
 	addBuilding = () => {
 		var newStudents = buildings[this.props.buildingsVisible].students;
@@ -70,9 +95,8 @@ class Stats extends Component{
 			this.runScript('addBuilding');
 	}
 
-	eachDay = () => {
-	   	this.setState({ currentCount: this.state.currentCount+1 });
 
+	eachDay = () => {
 			this.setState({population: this.props.faculty+this.props.students});
 			console.log('population is', this.state.population)
 
@@ -139,19 +163,18 @@ class Stats extends Component{
 					this.state.rodentNotification = true;
 				}				
 			}
-
 			else rodents = 0;
+			this.setState({rodents: rodents})
 
 			//take away the (collected) recycling and compost: how much waste is left, how much did
 			//it cost to dispose of
 			var staffHappiness = economics.calculateStaffHappiness(this.state, this.props);
 			this.setState({staffHappiness: staffHappiness});
-			console.log('waste cost is', staffHappiness);
+			console.log('staff happiness is', staffHappiness);
 
 			   	
 			this.props.dispatch({
 			    type: 'DAY',
-			    day: this.state.currentCount,
 			 	recyclingQuality: recyclingQuality,
 			 	recyclingCost: recyclingCost,
 			 	recyclingRate: recyclingRate,
@@ -159,6 +182,7 @@ class Stats extends Component{
 			 	staffHappiness: staffHappiness,
 			 	wasteCost: wasteCost,
 			});
+
 	}
 
 
@@ -254,7 +278,7 @@ class Stats extends Component{
 		event.preventDefault();
 		this.setState({onboarded: false});
 		this.setState({currentCount: 0});
-		clearInterval(this.state.day);
+		this.stop();
 		this.runScript('onboard');
 		this.props.dispatch({
 			type: 'PURGE'
@@ -276,13 +300,7 @@ class Stats extends Component{
 
 	componentDidMount() {
 		this.setState({currentCount: this.props.day});
-		if(this.props.onboarded === true){
-			var dayLength = setInterval(this.timer, 15000);			
-		}
-		else{
-			this.setState({currentCount: 0});
-		}
-		return dayLength;
+		console.log("mounting")
 	}
 
 	componentDidUpdate(prevProps) {
@@ -296,7 +314,7 @@ class Stats extends Component{
 	}
 
 	componentWillUnmount() {
-	   clearInterval(this.state.day);
+	   	this.stop();
 	}
 
 	render() {
@@ -311,7 +329,7 @@ class Stats extends Component{
 			<div>
 
 			<div id="topbar">
-				<div className="statcontainer">money: {this.props.money}</div>
+				<div className="statcontainer" onClick={()=>this.startTimer()}>money: {this.props.money}</div>
 				<div className="statcontainer" onClick={(event) => this.showStats(event)}>day: {this.props.day}</div>
 				<div className="statcontainer" onClick={(event) => this.showMessages(event)}>messages: {this.state.messageNumber}</div>
 				<div className="statcontainer" onClick={(event) => this.reset(event)}>reset</div>		
@@ -328,7 +346,7 @@ class Stats extends Component{
 
 			{this.props.runScript===true && <Story script={this.state.script} buildings={this.props.buildingsVisible}/>}
 			{this.state.showMessages===true && <Messages messages={this.props.messages} showMessages={this.showMessages}/>}			
-			{this.state.showStats===true && <StatsView day={this.state.currentCount} custodialStaff={this.props.custodialStaff} recyclingStaff={this.props.recyclingStaff} recyclingQuality={this.state.recyclingQuality} 
+			{this.state.showStats===true && <StatsView day={this.props.day} custodialStaff={this.props.custodialStaff} recyclingStaff={this.props.recyclingStaff} recyclingQuality={this.state.recyclingQuality} 
 			 recyclingCost={this.state.recyclingCost} budget={this.props.budget} population={population} buildingsVisible={this.props.buildingsVisible}/>}
 			</div>
 		);

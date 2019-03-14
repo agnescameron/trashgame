@@ -22,7 +22,7 @@ class Menu extends Component{
     super(props);
 	this.state = {
 	  username: '',
-	  mainMenu: [],
+	  mainMenu: menus[0].items,
 	  hideMenu: true,
 	  menuSelected: [],
 	  menuContents: [],
@@ -34,14 +34,8 @@ class Menu extends Component{
 		managers: '',
 	},
 	}
-	this.renderMenu = this.renderMenu.bind(this);
 	this.menuAction = this.menuAction.bind(this);
 }
-
-	renderMainMenu = () => {
-		this.setState( {mainMenu: ["custodial", "education", "recycling", "speciality"]} );
-		return this.state.mainMenu;
-	}
 
 	renderMenu = (menu, event) => {
 		event.preventDefault();
@@ -66,9 +60,6 @@ class Menu extends Component{
 		});		
 	}
 
-	componentDidMount() {
-		this.renderMainMenu();
-	}
 
 	render() {
 		let menuBar = this.state.mainMenu;
