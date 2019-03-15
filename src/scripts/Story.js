@@ -170,7 +170,7 @@ randomContaminant = () => {
 			    type: 'ONBOARD',
 			})
 			}
-
+		this.props.startTimer();
 		}
 		else (this.setState({progress: this.state.progress+1}))
 	}
@@ -215,7 +215,7 @@ randomContaminant = () => {
 				<div className="scriptText">{messageText} </div>
 				<button className="nextButton" onClick={(event) => this.nextPage(event)}> > </button>
 				{this.state.contaminantImage === true && <div className="boxpic"> 
-					<img src={ require(`../css/img/${contaminant}.jpeg`) } /></div>}
+					<img src={ require('../css/img/coffee.jpeg') } /></div>}
 				</div>
 			</div>
 		);

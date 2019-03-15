@@ -62,23 +62,20 @@ class Stats extends Component{
 }
 	
 	tick = () => {
-		this.props.dispatch({
-			type: 'NEXTDAY',
-		})
-		console.log("called start timer")
-		this.setState({currentCount: this.props.day});	
+		this.setState({currentCount: this.props.day});
 		this.startTimer();
 	}
 
 	startTimer = () => {
-		console.log("starting timer")
-		this.setState({timerId: setTimeout(() => this.tick(), 15000)})
-		console.log("setting", this.state.timerId);		
-		// this.setState({timerId: timerId})
+		this.setState({timerId: setTimeout(() => this.tick(), 10000)})
+		console.log("setting", this.state.timerId);
+		this.props.dispatch({
+			type: 'NEXTDAY',
+		})
 	}
 
 	stopTimer = () => {
-		console.log("clearing", this.state.timerId);
+		console.log("stopping", this.state.timerId);
 		clearTimeout(this.state.timerId);
 	}
 
@@ -95,74 +92,74 @@ class Stats extends Component{
 			this.runScript('addBuilding');
 	}
 
-
+	//need to call after day changes
 	eachDay = () => {
-			this.setState({population: this.props.faculty+this.props.students});
-			console.log('population is', this.state.population)
+		this.setState({population: this.props.faculty+this.props.students});
+		console.log('population is', this.state.population)
 
-			//first, calculate the education level
-			var luck = economics.calculateLuck(this.state, this.props);
-			this.setState({luck: luck});
-			console.log('luck is', luck);
+		//first, calculate the education level
+		var luck = economics.calculateLuck(this.state, this.props);
+		this.setState({luck: luck});
+		// console.log('luck is', luck);
 
-			//first, calculate the education level
-			var educationLevel = economics.calculateEducationLevel(this.state, this.props);
-			this.setState({educationLevel: educationLevel});
-			console.log('educationLevel is', educationLevel);
+		//first, calculate the education level
+		var educationLevel = economics.calculateEducationLevel(this.state, this.props);
+		this.setState({educationLevel: educationLevel});
+		// console.log('educationLevel is', educationLevel);
 
-			//then, calculate all the waste being generated
-			var totalWaste = economics.calculateTotalWaste(this.state, this.props);
-			this.setState({totalWaste: totalWaste});
-			console.log('totalWaste is', totalWaste);
+		//then, calculate all the waste being generated
+		var totalWaste = economics.calculateTotalWaste(this.state, this.props);
+		this.setState({totalWaste: totalWaste});
+		// console.log('totalWaste is', totalWaste);
 
-			//is all the waste collected? if not: rodents
-			var collectionRate = economics.calculateCollectionRate(this.state, this.props);
-			this.setState({collectionRate: collectionRate});
-			console.log('collectionRate is', collectionRate);
+		//is all the waste collected? if not: rodents
+		var collectionRate = economics.calculateCollectionRate(this.state, this.props);
+		this.setState({collectionRate: collectionRate});
+		// console.log('collectionRate is', collectionRate);
 
-			//how much is getting put in recycling
-			var recyclingRate = economics.calculateRecyclingRate(this.state, this.props);
-			this.setState({recyclingRate: recyclingRate});
-			console.log('recyclingRate is', recyclingRate);
+		//how much is getting put in recycling
+		var recyclingRate = economics.calculateRecyclingRate(this.state, this.props);
+		this.setState({recyclingRate: recyclingRate});
+		// console.log('recyclingRate is', recyclingRate);
 
-			//if compost: how much is composted?
-			if(this.props.compost === true){
-				var totalCompost = economics.calculateTotalCompost(this.state, this.props);
-				var compostCost = economics.calculateCompostCost(this.state, this.props);
-			}
+		//if compost: how much is composted?
+		if(this.props.compost === true){
+			var totalCompost = economics.calculateTotalCompost(this.state, this.props);
+			var compostCost = economics.calculateCompostCost(this.state, this.props);
+		}
 
-			//is all the recycling collected? if not: run out of space
-			var recyclingCollectionRate = economics.calculateRecyclingCollectionRate(this.state, this.props);
-			if(recyclingCollectionRate !== 100){
-				console.log('running out of space, recyclingcollectionRate is ', recyclingCollectionRate);
-			}
+		//is all the recycling collected? if not: run out of space
+		var recyclingCollectionRate = economics.calculateRecyclingCollectionRate(this.state, this.props);
+		if(recyclingCollectionRate !== 100){
+			console.log('running out of space, recyclingcollectionRate is ', recyclingCollectionRate);
+		}
 
 			//take the recycling to Casella
-			var recyclingQuality = economics.calculateRecyclingQuality(this.state, this.props);
-			this.setState({recyclingQuality: recyclingQuality});	
-			console.log('quality is', recyclingQuality);
+		var recyclingQuality = economics.calculateRecyclingQuality(this.state, this.props);
+		this.setState({recyclingQuality: recyclingQuality});	
+		// console.log('quality is', recyclingQuality);
 
-			//how much did it cost?
-			var recyclingCost = economics.calculateRecyclingCost(this.state, this.props);
-			this.setState({recyclingCost: recyclingCost});
-			console.log('cost is', recyclingCost);
+		//how much did it cost?
+		var recyclingCost = economics.calculateRecyclingCost(this.state, this.props);
+		this.setState({recyclingCost: recyclingCost});
+		// console.log('cost is', recyclingCost);
 
-			//take away the (collected) recycling and compost: how much waste is left, how much did
-			//it cost to dispose of
-			var wasteCost = economics.calculateWasteCost(this.state, this.props);
-			this.setState({wasteCost: wasteCost});
-			console.log('waste cost is', wasteCost);
+		//take away the (collected) recycling and compost: how much waste is left, how much did
+		//it cost to dispose of
+		var wasteCost = economics.calculateWasteCost(this.state, this.props);
+		this.setState({wasteCost: wasteCost});
+		// console.log('waste cost is', wasteCost);
 
-			//are there rodents?
-			var rodents;
-			if(this.state.collectionRate !==100){
-				rodents = economics.calculateRodents(this.state);
-				console.log('rodents!', rodents);
-				if(rodents>10 && this.state.rodentNotification !== true){
-					this.runScript('rodents');
-					this.state.rodentNotification = true;
-				}				
-			}
+		//are there rodents?
+		var rodents;
+		if(this.state.collectionRate !==100){
+			rodents = economics.calculateRodents(this.state);
+			console.log('rodents!', rodents);
+			if(rodents>10 && this.state.rodentNotification !== true){
+				this.runScript('rodents');
+				this.state.rodentNotification = true;
+			}				
+		}
 			else rodents = 0;
 			this.setState({rodents: rodents})
 
@@ -170,7 +167,7 @@ class Stats extends Component{
 			//it cost to dispose of
 			var staffHappiness = economics.calculateStaffHappiness(this.state, this.props);
 			this.setState({staffHappiness: staffHappiness});
-			console.log('staff happiness is', staffHappiness);
+			// console.log('staff happiness is', staffHappiness);
 
 			   	
 			this.props.dispatch({
@@ -246,25 +243,9 @@ class Stats extends Component{
 
 	}
 
-	timer = () => {
-		this.eachDay();
-
-		//each week do
-		if(this.state.currentCount%7 === 0){
-			this.eachWeek();			
-		}
-
-		//each week do
-		if(this.state.currentCount%30 === 0){
-			this.eachMonth();			
-		}
-
-		this.check();
-		
-	}
-
-
 	runScript = (script) => {
+		this.stopTimer();
+		console.log('didstop?');
 		this.setState({
 			runScript: true,
 			script: script})
@@ -300,7 +281,6 @@ class Stats extends Component{
 
 	componentDidMount() {
 		this.setState({currentCount: this.props.day});
-		console.log("mounting")
 	}
 
 	componentDidUpdate(prevProps) {
@@ -310,11 +290,12 @@ class Stats extends Component{
 		if (this.props.onboarded !== prevProps.onboarded) {
 	  		console.log('change');
 	    	this.componentDidMount();
-	  	} 
-	}
-
-	componentWillUnmount() {
-	   	this.stop();
+	  	}
+	  	if (this.props.day !== prevProps.day){
+	  		console.log('day');
+	  		this.eachDay();
+			this.check();
+	  	}
 	}
 
 	render() {
@@ -322,8 +303,6 @@ class Stats extends Component{
 		var collectionBar = (Math.round(this.state.collectionRate)).toString().concat('%');
 		var rateBar = (Math.round(this.state.recyclingRate*100)).toString().concat('%');
 		var qualityBar = (Math.round(this.state.recyclingQuality)).toString().concat('%');
-
-		console.log('custodial staff is ', this.props.custodialStaff);
 
 		return(
 			<div>
@@ -336,7 +315,7 @@ class Stats extends Component{
 			</div>
 
 			<div id="statbar">
-				<div className="statcontainer">recycling quality: {qualityBar}<div className="progressbar">
+				<div className="statcontainer" onClick={()=>this.stopTimer()}>recycling quality: {qualityBar}<div className="progressbar">
 					<div className="progress" style={{width: qualityBar}}></div></div></div>
 				<div className="statcontainer">recycling rate: {rateBar}<div className="progressbar">
 					<div className="progress" style={{width: rateBar}}></div></div></div>
@@ -344,10 +323,12 @@ class Stats extends Component{
 					<div className="progress" style={{width: collectionBar}}></div></div></div>
 			</div>
 
-			{this.props.runScript===true && <Story script={this.state.script} buildings={this.props.buildingsVisible}/>}
+			{this.props.runScript===true && <Story script={this.state.script} buildings={this.props.buildingsVisible} startTimer={this.startTimer}/>}
 			{this.state.showMessages===true && <Messages messages={this.props.messages} showMessages={this.showMessages}/>}			
+			
+
 			{this.state.showStats===true && <StatsView day={this.props.day} custodialStaff={this.props.custodialStaff} recyclingStaff={this.props.recyclingStaff} recyclingQuality={this.state.recyclingQuality} 
-			 recyclingCost={this.state.recyclingCost} budget={this.props.budget} population={population} buildingsVisible={this.props.buildingsVisible}/>}
+			recyclingCost={this.state.recyclingCost} budget={this.props.budget} population={population} buildingsVisible={this.props.buildingsVisible}/>}
 			</div>
 		);
 	}
