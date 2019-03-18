@@ -252,7 +252,7 @@ class Stats extends Component{
 			this.runScript('contaminant');
 		}
 
-		if(this.props.day%30 === 0){
+		if(this.props.day%3 === 0){
 			this.eachMonth();
 		}
 
@@ -321,6 +321,7 @@ class Stats extends Component{
 		var collectionBar = (Math.round(this.state.collectionRate)).toString().concat('%');
 		var rateBar = (Math.round(this.state.recyclingRate*100)).toString().concat('%');
 		var qualityBar = (Math.round(this.state.recyclingQuality)).toString().concat('%');
+		var level = this.props.level;
 
 		return(
 			<div>
@@ -333,10 +334,10 @@ class Stats extends Component{
 			</div>
 
 			<div id="statbar">
-				<div className="statcontainer" onClick={()=>this.stopTimer()}>recycling quality: {qualityBar}<div className="progressbar">
-					<div className="progress" style={{width: qualityBar}}></div></div></div>
-				<div className="statcontainer">recycling rate: {rateBar}<div className="progressbar">
-					<div className="progress" style={{width: rateBar}}></div></div></div>
+				{level>=2 && <div className="statcontainer" onClick={()=>this.stopTimer()}>recycling quality: {qualityBar}<div className="progressbar">
+					<div className="progress" style={{width: qualityBar}}></div></div></div>}
+				{level >=1 && <div className="statcontainer">recycling rate: {rateBar}<div className="progressbar">
+					<div className="progress" style={{width: rateBar}}></div></div></div>}
 				<div className="statcontainer">collection rate: {collectionBar}<div className="progressbar">
 					<div className="progress" style={{width: collectionBar}}></div></div></div>
 			</div>
