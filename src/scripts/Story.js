@@ -175,13 +175,14 @@ class Story extends Component{
 			{
 				script: '3',
 				contents: [`a number of students have been asking about the possibilities\
-				for disposing of compost: a lot of it's ending up in the trash, and that's a bad thing!`,
-				`if you can fund an compost programme for campus, `
+				for disposing of food waste. Currently, it's all just being put in the trash`,
+				`If you could arrange some kind of composting programme, that would be great. You'll\
+				need to find funding for it though, and also make sure people know how to use it!`
 				],
 			},
 			{
 				script: '4',
-				contents: [`lab waste`
+				contents: [`Lab waste is a biiiig problem for the institute right now!`
 				],
 			},
 			{
