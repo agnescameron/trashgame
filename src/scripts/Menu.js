@@ -13,6 +13,7 @@ const mapStateToProps = (state) => {
   	staff: state.appReducer.staff,
   	bins: state.appReducer.bins,
   	vans: state.appReducer.vans,
+  	level: state.appReducer.level,
   }
 }
 
@@ -22,7 +23,6 @@ class Menu extends Component{
     super(props);
 	this.state = {
 	  username: '',
-	  mainMenu: menus[0].items,
 	  hideMenu: true,
 	  menuSelected: [],
 	  menuContents: [],
@@ -62,7 +62,16 @@ class Menu extends Component{
 
 
 	render() {
-		let menuBar = this.state.mainMenu;
+		var menuBar;
+
+		if (this.props.level === 0)
+			menuBar = this.state.menus[0].items;
+		else if (this.props.level === 1)
+			menuBar = this.state.menus[1].items;
+		else if (this.props.level === 2)
+			menuBar = this.state.menus[2].items;
+		else
+			menuBar = this.state.menus[3].items;
 
 		return(
 			<div>

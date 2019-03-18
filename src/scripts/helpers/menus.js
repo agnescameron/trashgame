@@ -1,7 +1,19 @@
 export const menus = [
 	  	{
-	  		menu: 'main', 
-	  		items: ["custodial", "education", "recycling", "speciality"],
+	  		menu: 'main1', 
+	  		items: ["custodial"],
+	  	},
+	  	{
+	  		menu: 'main2', 
+	  		items: ["custodial", "recycling"],
+	  	},
+	  	{
+	  		menu: 'main3', 
+	  		items: ["custodial", "recycling", "education"],
+	  	},
+	  	{
+	  		menu: 'main4', 
+	  		items: ["custodial", "recycling", "education", "speciality"],
 	  	},
 	  	{
 	  		menu: 'custodial', 

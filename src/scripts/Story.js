@@ -162,29 +162,33 @@ class Story extends Component{
 				script: '2',
 				contents: [`your recycling rate is getting there, but we need to talk about something else:\
 				quality!`,
-				`Early last year, China changed their policy on the purity of recycling they'd accept: `
+				`An issue common in recycling is that of contamination: if just 1 or 2 items that are meant \
+				to go in the trash end up in the recycling, then it can spoil the whole load`,
+				`depending on where the contamination is caught, this can mean that anything from a\
+				single blue bin, a truck, or a container's load of recycling becomes garbage`,
+				`And when that happens, you don't divert anything from landfill`,
+				`There's a whole load of things people think are recyclable but aren't: coffee cups,\
+				 plastic bags, plastic forks, styrofoam... in fact, most plastics! You need to reach\
+				 out to people and let them know what they can and can't recycle`
 				],
 			},
 			{
 				script: '3',
-				contents: [`level 3`
+				contents: [`a number of students have been asking about the possibilities\
+				for disposing of compost: a lot of it's ending up in the trash, and that's a bad thing!`,
+				`if you can fund an compost programme for campus, `
 				],
 			},
 			{
 				script: '4',
-				contents: [`level 4`
+				contents: [`lab waste`
 				],
 			},
 			{
 				script: '5',
-				contents: [`level 5`
+				contents: [`speciality: e-watste, clothing, etc`
 				],
-			},				
-			{
-				script: '5',
-				contents: [`level 6`
-				],
-			},	
+			},
 		],
 		progress: 0,
 	}
