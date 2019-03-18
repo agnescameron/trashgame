@@ -34,6 +34,7 @@ const mapStateToProps = (state) => {
   	collectionRate: state.appReducer.collectionRate,
   	week: state.appReducer.week,
   	month: state.appReducer.month,
+  	level: state.appReducer.level,
   }
 }
 
@@ -68,7 +69,7 @@ class Stats extends Component{
 	}
 
 	startTimer = () => {
-		this.setState({timerId: setTimeout(() => this.tick(), 10000)})
+		this.setState({timerId: setTimeout(() => this.tick(), 5000)})
 		console.log("setting", this.state.timerId);
 		this.props.dispatch({
 			type: 'NEXTDAY',
@@ -78,6 +79,15 @@ class Stats extends Component{
 	stopTimer = () => {
 		console.log("stopping", this.state.timerId);
 		clearTimeout(this.state.timerId);
+	}
+
+	nextLevel = () => {
+		var nextLevel = (this.props.level + 1).toString();
+		console.log('next level', nextLevel)
+		this.runScript(nextLevel);
+		this.props.dispatch({
+			type: 'NEXTLEVEL',
+		})
 	}
 
 	addBuilding = () => {
@@ -181,9 +191,9 @@ class Stats extends Component{
 
 
 	eachWeek = () => {
-		   	this.props.dispatch({
-			    type: 'WEEK',
-			});
+	   	this.props.dispatch({
+		    type: 'WEEK',
+		});
 
 		if(this.props.week === 1){
 		 	this.runScript('week');
@@ -193,25 +203,29 @@ class Stats extends Component{
 	}
 
 	eachMonth = () => {
-		//each month do
-		var recyclingCost = economics.calculateRecyclingQuality(this.state, this.props);
-		this.setState({recyclingCost: recyclingCost})
-		   	this.props.dispatch(
-		   	{
-			    type: 'MONTH',
-			    wages: this.props.recyclingStaff*200 + this.props.custodialStaff*100,
-			    budget: 10000,
-			});
-			this.props.dispatch({
-		    	type: 'addMessage',
-		    	message: {
-		    		contents: `it's been a month! Your recycling quality is at \
-		    		${this.state.recyclingQuality}%, costing $${this.state.recyclingCost}`,
-		    		sender: 'management',
-		    		read: false,
-		    		important: false,
-				}
-		    });
+
+		var monthlyCosts = economics.calculateMonthlyCosts(this.state, this.props);
+		console.log('costs for this month were', monthlyCosts);
+
+		this.nextLevel();
+
+	   	this.props.dispatch(
+	   	{
+		    type: 'MONTH',
+		    wages: monthlyCosts,
+		    budget: 10000,
+		});
+
+		this.props.dispatch({
+	    	type: 'addMessage',
+	    	message: {
+	    		contents: `it's been a month! Your recycling quality is at \
+	    		${this.state.recyclingQuality}%, costing $${this.state.recyclingCost}`,
+	    		sender: 'management',
+	    		read: false,
+	    		important: false,
+			}
+	    });
 	}
 
 
@@ -234,9 +248,14 @@ class Stats extends Component{
 			this.addBuilding();
 		}
 
-		if(this.props.day%3 === 0 && this.props.recyclingQuality < 95){
+		if(this.props.day%10 === 0 && this.props.recyclingQuality < 95){
 			this.runScript('contaminant');
 		}
+
+		if(this.props.day%30 === 0){
+			this.eachMonth();
+		}
+
 
 	}
 
@@ -291,7 +310,9 @@ class Stats extends Component{
 	  	if (this.props.day !== prevProps.day){
 	  		console.log('day');
 	  		this.eachDay();
-			this.check();
+			if(this.props.day !== 0){
+				this.check();
+			}
 	  	}
 	}
 

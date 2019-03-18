@@ -163,7 +163,14 @@ function appReducer (state, action) {
         onboarded: false,
         runScript: true,
         staffHappiness: 100,
+        level: 0,
       });
+
+    case 'NEXTLEVEL':
+      return Object.assign({}, state, {
+        level: state.level+1,
+      });
+
 
     case 'RUNSCRIPT':
       return Object.assign({}, state, {

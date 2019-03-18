@@ -145,6 +145,11 @@ const economics = {
 		return staffHappiness;
 	},
 
+	calculateMonthlyCosts: function(state, props) {
+		var staffHappiness = 100-state.rodents;
+		return staffHappiness;
+	},
+
 	// calculateTotalLandfill: function(state, props){
 	// 	//landfill - uncollected - recycling - compost - other speciality
 	// },

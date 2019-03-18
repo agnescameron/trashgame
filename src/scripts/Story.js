@@ -143,6 +143,48 @@ class Story extends Component{
 				`Sort it out before the mice go out of control!`
 				],
 			},
+
+			{
+				script: '1',
+				contents: [`good job getting the garbage collection up and running!\
+				Now, it's time to get onto making some real changes round here`,
+				`The reason we hired you was to improve our recycling programme, and\
+				to help the campus achieve 'zero waste' status`,
+				`The first step of that is getting the recycling rate up: this is the total\
+				proportion of landfill waste that is diverted to recycling. This will change\
+				according to the amount of bins you have, and recycling staff able to collect\
+				recyclables.`,
+				`That said, you can also only recycle so much before you're trying to recycle\
+				trash: the recycling rate depends a lot on what people are buying, too.`
+				],
+			},
+			{
+				script: '2',
+				contents: [`your recycling rate is getting there, but we need to talk about something else:\
+				quality!`,
+				`Early last year, China changed their policy on the purity of recycling they'd accept: `
+				],
+			},
+			{
+				script: '3',
+				contents: [`level 3`
+				],
+			},
+			{
+				script: '4',
+				contents: [`level 4`
+				],
+			},
+			{
+				script: '5',
+				contents: [`level 5`
+				],
+			},				
+			{
+				script: '5',
+				contents: [`level 6`
+				],
+			},	
 		],
 		progress: 0,
 	}
@@ -177,6 +219,7 @@ randomContaminant = () => {
 
 	selectScript = (script) => {
 		var scriptSelected;
+		console.log('script is', script);
 		this.state.scripts.forEach(function(element) {
 		if(element.script === script)
 			scriptSelected = element.contents;		
