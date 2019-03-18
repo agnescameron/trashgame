@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Story from '../scripts/Story';
+import Story from './Story';
+// import Day from './Day';
 import { createStore, applyMiddleware } from 'redux'
 import ReduxThunk from 'redux-thunk' 
 import Messages from '../scripts/Messages';
@@ -94,33 +95,30 @@ class Stats extends Component{
 
 	//need to call after day changes
 	eachDay = () => {
-		this.setState({population: this.props.faculty+this.props.students});
-		console.log('population is', this.state.population)
+		var nextState = this.state;
+
+		console.log('nextState messageNumber is', nextState.messageNumber);
+		nextState.population = this.props.faculty+this.props.students;
 
 		//first, calculate the education level
 		var luck = economics.calculateLuck(this.state, this.props);
-		this.setState({luck: luck});
-		// console.log('luck is', luck);
+		nextState.luck = luck;
 
 		//first, calculate the education level
 		var educationLevel = economics.calculateEducationLevel(this.state, this.props);
-		this.setState({educationLevel: educationLevel});
-		// console.log('educationLevel is', educationLevel);
+		nextState.educationLevel = educationLevel;
 
 		//then, calculate all the waste being generated
 		var totalWaste = economics.calculateTotalWaste(this.state, this.props);
-		this.setState({totalWaste: totalWaste});
-		// console.log('totalWaste is', totalWaste);
+		nextState.totalWaste = totalWaste;
 
 		//is all the waste collected? if not: rodents
 		var collectionRate = economics.calculateCollectionRate(this.state, this.props);
-		this.setState({collectionRate: collectionRate});
-		// console.log('collectionRate is', collectionRate);
+		nextState.collectionRate = collectionRate;
 
 		//how much is getting put in recycling
 		var recyclingRate = economics.calculateRecyclingRate(this.state, this.props);
-		this.setState({recyclingRate: recyclingRate});
-		// console.log('recyclingRate is', recyclingRate);
+		nextState.recyclingRate = recyclingRate;
 
 		//if compost: how much is composted?
 		if(this.props.compost === true){
@@ -134,21 +132,19 @@ class Stats extends Component{
 			console.log('running out of space, recyclingcollectionRate is ', recyclingCollectionRate);
 		}
 
-			//take the recycling to Casella
+		//take the recycling to Casella
 		var recyclingQuality = economics.calculateRecyclingQuality(this.state, this.props);
-		this.setState({recyclingQuality: recyclingQuality});	
+		nextState.recyclingQuality = recyclingQuality;
 		// console.log('quality is', recyclingQuality);
 
 		//how much did it cost?
 		var recyclingCost = economics.calculateRecyclingCost(this.state, this.props);
-		this.setState({recyclingCost: recyclingCost});
-		// console.log('cost is', recyclingCost);
+		nextState.recyclingCost = recyclingCost;
 
 		//take away the (collected) recycling and compost: how much waste is left, how much did
 		//it cost to dispose of
 		var wasteCost = economics.calculateWasteCost(this.state, this.props);
-		this.setState({wasteCost: wasteCost});
-		// console.log('waste cost is', wasteCost);
+		nextState.wasteCost = wasteCost;
 
 		//are there rodents?
 		var rodents;
@@ -163,21 +159,22 @@ class Stats extends Component{
 			else rodents = 0;
 			this.setState({rodents: rodents})
 
-			//take away the (collected) recycling and compost: how much waste is left, how much did
-			//it cost to dispose of
-			var staffHappiness = economics.calculateStaffHappiness(this.state, this.props);
-			this.setState({staffHappiness: staffHappiness});
-			// console.log('staff happiness is', staffHappiness);
+		//take away the (collected) recycling and compost: how much waste is left, how much did
+		//it cost to dispose of
+		var staffHappiness = economics.calculateStaffHappiness(this.state, this.props);
+		nextState.staffHappiness = staffHappiness;
 
-			   	
-			this.props.dispatch({
-			    type: 'DAY',
-			 	recyclingQuality: recyclingQuality,
-			 	recyclingCost: recyclingCost,
-			 	recyclingRate: recyclingRate,
-			 	collectionRate: collectionRate,
-			 	staffHappiness: staffHappiness,
-			 	wasteCost: wasteCost,
+		//set updated values
+		this.state = nextState;
+
+		this.props.dispatch({
+		    type: 'DAY',
+		 	recyclingQuality: recyclingQuality,
+		 	recyclingCost: recyclingCost,
+		 	recyclingRate: recyclingRate,
+		 	collectionRate: collectionRate,
+		 	staffHappiness: staffHappiness,
+		 	wasteCost: wasteCost,
 			});
 
 	}
@@ -259,7 +256,7 @@ class Stats extends Component{
 		event.preventDefault();
 		this.setState({onboarded: false});
 		this.setState({currentCount: 0});
-		this.stop();
+		this.stopTimer();
 		this.runScript('onboard');
 		this.props.dispatch({
 			type: 'PURGE'
@@ -324,11 +321,12 @@ class Stats extends Component{
 			</div>
 
 			{this.props.runScript===true && <Story script={this.state.script} buildings={this.props.buildingsVisible} startTimer={this.startTimer}/>}
-			{this.state.showMessages===true && <Messages messages={this.props.messages} showMessages={this.showMessages}/>}			
-			
+			{this.state.showMessages===true && <Messages messages={this.props.messages} showMessages={this.showMessages}/>}				
 
 			{this.state.showStats===true && <StatsView day={this.props.day} custodialStaff={this.props.custodialStaff} recyclingStaff={this.props.recyclingStaff} recyclingQuality={this.state.recyclingQuality} 
 			recyclingCost={this.state.recyclingCost} budget={this.props.budget} population={population} buildingsVisible={this.props.buildingsVisible}/>}
+			
+			{/* {this.state.runDay===true && <Day startTimer={this.startTimer} stopTimer={this.stopTimer} />} */}
 			</div>
 		);
 	}
