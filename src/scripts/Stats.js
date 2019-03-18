@@ -171,6 +171,7 @@ class Stats extends Component{
 				var compostCost = economics.calculateCompostCost(nextState, this.props);
 			}
 		}
+		
 		//finally, calculate the cost
 		var wasteCost = economics.calculateWasteCost(nextState, this.props);
 		nextState.wasteCost = wasteCost;

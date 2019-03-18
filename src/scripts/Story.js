@@ -21,13 +21,6 @@ const mapStateToProps = (state) => {
   }
 }
 
-const randomContaminant = () => {
-	var contaminants = ["food", "coffee cups", "plastic bags", "greasy paper", "clothing", "styrofoam"];
-	var rand = Math.floor(Math.random()*contaminants.length)
-	var contaminant = contaminants[rand];
-	return contaminant;
-}
-
 const clickRecycling = () => {
 	console.log('recycling');
 }
@@ -61,6 +54,11 @@ class Story extends Component{
 		contaminantImage: '',
 		contaminant: '',
 		scripts: [
+			{
+				script: 'default',
+				contents: 'welcome back!',
+			},
+
 			{
 				script: 'onboard',
 				contents: [`Hello and welcome to 'let's play, waste at MIT'\
@@ -196,13 +194,13 @@ class Story extends Component{
 	}
 
 
-randomContaminant = () => {
-	var contaminants = ["food", "coffee cups", "plastic bags", "greasy paper", "clothing", "styrofoam"];
-	var rand = Math.floor(Math.random()*contaminants.length);
-	var contaminant = contaminants[rand];
-	this.setState({contaminant: contaminant});
-	console.log('contaminant is ', contaminant);
-	return contaminant;
+	randomContaminant = () => {
+		var contaminants = ["food", "coffee cups", "plastic bags", "greasy paper", "clothing", "styrofoam"];
+		var rand = Math.floor(Math.random()*contaminants.length);
+		var contaminant = contaminants[rand];
+		this.setState({contaminant: contaminant});
+		console.log('contaminant is ', contaminant);
+		return contaminant;
 	}
 
 
@@ -229,11 +227,7 @@ randomContaminant = () => {
 		if(element.script === script)
 			scriptSelected = element.contents;		
 		});
-		
-		//hacky: if reset without auto loading script
-		// if(scriptSelected === undefined && this.props.onboarded === true){
-		// 	console.log('here', this.state.scripts[0].contents)
-		// }
+
 		if(scriptSelected === undefined){
 			console.log('here', this.state.scripts[0].contents)
 			this.setState({scriptSelected: this.state.scripts[0].contents})
@@ -246,6 +240,10 @@ randomContaminant = () => {
 			this.setState({scriptSelected: scriptSelected});
 	}
 
+	messageText = () => {
+		var messageText = this.state.scriptSelected[this.state.progress];
+		return {__html: messageText}
+	}
 
 	componentDidMount() {
 		this.selectScript(this.props.script);
@@ -253,17 +251,16 @@ randomContaminant = () => {
 
 
 	render() {
-		let messageText = this.state.scriptSelected[this.state.progress];
 		let contaminant = this.state.contaminant;
 
 		return(
 			<div>
 				<div className="menu"> 
 				<h1 className="menutitle">{characters.management}</h1>
-				<div className="scriptText">{messageText} </div>
+				<div className="scriptText"  dangerouslySetInnerHTML={this.messageText()} ></div>
 				<button className="nextButton" onClick={(event) => this.nextPage(event)}> > </button>
 				{this.state.contaminantImage === true && <div className="boxpic"> 
-					<img src={ require('../css/img/coffee.jpeg') } /></div>}
+					<img src={ require(`../css/img/${contaminant}.jpg`) } /></div>}
 				</div>
 			</div>
 		);
