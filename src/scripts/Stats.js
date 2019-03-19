@@ -171,7 +171,7 @@ class Stats extends Component{
 				var compostCost = economics.calculateCompostCost(nextState, this.props);
 			}
 		}
-		
+
 		//finally, calculate the cost
 		var wasteCost = economics.calculateWasteCost(nextState, this.props);
 		nextState.wasteCost = wasteCost;
@@ -250,8 +250,12 @@ class Stats extends Component{
 			this.addBuilding();
 		}
 
-		if(this.props.day%10 === 0 && this.props.recyclingQuality < 95){
+		if(this.props.day%13 === 0 && this.props.recyclingQuality < 95){
 			this.runScript('contaminant');
+		}
+
+		if(this.props.day%7 === 0){
+			this.eachWeek();
 		}
 
 		if(this.props.day%30 === 0){

@@ -17,7 +17,9 @@ const mapStateToProps = (state) => {
   	staffHappiness: state.appReducer.staffHappiness,
   	recyclingRate: state.appReducer.recyclingRate,
   	week: state.appReducer.week,
+  	month: state.appReducer.month,
   	onboarded: state.appReducer.onboarded,
+  	day: state.appReducer.day,
   }
 }
 
@@ -44,6 +46,7 @@ const weekQuality = (quality) => {
 	return message;
 }
 
+
 class Story extends Component{
   constructor(props) {
     super(props);
@@ -51,12 +54,10 @@ class Story extends Component{
 		username: '',
 		runScript: true,
 		scriptSelected: [],
-		contaminantImage: '',
-		contaminant: '',
 		scripts: [
 			{
 				script: 'default',
-				contents: 'welcome back!',
+				contents: ['welcome back!']
 			},
 
 			{
@@ -114,7 +115,8 @@ class Story extends Component{
 			{
 				script: 'contaminant',
 				contents: [`custodial staff keep finding contaminants in the recycling! \
-				You need to remind people that ${this.randomContaminant()} can't be recycled!`
+				You need to remind people that ${this.randomContaminant()} can't be recycled! 
+				<div class='boxpic'><img src='/css/img/${this.randomContaminant().replace(/\s/g, '')}.jpg'/></div>`
 				],
 			},
 
@@ -193,15 +195,14 @@ class Story extends Component{
 	}
 	}
 
-
 	randomContaminant = () => {
 		var contaminants = ["food", "coffee cups", "plastic bags", "greasy paper", "clothing", "styrofoam"];
-		var rand = Math.floor(Math.random()*contaminants.length);
+		var rand = ((this.props.day+this.props.week+this.props.recyclingCost)%contaminants.length);
 		var contaminant = contaminants[rand];
-		this.setState({contaminant: contaminant});
 		console.log('contaminant is ', contaminant);
 		return contaminant;
 	}
+
 
 
 	nextPage = (event) => {
@@ -231,10 +232,6 @@ class Story extends Component{
 		if(scriptSelected === undefined){
 			console.log('here', this.state.scripts[0].contents)
 			this.setState({scriptSelected: this.state.scripts[0].contents})
-		}		
-		else if(script === 'contaminant'){
-			this.setState({contaminantImage: true});			
-			this.setState({scriptSelected: scriptSelected});
 		}
 		else
 			this.setState({scriptSelected: scriptSelected});
@@ -259,8 +256,6 @@ class Story extends Component{
 				<h1 className="menutitle">{characters.management}</h1>
 				<div className="scriptText"  dangerouslySetInnerHTML={this.messageText()} ></div>
 				<button className="nextButton" onClick={(event) => this.nextPage(event)}> > </button>
-				{this.state.contaminantImage === true && <div className="boxpic"> 
-					<img src={ require(`../css/img/${contaminant}.jpg`) } /></div>}
 				</div>
 			</div>
 		);
