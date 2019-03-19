@@ -116,7 +116,7 @@ class Story extends Component{
 				script: 'contaminant',
 				contents: [`custodial staff keep finding contaminants in the recycling! \
 				You need to remind people that ${this.randomContaminant()} can't be recycled! 
-				<div class='boxpic'><img src='/css/img/${this.randomContaminant().replace(/\s/g, '')}.jpg'/></div>`
+				<div className='boxpic'><img src='/css/img/${this.randomContaminant().replace(/\s/g, '')}.jpg'/></div>`
 				],
 			},
 
@@ -197,12 +197,21 @@ class Story extends Component{
 
 	randomContaminant = () => {
 		var contaminants = ["food", "coffee cups", "plastic bags", "greasy paper", "clothing", "styrofoam"];
-		var rand = ((this.props.day+this.props.week+this.props.recyclingCost)%contaminants.length);
+		var rand;
+		if(this.props.day)
+			rand = ((this.props.day+this.props.week+this.props.recyclingCost)%contaminants.length);
+		else
+			rand =0; 
 		var contaminant = contaminants[rand];
 		console.log('contaminant is ', contaminant);
 		return contaminant;
 	}
 
+
+	// parsedRandomContaminant = () => {
+	// 	var parsedRandomContaminant = this.randomContaminant().replace(/\s/g, '');
+	// 	return parsedRandomContaminant;
+	// }
 
 
 	nextPage = (event) => {
