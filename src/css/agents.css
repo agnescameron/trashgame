@@ -7,7 +7,7 @@
   20% { transform:translate(-15%, 5%) }
   30% { transform:translate(7%, 20%) }
   40% { transform:translate(-5%, 80%) }
-  70% { transform:translate(0%, 15%) }
+  70% { transform:translate(80%, 15%) }
   80% { transform:translate(-42%, 35%) }
   90% { transform:translate(-10%, 10%) }
 }
@@ -15,7 +15,7 @@
 @keyframes agent1 {
   0%, 100% { transform:translate(0, 0) }
   10% { transform:translate(5%, 80%) }
-  30% { transform:translate(7%, -65%) }
+  30% { transform:translate(70%, -65%) }
   40% { transform:translate(-5%, -25%) }
   50% { transform:translate(-25%, 10%) }
   60% { transform:translate(15%, 0%) }
@@ -29,7 +29,7 @@
   10% { transform:translate(-5%, 40%) }
   20% { transform:translate(15%, 5%) }
   30% { transform:translate(47%, -25%) }
-  40% { transform:translate(-5%, 25%) }
+  40% { transform:translate(-45%, 25%) }
   70% { transform:translate(0%, 75%) }
   80% { transform:translate(3%, 35%) }
   90% { transform:translate(-20%, 10%) }
@@ -53,8 +53,6 @@
   30% { transform:translate(7%, -25%) }
   40% { transform:translate(-5%, 25%) }
   50% { transform:translate(-15%, 10%) }
-  80% { transform:translate(3%, 35%) }
-  90% { transform:translate(-10%, 10%) }
 }
 
 @keyframes agent5 {
@@ -88,6 +86,5 @@
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   border-bottom: 10px solid yellow;
-  animation-duration: 10s;
   animation-iteration-count: infinite;
 }
