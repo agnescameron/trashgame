@@ -81,10 +81,45 @@
 
 .student {
   position: absolute;
-  width: 0; 
+  width: 0;
   height: 0;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   border-bottom: 10px solid yellow;
   animation-iteration-count: infinite;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.speech {
+  visibility: hidden;
+  width: 120px;
+  background-color: white;
+  text-align: center;
+  padding: 10px;
+  border-radius: 6px;
+  border: 2px solid black;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: 10px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.student:hover .speech {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.faculty:hover .speech {
+  visibility: visible;
+  opacity: 1;
 }

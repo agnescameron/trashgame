@@ -78,11 +78,13 @@ class GameMap extends Component{
 			    </Repeat>
 				<Repeat numTimes={d.faculty}>
 			      {(index) => <div key={index} style={{left: (Math.random()*(d.w - 60))+20, top: (Math.random()*(d.h - 60))+25,
-			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="faculty"></div>}
+			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="faculty">
+			      	<span className="speech">bbbb</span></div>}
 			    </Repeat>
 				<Repeat numTimes={d.students}>
 			      {(index) => <div key={index} style={{left: (Math.random()*(d.w - 60))+20, top: (Math.random()*(d.h - 60))+25, 
-			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="student"></div>}
+			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="student">
+			      	<span className="speech">aaaa</span></div>}
 			    </Repeat>
 			</div>)}
 			</div>
@@ -98,7 +100,7 @@ class GameMap extends Component{
 	    items.push(this.props.children(i));
 	  }
 	  return <div>{items}</div>;
-	}
+		}
 	}
 
 class Child extends Component {
