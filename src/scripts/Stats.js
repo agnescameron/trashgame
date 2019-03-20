@@ -250,9 +250,19 @@ class Stats extends Component{
 			this.addBuilding();
 		}
 
+		//contaminant
 		if(this.props.day%13 === 0 && this.props.recyclingQuality < 95){
 			this.runScript('contaminant');
 		}
+
+		//recycling truck rejected
+		if(this.props.day%23 === 0 && this.props.recyclingQuality < 95){
+			this.runScript('truckRejected');
+			this.props.dispatch({
+				type: 'MONEY',
+				money: -1000,
+			})
+		}		
 
 		if(this.props.day%7 === 0){
 			this.eachWeek();

@@ -8,5 +8,11 @@ export const characters = {
 	recycling: '👷🏿‍♀️ recycling staff',
 	van: '👨🏻‍🔧 recycling van',
 	students: '👨🏿‍💻👩🏻‍💻 students',
-	faculty: '👨🏼‍🏫 faculty',
+	studentList: 
+		['👩🏻‍💻 student',
+	 '👨🏿‍💻 student',
+ 	'👨🏼‍💻 student',
+ 	'👩🏽‍💻 student',
+ 	'👩🏼‍💻 student'],	
+	faculty: '👨🏻‍🔬 faculty',
 }

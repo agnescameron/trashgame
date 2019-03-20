@@ -99,7 +99,6 @@ function appReducer (state, action) {
     });
       return messageArray;
 
-
     //buildings
     case 'addBuilding':
       return Object.assign({}, state, {
@@ -186,6 +185,11 @@ function appReducer (state, action) {
       return Object.assign({}, state, {
         onboarded: true,
       });
+
+    case 'MONEY':
+      return Object.assign({}, state, {
+        money: state.money+action.money,
+      });  
 
     default:
       return state;

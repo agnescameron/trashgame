@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import {buildings} from './helpers/buildings.js'
+import {buildings} from './helpers/buildings.js';
+import {characters} from './helpers/characters.js';
 import '../css/main.css'
 import '../css/agents.css'
 
@@ -28,17 +29,17 @@ class GameMap extends Component{
 
 	selectBuilding = (building, event) => {
 		event.preventDefault();
-		this.setState({buildings: buildings});
-		this.setState({buildingSelected: building});
-		this.setState({showBuildingInfo: true});
+		// this.setState({buildings: buildings});
+		// this.setState({buildingSelected: building});
+		// this.setState({showBuildingInfo: true});
 
-		//figure out which building was clicked and returned info
-		var buildingInfo;
-		buildings.forEach(function(element) {
-		  if(element.building === building)
-		  	buildingInfo=element;
-		});
-		this.setState({buildingInfo: buildingInfo});
+		// //figure out which building was clicked and returned info
+		// var buildingInfo;
+		// buildings.forEach(function(element) {
+		//   if(element.building === building)
+		//   	buildingInfo=element;
+		// });
+		// this.setState({buildingInfo: buildingInfo});
 	}
 
 	closeInfo = (event) => {
@@ -79,12 +80,12 @@ class GameMap extends Component{
 				<Repeat numTimes={d.faculty}>
 			      {(index) => <div key={index} style={{left: (Math.random()*(d.w - 60))+20, top: (Math.random()*(d.h - 60))+25,
 			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="faculty">
-			      	<span className="speech">bbbb</span></div>}
+			      	<span className="speech">{characters.faculty}</span></div>}
 			    </Repeat>
 				<Repeat numTimes={d.students}>
 			      {(index) => <div key={index} style={{left: (Math.random()*(d.w - 60))+20, top: (Math.random()*(d.h - 60))+25, 
 			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="student">
-			      	<span className="speech">aaaa</span></div>}
+			      	<span className="speech">{characters.studentList[index%5]}</span></div>}
 			    </Repeat>
 			</div>)}
 			</div>

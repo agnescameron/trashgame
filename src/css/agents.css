@@ -102,7 +102,7 @@
 
   /* Position the tooltip text */
   position: absolute;
-  z-index: 1;
+  z-index: 30;
   bottom: 100%;
   left: 50%;
   margin-left: 10px;
