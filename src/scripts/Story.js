@@ -54,48 +54,42 @@ class Story extends Component{
 		username: '',
 		runScript: true,
 		scriptSelected: [],
+		scriptSender: '',
 		scripts: [
 			{
+				sender: characters.management,
 				script: 'default',
-				contents: [`<div class='tooltip'>welcome back!  <span class="tooltiptext">Tooltip text</span> </div>`]
+				contents: [`welcome back!`]
 			},
 
 			{
+				sender: characters.management,
 				script: 'onboard',
 				contents: [`Hello and welcome to 'let's play, waste at MIT'\
 				You are the new head of waste management at the Media Lab.\
 				We're glad to have you on the team!`,
-				"You're in charge of solid waste, which currently covers trash and recycling",
-				"In an ideal world, we'd have speciality streams too, though at the moment nobody's implemented anything 🤷🏽‍♀️",
-				"Right now, the biggest challenge that the lab is facing is landfill: 100% of our waste gets thrown away, and that's a problem!\
-				it can be hard to get people to listen...\
-				but we're sure you'll be fine!",
-				"the lab is pretty new, and is set to grow a lot in the coming months\
+				"You're in charge of solid waste, which currently just covers trash",
+				`Eventually, we'll want you to start a recycling programme, and maybe even\
+				some speciality streams.`,
+				"The lab is pretty new, and is set to grow a lot in the coming months\
 				...so you'll need to hire new staff to deal with the extra waste\
 				Also: if you do a good job here, we'll ask you to expand to more buildings on campus",
-				//show campus
 				"the map in the centre represents the whole campus:\
-				right now, the only building you have to worry about is this one:\
+				right now, the only building you have to worry about is the Media Lab\
 				the only people in the building are 1 faculty and 3 students\
-				they've not got a lot of funding yet, so won't be ordering a lot of materials, or producing much waste",
-				`for now, you need to hire some custodians, and some recycling staff\
+				they've not got a lot of funding yet, so won't be ordering a lot of materials, \
+				or producing much waste",
+				`You'll need to start by hiring some custodians\
 				 -- without them, you won't be able to collect any waste at all!`,
-				 `hire and train custodial staff in the 'custodial' menu, and use the 'recycling' menu to hire\
-				 specialised staff, and buy equipment like bins and vans.`,
-				 `After you've got collection under control, you'll want to look at the recycling quality: you see, people might want\
-				 to recycle, but if they don't know what should go where, it's easy for that recycling to\
-				 get contaminated.`,
-				 `use signs, workshops and outreach to educate people!`,
-				//show recycling
-				"that's how the menu starts: as you get more buildings, more items will be added\
-				as you acquire items and staff, the percentage of recycling will increase:\
-				be careful not to go over budget!",
+				 `Hire and train custodial staff in the 'custodial' menu at the bottom.\
+				 After you've got collection under control, we can talk about recycling!`,
 				"that's all from me right now.\
 				...I'll be in touch once you've made some progress",
 				],
 			},
 
 			{
+				sender: characters.management,
 				script: 'e-waste',
 				contents: [`a number of students have been asking about the possibilities\
 				for disposing of e-waste: a lot of it's ending up in the trash, and that's a bad thing!`,
@@ -104,6 +98,7 @@ class Story extends Component{
 			},
 
 			{
+				sender: characters.management,
 				script: 'week',
 				contents: [`it's been a week! Your recycling rate is at \
 		    		${Math.round(this.props.recyclingRate)}%, costing $${this.props.recyclingCost}`,
@@ -115,14 +110,17 @@ class Story extends Component{
 			//events
 
 			{
+				sender: characters.custodial,
 				script: 'contaminant',
-				contents: [`custodial staff keep finding contaminants in the recycling! \
+				contents: [`we keep finding <div class='tooltip'>contaminants in the recycling!\
+				<span class="tooltiptext">recycling contamintation is a big problem at MIT!</span> </div> \
 				You need to remind people that ${this.randomContaminant()} can't be recycled! 
 				<div className='boxpic'><img src='/css/img/${this.randomContaminant().replace(/\s/g, '')}.jpg'/></div>`
 				],
 			},
 
 			{
+				sender: characters.custodial,
 				script: 'conference',
 				contents: [`There's been a big conference going on this week, and the waste quality is/
 				taking a real hit! The caterers don't know what to do with the food waste, so it's all/
@@ -134,6 +132,7 @@ class Story extends Component{
 			},
 
 			{
+				sender: characters.management,
 				script: 'policyChangeLabGlass',
 				contents: [`There's been a recent policy change from China, and we're having to comply/
 				Lab glass can no longer be recycled: we'll need tell people about this, or our recycling/
@@ -142,6 +141,7 @@ class Story extends Component{
 			},
 
 			{
+				sender: characters.management,
 				script: 'addBuilding',
 				contents: ["Things seem to be going pretty well here!",
 				`you've got the recycling and waste collection under control, and your staff are ${this.props.staffHappiness}% happy`,
@@ -155,6 +155,7 @@ class Story extends Component{
 				],
 			},
 			{
+				sender: characters.management,
 				script: 'rodents',
 				contents: [`We realise that this is a difficult time right now ,\
 				but we really need you to do something about the waste collection rate`,
@@ -166,6 +167,7 @@ class Story extends Component{
 			},
 
 			{
+				sender: characters.management,
 				script: '1',
 				contents: [`good job getting the garbage collection up and running!\
 				Now, it's time to get onto making some real changes round here`,
@@ -180,6 +182,7 @@ class Story extends Component{
 				],
 			},
 			{
+				sender: characters.management,
 				script: '2',
 				contents: [`your recycling rate is getting there, but we need to talk about something else:\
 				quality!`,
@@ -194,6 +197,7 @@ class Story extends Component{
 				],
 			},
 			{
+				sender: characters.management,
 				script: '3',
 				contents: [`a number of students have been asking about the possibilities\
 				for disposing of food waste. Currently, it's all just being put in the trash`,
@@ -202,11 +206,13 @@ class Story extends Component{
 				],
 			},
 			{
+				sender: characters.management,
 				script: '4',
 				contents: [`Lab waste is a biiiig problem for the institute right now!`
 				],
 			},
 			{
+				sender: characters.management,
 				script: '5',
 				contents: [`speciality: e-watste, clothing, etc`
 				],
@@ -246,18 +252,24 @@ class Story extends Component{
 
 	selectScript = (script) => {
 		var scriptSelected;
+		var scriptSender;
 		console.log('script is', script);
 		this.state.scripts.forEach(function(element) {
-		if(element.script === script)
-			scriptSelected = element.contents;		
+			if(element.script === script){
+				scriptSender = element.sender;
+				scriptSelected = element.contents;
+			}		
 		});
-
+		console.log('selected', scriptSelected);
 		if(scriptSelected === undefined){
 			console.log('here', this.state.scripts[0].contents)
-			this.setState({scriptSelected: this.state.scripts[0].contents})
+			this.setState({scriptSelected: this.state.scripts[0].contents});
+			this.setState({scriptSender: characters.management});
 		}
-		else
+		else {
 			this.setState({scriptSelected: scriptSelected});
+			this.setState({scriptSender: scriptSender});
+		}
 	}
 
 	messageText = () => {
@@ -276,7 +288,7 @@ class Story extends Component{
 		return(
 			<div>
 				<div className="menu"> 
-				<h1 className="menutitle">{characters.management}</h1>
+				<h1 className="menutitle">{this.state.scriptSender}</h1>
 				<div className="scriptText"  dangerouslySetInnerHTML={this.messageText()} ></div>
 				<button className="nextButton" onClick={(event) => this.nextPage(event)}> > </button>
 				</div>

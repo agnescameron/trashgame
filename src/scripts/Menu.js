@@ -44,7 +44,6 @@ class Menu extends Component{
 		if(element.menu === menu)
 			menuContents=element.items;
 		});
-		console.log("menu is ", this.state.menuContents)
 		this.setState({menuContents: menuContents})
 		this.setState({
       		hideMenu: !this.state.hideMenu,
