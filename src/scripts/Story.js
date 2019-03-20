@@ -57,7 +57,7 @@ class Story extends Component{
 		scripts: [
 			{
 				script: 'default',
-				contents: ['welcome back!']
+				contents: [`<div class='tooltip'>welcome back!  <span class="tooltiptext">Tooltip text</span> </div>`]
 			},
 
 			{
@@ -111,6 +111,8 @@ class Story extends Component{
 		    		${weekQuality(this.props.recyclingQuality)}`
 				],
 			},
+			
+			//events
 
 			{
 				script: 'contaminant',
@@ -118,6 +120,25 @@ class Story extends Component{
 				You need to remind people that ${this.randomContaminant()} can't be recycled! 
 				<div className='boxpic'><img src='/css/img/${this.randomContaminant().replace(/\s/g, '')}.jpg'/></div>`
 				],
+			},
+
+			{
+				script: 'conference',
+				contents: [`There's been a big conference going on this week, and the waste quality is/
+				taking a real hit! The caterers don't know what to do with the food waste, so it's all/
+				going into the trash, and attracting a bunch of rodents`,
+				`this also means that our recycling rate and quality have taken a hit: this is going/
+				to be a difficult month! Make sure you keep the collection rate on track, or the rodent/
+				problem will only get worse!`
+				],
+			},
+
+			{
+				script: 'policyChangeLabGlass',
+				contents: [`There's been a recent policy change from China, and we're having to comply/
+				Lab glass can no longer be recycled: we'll need tell people about this, or our recycling/
+				will be contaminated!`],
+
 			},
 
 			{
@@ -206,13 +227,6 @@ class Story extends Component{
 		console.log('contaminant is ', contaminant);
 		return contaminant;
 	}
-
-
-	// parsedRandomContaminant = () => {
-	// 	var parsedRandomContaminant = this.randomContaminant().replace(/\s/g, '');
-	// 	return parsedRandomContaminant;
-	// }
-
 
 	nextPage = (event) => {
 		event.preventDefault();
