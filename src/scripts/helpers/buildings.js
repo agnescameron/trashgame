@@ -5,6 +5,8 @@
             students: 3,
             budget: 2500,
             labs: 0,
+            w: 133,
+            h: 182,
           },
           {
             building: 'sloan',
@@ -12,6 +14,8 @@
             students: 14,
             budget: 7500,
             labs: 0,
+            w: 553,
+            h: 182,
           },
           {
             building: 'architecture',
@@ -19,13 +23,17 @@
             students: 20,
             budget: 10000,
             labs: 0,
+            w: 252,
+            h: 580,            
           },
           {
             building: 'CSAIL',
             faculty: 20,
-            students: 30,
+            students: 16,
             budget: 10500,
             labs: 0,
+            w: 133,
+            h: 298,
           },
           {
             building: 'broad',
@@ -33,6 +41,8 @@
             students: 15,
             budget: 12000,
             labs: 2,
+            w: 370,
+            h: 298,            
           },
           {
             building: 'mcgovern',
@@ -40,6 +50,8 @@
             students: 16,
             budget: 15000,
             labs: 3,
+            w: 163,
+            h: 298,
           },
           {
             building: 'studentcenter',
@@ -47,13 +59,17 @@
             students: 50,
             budget: 13500,
             labs: 0,
+            w: 133,
+            h: 60,
           },                
           {
             building: 'physics',
             faculty: 15,
             students: 17,
             budget: 11500,           
-            labs: 1,
+            labs: 0,
+            w: 553,
+            h: 60,
           },
       ]
 

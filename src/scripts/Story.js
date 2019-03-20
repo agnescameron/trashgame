@@ -120,10 +120,10 @@ class Story extends Component{
 
 			{
 				sender: characters.recycling,
-				script: 'truckRejected',
-				contents: [`Our truck just got turned back at the recycling plant! They said that\
-				the contamination level in the trash was too high. We got fined like $1000! Train the custodians\
-				to spot trash in the recycling so it doesn't happen again!`
+				script: 'binsFull',
+				contents: [`People keep dumping random trash in the recycling bins!\
+				It's not our job to clean them, but the custodians don't either. You\
+				need to tell people that those bins aren't just general! `
 				],
 			},
 

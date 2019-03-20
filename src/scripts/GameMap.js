@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import {buildings} from './helpers/buildings.js'
 import '../css/main.css'
-
+import '../css/agents.css'
 
 const mapStateToProps = (state) => {
   return{
@@ -66,7 +66,7 @@ class GameMap extends Component{
 			visible = 1;
 		else visible = this.props.buildingsVisible;
 		var buildings = this.state.buildings.slice(0, visible);
-		var agents = 20;
+		// var buildings = this.state.buildings;
 
 		return(
 			<div id="map">
@@ -77,7 +77,7 @@ class GameMap extends Component{
 			      {(index) => <div key={index} className='lab'>lab</div>}
 			    </Repeat>
 				<Repeat numTimes={d.students}>
-			      {(index) => <div key={index} className="agent"></div>}
+			      {(index) => <div key={index} style={{left: (Math.random()*(d.w - 60))+20, top: (Math.random()*(d.h - 60))+25, animationName:'agent'+(index%6).toString()}} className="agent"></div>}
 			    </Repeat>
 			</div>)}
 			</div>
