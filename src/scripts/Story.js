@@ -110,12 +110,30 @@ class Story extends Component{
 			//events
 
 			{
+				sender: characters.recycling,
+				script: 'truckRejected',
+				contents: [`Our truck just got turned back at the recycling plant! They said that\
+				the contamination level in the trash was too high. We got fined like $1000! Train the custodians\
+				to spot trash in the recycling so it doesn't happen again!`
+				],
+			},
+
+			{
+				sender: characters.recycling,
+				script: 'truckRejected',
+				contents: [`Our truck just got turned back at the recycling plant! They said that\
+				the contamination level in the trash was too high. We got fined like $1000! Train the custodians\
+				to spot trash in the recycling so it doesn't happen again!`
+				],
+			},
+
+			{
 				sender: characters.custodial,
 				script: 'contaminant',
 				contents: [`we keep finding <div class='tooltip'>contaminants in the recycling!\
 				<span class="tooltiptext">recycling contamintation is a big problem at MIT!</span> </div> \
 				You need to remind people that ${this.randomContaminant()} can't be recycled! 
-				<div className='boxpic'><img src='/css/img/${this.randomContaminant().replace(/\s/g, '')}.jpg'/></div>`
+				<div class='boxpic'><img src='/css/img/${this.randomContaminant().replace(/\s/g, '')}.jpg'/></div>`
 				],
 			},
 
@@ -154,6 +172,30 @@ class Story extends Component{
 				`thanks!`
 				],
 			},
+
+			{
+				sender: characters.students,
+				script: 'studentRodents',
+				contents: [`We keep finding rodents in the office! It's becoming a real problem. \
+				You have to sort this out!`
+				],
+			},
+
+			{
+				sender: characters.students,
+				script: 'changeInEducation',
+				contents: [`How come we can't recycle lab glass anymore? We've always been able to.`
+				],
+			},
+
+			{
+				sender: characters.faculty,
+				script: 'moreBins',
+				contents: [`We need more bins in our part of the building, we use a lot of \
+				items for research! Please can you get us some by the end of the week. Thanks!`
+				],
+			},
+
 			{
 				sender: characters.management,
 				script: 'rodents',

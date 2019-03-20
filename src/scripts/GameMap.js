@@ -59,7 +59,6 @@ class GameMap extends Component{
 	  	} 
 	}
 
-
 	render() {
 		//super hacky, gets buildings visible from props
 		var visible;
@@ -67,15 +66,19 @@ class GameMap extends Component{
 			visible = 1;
 		else visible = this.props.buildingsVisible;
 		var buildings = this.state.buildings.slice(0, visible);
+		var agents = 20;
 
 		return(
 			<div id="map">
 			<div className="container">
 			{buildings.map((d, i) => <div id={d.building} key={i} className="building" onClick={(event) => this.selectBuilding(d.building, event)}>
-				{d.building}
-				{(d.labs >= 1) ? <div className='lab'>lab</div> : ''}
-				{(d.labs >= 2) ? <div className='lab'>lab</div> : ''}
-				{(d.labs >= 3) ? <div className='lab'>lab</div> : ''}
+				{d.building}	
+				<Repeat numTimes={d.labs}>
+			      {(index) => <div key={index} className='lab'>lab</div>}
+			    </Repeat>
+				<Repeat numTimes={d.students}>
+			      {(index) => <div key={index} className="agent"></div>}
+			    </Repeat>
 			</div>)}
 			</div>
 			{this.state.showBuildingInfo && <Child buildingSelected={this.state.buildingSelected} buildingInfo={this.state.buildingInfo} closeInfo={this.closeInfo} />}
@@ -83,6 +86,15 @@ class GameMap extends Component{
 		);
 	}
 }
+
+	class Repeat extends Component {
+		render() {  let items = [];
+	  for (let i = 0; i < this.props.numTimes; i++) {
+	    items.push(this.props.children(i));
+	  }
+	  return <div>{items}</div>;
+	}
+	}
 
 class Child extends Component {
 	render() {
