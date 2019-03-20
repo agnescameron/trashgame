@@ -70,14 +70,24 @@
 }
 
 
-
-.agent {
+.faculty {
   position: absolute;
   width: 0; 
   height: 0;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid yellow;
+  border-bottom: 10px solid pink;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
+
+.student {
+  position: absolute;
+  width: 0; 
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 10px solid yellow;
   animation-duration: 10s;
   animation-iteration-count: infinite;
 }
