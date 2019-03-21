@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
   return{
   	buildingsVisible: state.appReducer.buildingsVisible,
   	custodialStaff: state.appReducer.custodialStaff,  
+  	recyclingStaff: state.appReducer.recyclingStaff,  
   }
 }
 
@@ -71,6 +72,7 @@ class GameMap extends Component{
 		var custodiansPerBuilding = Math.floor(this.props.custodialStaff/this.props.buildingsVisible);
 		var custodiansPerCampus = this.props.custodialStaff%this.props.buildingsVisible;
 		// var buildings = this.state.buildings;
+		console.log('recycling staff is ', this.props.recyclingStaff);
 
 		return(
 			<div id="map">
@@ -102,6 +104,11 @@ class GameMap extends Component{
 			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="custodian">
 			      	<span className="speech">{characters.custodianList[index%5]}</span></div>}
 			    </Repeat>			
+				<Repeat numTimes={this.props.recyclingStaff}>
+			      {(index) => <div key={index} style={{left: (Math.random()*(960))+20, top: (Math.random()*(720))+25, 
+			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="recycling">
+			      	<span className="speech">{characters.custodianList[index%5]}</span></div>}
+			    </Repeat>	
 			{this.state.showBuildingInfo && <Child buildingSelected={this.state.buildingSelected} buildingInfo={this.state.buildingInfo} closeInfo={this.closeInfo} />}
 			</div>
 		);

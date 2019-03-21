@@ -52,7 +52,7 @@ export const menus = [
 	  			hard enough about what they put in."
 	  		},
 	  		{
-	  			item: "hire",
+	  			item: "staff",
 	  			cost: 200, 
 	  			info: "Hire some recycling staff! These are the people who will take\
 	  			collected recycling from each building, and drive it to the dump. As\

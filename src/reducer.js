@@ -53,6 +53,7 @@ function appReducer (state, action) {
       });
 
     case 'staff':
+    console.log('hiring recycling staff')
       return Object.assign({}, state, {
         recyclingStaff: state.recyclingStaff+1,
         money: state.money-150,

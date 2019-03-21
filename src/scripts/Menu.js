@@ -27,12 +27,6 @@ class Menu extends Component{
 	  menuSelected: [],
 	  menuContents: [],
 	  menus: menus,
-	  staff: {
-		custodial: '',
-		recycling: '',
-		supervisors: '',
-		managers: '',
-	},
 	}
 	this.menuAction = this.menuAction.bind(this);
 }
