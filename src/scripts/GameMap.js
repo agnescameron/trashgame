@@ -79,7 +79,7 @@ class GameMap extends Component{
 			    </Repeat>
 				<Repeat numTimes={d.faculty}>
 			      {(index) => <div key={index} style={{left: (Math.random()*(d.w - 60))+20, top: (Math.random()*(d.h - 60))+25,
-			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="faculty">
+			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*10 + 6}s`}} className="faculty">
 			      	<span className="speech">{characters.faculty}</span></div>}
 			    </Repeat>
 				<Repeat numTimes={d.students}>

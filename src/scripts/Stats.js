@@ -119,6 +119,7 @@ class Stats extends Component{
 
 		var collectionRate = economics.calculateCollectionRate(nextState, this.props);
 		nextState.collectionRate = collectionRate;
+		console.log('collection rate is', collectionRate)
 
 		var rodents;
 		if(nextState.collectionRate !==100){
@@ -138,7 +139,7 @@ class Stats extends Component{
 		nextState.staffHappiness = staffHappiness;
 
 		//level 2: recycling rate
-		if(this.props.level >=2){
+		if(this.props.level >=1){
 			console.log('calculating level 2')
 			//how much is getting put in recycling
 			var recyclingRate = economics.calculateRecyclingRate(nextState, this.props);
@@ -156,7 +157,8 @@ class Stats extends Component{
 		}
 
 		//level 3: recycling quality
-		if(this.props.level >=3){
+		if(this.props.level >=2){
+			console.log('calculating level 3')
 			var recyclingQuality = economics.calculateRecyclingQuality(nextState, this.props);
 			nextState.recyclingQuality = recyclingQuality;
 
@@ -165,7 +167,7 @@ class Stats extends Component{
 		}
 
 		//level 4: speciality streams
-		if(this.props.level >=4){
+		if(this.props.level >=3){
 			if(this.props.compost === true){
 				var totalCompost = economics.calculateTotalCompost(nextState, this.props);
 				var compostCost = economics.calculateCompostCost(nextState, this.props);
@@ -197,7 +199,7 @@ class Stats extends Component{
 		    type: 'WEEK',
 		});
 
-		if(this.props.week === 1){
+		if(this.props.week === 2){
 		 	this.runScript('week');
 		}
 
@@ -250,19 +252,22 @@ class Stats extends Component{
 			this.addBuilding();
 		}
 
-		//contaminant
-		if(this.props.day%13 === 0 && this.props.recyclingQuality < 95){
-			this.runScript('contaminant');
-		}
+		//check for recycling quality
+		if(this.props.level >= 3){
+			//contaminant
+			if(this.props.day%13 === 0 && this.props.recyclingQuality < 95){
+				this.runScript('contaminant');
+			}
 
-		//recycling truck rejected
-		if(this.props.day%23 === 0 && this.props.recyclingQuality < 95){
-			this.runScript('truckRejected');
-			this.props.dispatch({
-				type: 'MONEY',
-				money: -1000,
-			})
-		}		
+			//recycling truck rejected
+			if(this.props.day%23 === 0 && this.props.recyclingQuality < 95){
+				this.runScript('truckRejected');
+				this.props.dispatch({
+					type: 'MONEY',
+					money: -1000,
+				})
+			}		
+		}
 
 		if(this.props.day%7 === 0){
 			this.eachWeek();
@@ -273,6 +278,7 @@ class Stats extends Component{
 		}
 
 
+		//add Losing event here!!
 	}
 
 	runScript = (script) => {

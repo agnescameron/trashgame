@@ -109,10 +109,20 @@ const economics = {
 	//this is for custodial collection: they cover both recycling and trash
 	//should this scale with number of bins?
 	calculateCollectionRate: function(state, props) {
-		var collectionRate= 100-((state.population)-10*props.custodialStaff)-((state.population)-10*props.bins);
+		var collectionRate;
+		if(props.custodialStaff === 0)
+			collectionRate = 0;
+		else
+			collectionRate = 100-((state.population)-10*props.custodialStaff);
+		
+		//sanity check
 		if(collectionRate > 100){
 			collectionRate = 100;
 		}
+		if(collectionRate < 0){
+			collectionRate = 0;
+		}
+		
 		return collectionRate;
 	},
 
