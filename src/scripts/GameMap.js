@@ -9,6 +9,7 @@ import '../css/agents.css'
 const mapStateToProps = (state) => {
   return{
   	buildingsVisible: state.appReducer.buildingsVisible,
+  	custodialStaff: state.appReducer.custodialStaff,  
   }
 }
 
@@ -67,6 +68,8 @@ class GameMap extends Component{
 			visible = 1;
 		else visible = this.props.buildingsVisible;
 		var buildings = this.state.buildings.slice(0, visible);
+		var custodiansPerBuilding = Math.floor(this.props.custodialStaff/this.props.buildingsVisible);
+		var custodiansPerCampus = this.props.custodialStaff%this.props.buildingsVisible;
 		// var buildings = this.state.buildings;
 
 		return(
@@ -87,8 +90,18 @@ class GameMap extends Component{
 			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="student">
 			      	<span className="speech">{characters.studentList[index%5]}</span></div>}
 			    </Repeat>
+				<Repeat numTimes={custodiansPerBuilding}>
+			      {(index) => <div key={index} style={{left: (Math.random()*(d.w - 60))+20, top: (Math.random()*(d.h - 60))+25, 
+			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="custodian">
+			      	<span className="speech">{characters.custodianList[index%5]}</span></div>}
+			    </Repeat>
 			</div>)}
 			</div>
+				<Repeat numTimes={custodiansPerCampus}>
+			      {(index) => <div key={index} style={{left: (Math.random()*(960))+20, top: (Math.random()*(720))+25, 
+			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="custodian">
+			      	<span className="speech">{characters.custodianList[index%5]}</span></div>}
+			    </Repeat>			
 			{this.state.showBuildingInfo && <Child buildingSelected={this.state.buildingSelected} buildingInfo={this.state.buildingInfo} closeInfo={this.closeInfo} />}
 			</div>
 		);

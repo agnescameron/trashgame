@@ -67,6 +67,16 @@
   90% { transform:translate(-10%, 10%) }
 }
 
+.student {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 10px solid yellow;
+  animation-iteration-count: infinite;
+  display: inline-block;
+}
 
 .faculty {
   position: absolute;
@@ -79,16 +89,18 @@
   animation-iteration-count: infinite;
 }
 
-.student {
+
+.custodian {
   position: absolute;
-  width: 0;
-  height: 0;
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
-  border-bottom: 10px solid yellow;
-  animation-iteration-count: infinite;
+  height: 10px;
+  width: 10px;
+  background-color: red;
+  border-radius: 50%;
   display: inline-block;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
 }
+
 
 /* Tooltip text */
 .speech {
@@ -120,6 +132,13 @@
 
 /* Show the tooltip text when you mouse over the tooltip container */
 .faculty:hover .speech {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.custodian:hover .speech {
   visibility: visible;
   opacity: 1;
 }

@@ -76,7 +76,7 @@ class Story extends Component{
 				Also: if you do a good job here, we'll ask you to expand to more buildings on campus",
 				"the map in the centre represents the whole campus:\
 				right now, the only building you have to worry about is the Media Lab\
-				the only people in the building are 1 faculty and 3 students\
+				the only people in the building are 10 faculty and 30 students\
 				they've not got a lot of funding yet, so won't be ordering a lot of materials, \
 				or producing much waste",
 				`You'll need to start by hiring some custodians\

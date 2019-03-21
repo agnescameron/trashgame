@@ -1,8 +1,8 @@
    export const buildings =[     
           {
             building: 'medialab',
-            faculty: 2,
-            students: 7,
+            faculty: 1,
+            students: 3,
             budget: 2500,
             labs: 0,
             w: 133,
