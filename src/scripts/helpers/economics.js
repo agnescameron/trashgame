@@ -43,7 +43,6 @@ const economics = {
 			leftoverWaste = props.leftoverWasteHistory.slice(-1)[0];
 		else
 			leftoverWaste = 0;
-		console.log('in economics, leftover waste is', leftoverWaste);
 		var wasteProportion = ((1+state.luck)-stats.rollDice(state.luck));
 		var totalWaste = (state.population)*wasteProportion*constant.wastePopMultiplier 
 			+ constant.wasteBuildingConst*props.buildingsVisible + leftoverWaste;

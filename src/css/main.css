@@ -244,6 +244,19 @@
   float: left;
   width: 50%;
 }
+
+/*charts*/
+
+#chartview {
+  visibility: hidden;
+}
+
+#collectionview:hover #chartview {
+  visibility: visible;
+  opacity: 1;
+}
+
+
 /* Tooltip container */
 .tooltip {
   position: relative;

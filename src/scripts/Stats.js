@@ -362,15 +362,15 @@ class Stats extends Component{
 					<div className="progress" style={{width: qualityBar}}></div></div></div>}
 				{level >=1 && <div className="statcontainer">recycling rate: {rateBar}<div className="progressbar">
 					<div className="progress" style={{width: rateBar}}></div></div></div>}
-				<div className="statcontainer" onClick={(event) => this.showChart(event)}>collection rate: {collectionBar}<div className="progressbar">
-					<div className="progress" style={{width: collectionBar}}></div></div></div>
+				<div id="collectionview" className="statcontainer" onClick={(event) => this.showChart(event)}>collection rate: {collectionBar}<div className="progressbar">
+					<div className="progress" style={{width: collectionBar}}></div></div>
+						<div id="chartview"><ChartView history={this.props.collectionRateHistory} day={this.props.day} /></div>
+					</div>
 			</div>
 
 			{this.props.runScript===true && <Story script={this.state.script} buildings={this.props.buildingsVisible} startTimer={this.startTimer}/>}
 			{this.state.showMessages===true && <Messages messages={this.props.messages} showMessages={this.showMessages}/>}				
 			
-			{this.state.showChart===true && <ChartView history={this.props.collectionRateHistory} day={this.props.day} />} 
-
 			{this.state.showStats===true && <StatsView day={this.props.day} custodialStaff={this.props.custodialStaff} recyclingStaff={this.props.recyclingStaff} recyclingQuality={this.state.recyclingQuality} 
 			recyclingCost={this.state.recyclingCost} budget={this.props.budget} population={population} buildingsVisible={this.props.buildingsVisible}/>}
 			
