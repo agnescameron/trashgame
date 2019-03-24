@@ -107,8 +107,7 @@ class Story extends Component{
 				script: 'week',
 				contents: [`it's been a week! Your collection rate is at \
 		    		${Math.round(this.props.collectionRate)}%, and you've hired ${this.props.custodialStaff}`,
-		    		`The quality of the last load was ${Math.round(this.props.recyclingQuality)}%: \
-		    		${weekQuality(this.props.recyclingQuality)}`
+		    		`You've got some leftover waste building up!`
 				],
 			},
 

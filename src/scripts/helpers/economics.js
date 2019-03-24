@@ -38,10 +38,15 @@ const economics = {
 
 	calculateTotalWaste: function(state, props) {
 		//waste proportion varies between 60% and 100%: higher number is worse here, thus inverted
+		var leftoverWaste;
+		if(props.day !==0)
+			leftoverWaste = props.leftoverWasteHistory.slice(-1)[0];
+		else
+			leftoverWaste = 0;
+		console.log('in economics, leftover waste is', leftoverWaste);
 		var wasteProportion = ((1+state.luck)-stats.rollDice(state.luck));
-		console.log('waste proportion is, ', wasteProportion, 'luck is', state.luck);
 		var totalWaste = (state.population)*wasteProportion*constant.wastePopMultiplier 
-			+ constant.wasteBuildingConst*props.buildingsVisible;
+			+ constant.wasteBuildingConst*props.buildingsVisible + leftoverWaste;
 		return totalWaste;
 	},
 
@@ -122,7 +127,7 @@ const economics = {
 		if(collectionRate < 0){
 			collectionRate = 0;
 		}
-		
+
 		return collectionRate;
 	},
 

@@ -36,6 +36,7 @@ const mapStateToProps = (state) => {
   	month: state.appReducer.month,
   	level: state.appReducer.level,
   	collectionRateHistory: state.appReducer.collectionRateHistory,
+  	leftoverWasteHistory: state.appReducer.leftoverWasteHistory,
   }
 }
 
@@ -52,6 +53,7 @@ class Stats extends Component{
 		recyclingCost: '',
 		totalWaste:'',
 		totalCompost:'',
+		compostCost: '',
 		collectionRate: '',
 		wasteCost: '',
 		recyclingRate: '',
@@ -62,6 +64,7 @@ class Stats extends Component{
 		dayLength:'',
 		timerId: '',
 		showChart: '',
+		leftoverWaste: '',
 	}
 }
 	
@@ -111,74 +114,63 @@ class Stats extends Component{
 
 		nextState.population = this.props.faculty+this.props.students;
 
-		var luck = economics.calculateLuck(nextState, this.props);
-		nextState.luck = luck;
-
+		nextState.luck = economics.calculateLuck(nextState, this.props);
 
 		//level 1: waste collection: always calculated
-		var totalWaste = economics.calculateTotalWaste(nextState, this.props);
-		nextState.totalWaste = totalWaste;
+		nextState.totalWaste = economics.calculateTotalWaste(nextState, this.props);
 
-		var collectionRate = economics.calculateCollectionRate(nextState, this.props);
-		nextState.collectionRate = collectionRate;
-		console.log('collection rate is', collectionRate)
+		nextState.collectionRate = economics.calculateCollectionRate(nextState, this.props);
 
-		var rodents;
+		nextState.leftoverWaste = ((100 - nextState.collectionRate)/100)*nextState.totalWaste;
+		console.log('leftover waste is', nextState.leftoverWaste);
+
 		if(nextState.collectionRate !==100){
-			rodents = economics.calculateRodents(nextState);
-			console.log('rodents!', rodents);
-			if(rodents>10 && this.state.rodentNotification !== true){
+			nextState.rodents = economics.calculateRodents(nextState);
+			console.log('rodents!', nextState.rodents);
+			if(nextState.rodents>10 && this.state.rodentNotification !== true){
 				this.runScript('rodents');
-				this.state.rodentNotification = true;
+				nextState.rodentNotification = true;
 			}
 		}
 		else 
-			rodents = 0;
+			nextState.rodents = 0;
 
-		nextState.rodents = rodents;
-
-		var staffHappiness = economics.calculateStaffHappiness(nextState, this.props);
-		nextState.staffHappiness = staffHappiness;
+		nextState.staffHappiness = economics.calculateStaffHappiness(nextState, this.props);
 
 		//level 2: recycling rate
 		if(this.props.level >=1){
 			console.log('calculating level 2')
 			//how much is getting put in recycling
-			var recyclingRate = economics.calculateRecyclingRate(nextState, this.props);
-			nextState.recyclingRate = recyclingRate;
+			nextState.recyclingRate = economics.calculateRecyclingRate(nextState, this.props);
 
 			//how much did it cost?
-			var recyclingCost = economics.calculateRecyclingCost(nextState, this.props);
-			nextState.recyclingCost = recyclingCost;
+			nextState.recyclingCost = economics.calculateRecyclingCost(nextState, this.props);
 
 			//is all the recycling collected? if not: run out of space
-			var recyclingCollectionRate = economics.calculateRecyclingCollectionRate(nextState, this.props);
-			if(recyclingCollectionRate !== 100){
-				console.log('running out of space, recyclingcollectionRate is ', recyclingCollectionRate);
+			nextState.recyclingCollectionRate = economics.calculateRecyclingCollectionRate(nextState, this.props);
+			if(nextState.recyclingCollectionRate !== 100){
+				console.log('running out of space, recyclingcollectionRate is ', nextState.recyclingCollectionRate);
 			}
 		}
 
 		//level 3: recycling quality
 		if(this.props.level >=2){
 			console.log('calculating level 3')
-			var recyclingQuality = economics.calculateRecyclingQuality(nextState, this.props);
-			nextState.recyclingQuality = recyclingQuality;
+			nextState.recyclingQuality = economics.calculateRecyclingQuality(nextState, this.props);
 
-			var educationLevel = economics.calculateEducationLevel(nextState, this.props);
-			nextState.educationLevel = educationLevel;
+			nextState.educationLevel = economics.calculateEducationLevel(nextState, this.props);
 		}
 
 		//level 4: speciality streams
 		if(this.props.level >=3){
 			if(this.props.compost === true){
-				var totalCompost = economics.calculateTotalCompost(nextState, this.props);
-				var compostCost = economics.calculateCompostCost(nextState, this.props);
+				nextState.totalCompost = economics.calculateTotalCompost(nextState, this.props);
+				nextState.compostCost = economics.calculateCompostCost(nextState, this.props);
 			}
 		}
 
 		//finally, calculate the cost
-		var wasteCost = economics.calculateWasteCost(nextState, this.props);
-		nextState.wasteCost = wasteCost;
+		nextState.wasteCost = economics.calculateWasteCost(nextState, this.props);
 		
 		//set updated values
 		this.state = nextState;
@@ -190,6 +182,7 @@ class Stats extends Component{
 		 	recyclingCost: nextState.recyclingCost,
 		 	recyclingRate: nextState.recyclingRate,
 		 	collectionRate: nextState.collectionRate,
+		 	leftoverWaste: nextState.leftoverWaste,
 		 	staffHappiness: nextState.staffHappiness,
 		 	wasteCost: nextState.wasteCost,
 			});

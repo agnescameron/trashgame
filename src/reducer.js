@@ -124,6 +124,7 @@ function appReducer (state, action) {
         wasteCost: action.wasteCost,
         money: state.money-action.recyclingCost,
         collectionRateHistory: [...state.collectionRateHistory, action.collectionRate],
+        leftoverWasteHistory: [...state.leftoverWasteHistory, action.leftoverWaste],
       });
 
     case 'WEEK':
@@ -168,6 +169,7 @@ function appReducer (state, action) {
         collectionRateHistory: [],
         recyclingRateHistory: [],
         recyclingQualityHistory: [],
+        leftoverWasteHistory: [],
       });
 
     case 'NEXTLEVEL':
