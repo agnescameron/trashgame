@@ -15,6 +15,8 @@ const mapStateToProps = (state) => {
   	recyclingQuality: state.appReducer.recyclingQuality,
   	recyclingCost: state.appReducer.recyclingCost,
   	staffHappiness: state.appReducer.staffHappiness,
+  	collectionRate: state.appReducer.collectionRate,
+  	custodialStaff: state.appReducer.custodialStaff,
   	recyclingRate: state.appReducer.recyclingRate,
   	week: state.appReducer.week,
   	month: state.appReducer.month,
@@ -56,6 +58,9 @@ class Story extends Component{
 		scriptSelected: [],
 		scriptSender: '',
 		scripts: [
+
+			//general information
+
 			{
 				sender: characters.management,
 				script: 'default',
@@ -72,18 +77,18 @@ class Story extends Component{
 				`Eventually, we'll want you to start a recycling programme, and maybe even\
 				some speciality streams.`,
 				"The lab is pretty new, and is set to grow a lot in the coming months\
-				...so you'll need to hire new staff to deal with the extra waste\
+				...so you'll need to hire new staff to deal with the extra waste.\
 				Also: if you do a good job here, we'll ask you to expand to more buildings on campus",
-				"the map in the centre represents the whole campus:\
-				right now, the only building you have to worry about is the Media Lab\
-				the only people in the building are 10 faculty and 30 students\
+				"The map in the centre represents the whole campus:\
+				right now, the only building you have to worry about is the Media Lab.\
+				The only people in the building are 10 faculty and 30 students --\
 				they've not got a lot of funding yet, so won't be ordering a lot of materials, \
 				or producing much waste",
 				`You'll need to start by hiring some custodians\
 				 -- without them, you won't be able to collect any waste at all!`,
 				 `Hire and train custodial staff in the 'custodial' menu at the bottom.\
 				 After you've got collection under control, we can talk about recycling!`,
-				"that's all from me right now.\
+				"That's all from me right now.\
 				...I'll be in touch once you've made some progress",
 				],
 			},
@@ -100,14 +105,51 @@ class Story extends Component{
 			{
 				sender: characters.management,
 				script: 'week',
-				contents: [`it's been a week! Your recycling rate is at \
+				contents: [`it's been a week! Your collection rate is at \
+		    		${Math.round(this.props.collectionRate)}%, and you've hired ${this.props.custodialStaff}`,
+		    		`The quality of the last load was ${Math.round(this.props.recyclingQuality)}%: \
+		    		${weekQuality(this.props.recyclingQuality)}`
+				],
+			},
+
+			{
+				sender: characters.management,
+				script: 'recyclingWeek',
+				contents: [`the recycling program has been up and running for a week now. Your recycling rate is at \
 		    		${Math.round(this.props.recyclingRate)}%, costing $${this.props.recyclingCost}`,
 		    		`The quality of the last load was ${Math.round(this.props.recyclingQuality)}%: \
 		    		${weekQuality(this.props.recyclingQuality)}`
 				],
 			},
+
+			//character intros/development
 			
+			{
+				sender: characters.custodial,
+				script: 'hiredCustodian',
+				contents: [`Hi there! I'm your new custodial worker.`
+				],
+			},
+			{
+				sender: characters.recycling,
+				script: 'hiredRecycling',
+				contents: [`Hi there! I'm your new recycling worker.`
+				],
+			},
+
+
 			//events
+
+			{
+				sender: characters.processing,
+				script: 'contaminationAtPlant',
+				contents: [`Hi there, I'm calling from the processing plant. We've had a bunch of\
+				contaminated loads from you guys recently, and it's putting a real strain on our staff -- \
+				not to mention, you're racking up a bunch of fines. You've really got to sort this out!`,
+				`Things like plastic bags are particularly bad: they clog up our machines and somebody\
+				has to go in there by hand and fix them!`
+				],
+			},
 
 			{
 				sender: characters.recycling,
@@ -207,6 +249,8 @@ class Story extends Component{
 				`Sort it out before the mice go out of control!`
 				],
 			},
+
+			//levels
 
 			{
 				sender: characters.management,

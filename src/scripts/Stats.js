@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Story from './Story';
-// import Day from './Day';
+import {Line} from 'react-chartjs-2';
 import { createStore, applyMiddleware } from 'redux'
 import ReduxThunk from 'redux-thunk' 
 import Messages from '../scripts/Messages';
@@ -35,6 +35,7 @@ const mapStateToProps = (state) => {
   	week: state.appReducer.week,
   	month: state.appReducer.month,
   	level: state.appReducer.level,
+  	collectionRateHistory: state.appReducer.collectionRateHistory,
   }
 }
 
@@ -60,6 +61,7 @@ class Stats extends Component{
 		rodents: '',
 		dayLength:'',
 		timerId: '',
+		showChart: '',
 	}
 }
 	
@@ -199,7 +201,7 @@ class Stats extends Component{
 		    type: 'WEEK',
 		});
 
-		if(this.props.week === 2){
+		if(this.props.week === 1){
 		 	this.runScript('week');
 		}
 
@@ -317,6 +319,11 @@ class Stats extends Component{
 		this.setState(prevState => ({showStats: !prevState.showStats}));
 	}
 
+	showChart = (event) => {
+		event.preventDefault();
+		this.setState(prevState => ({showChart: !prevState.showChart}));
+	}
+
 	componentDidMount() {
 		this.setState({currentCount: this.props.day});
 	}
@@ -345,6 +352,8 @@ class Stats extends Component{
 		var qualityBar = (Math.round(this.state.recyclingQuality)).toString().concat('%');
 		var level = this.props.level;
 
+		console.log('collection rate history is', this.props.collectionRateHistory);
+
 		return(
 			<div>
 
@@ -360,18 +369,44 @@ class Stats extends Component{
 					<div className="progress" style={{width: qualityBar}}></div></div></div>}
 				{level >=1 && <div className="statcontainer">recycling rate: {rateBar}<div className="progressbar">
 					<div className="progress" style={{width: rateBar}}></div></div></div>}
-				<div className="statcontainer">collection rate: {collectionBar}<div className="progressbar">
+				<div className="statcontainer" onClick={(event) => this.showChart(event)}>collection rate: {collectionBar}<div className="progressbar">
 					<div className="progress" style={{width: collectionBar}}></div></div></div>
 			</div>
 
 			{this.props.runScript===true && <Story script={this.state.script} buildings={this.props.buildingsVisible} startTimer={this.startTimer}/>}
 			{this.state.showMessages===true && <Messages messages={this.props.messages} showMessages={this.showMessages}/>}				
+			
+			{this.state.showChart===true && <ChartView history={this.props.collectionRateHistory} day={this.props.day} />} 
 
 			{this.state.showStats===true && <StatsView day={this.props.day} custodialStaff={this.props.custodialStaff} recyclingStaff={this.props.recyclingStaff} recyclingQuality={this.state.recyclingQuality} 
 			recyclingCost={this.state.recyclingCost} budget={this.props.budget} population={population} buildingsVisible={this.props.buildingsVisible}/>}
 			
 			{/* {this.state.runDay===true && <Day startTimer={this.startTimer} stopTimer={this.stopTimer} />} */}
 			</div>
+		);
+	}
+}
+
+class ChartView extends Component {
+	render() {
+	var days = [];
+	for(var i=0; i<this.props.day; i++){
+		days.push(i);
+	}
+	var data= {
+			labels: days,
+	        datasets: [{
+	        label: "collection rate",
+	        backgroundColor: 'rgb(255, 99, 132)',
+	        borderColor: 'rgb(255, 99, 132)',
+	        data: this.props.history,
+	        }]
+	    }
+
+		return(
+		<div className="statsbox">
+			<Line data={data} />
+		</div>
 		);
 	}
 }
