@@ -37,6 +37,8 @@ const mapStateToProps = (state) => {
   	level: state.appReducer.level,
   	collectionRateHistory: state.appReducer.collectionRateHistory,
   	leftoverWasteHistory: state.appReducer.leftoverWasteHistory,
+  	recyclingRateHistory: state.appReducer.recyclingRateHistory,
+   	recyclingQualityHistory: state.appReducer.recyclingQualityHistory, 	
   }
 }
 
@@ -359,12 +361,16 @@ class Stats extends Component{
 
 			<div id="statbar">
 				{level>=2 && <div className="statcontainer" onClick={()=>this.stopTimer()}>recycling quality: {qualityBar}<div className="progressbar">
-					<div className="progress" style={{width: qualityBar}}></div></div></div>}
+					<div className="progress" style={{width: qualityBar}}></div></div>
+						<div id="chartview"><ChartView history={this.props.recyclingQualityHistory} day={this.props.day} label='recycling quality:' /></div>
+					</div>}
 				{level >=1 && <div className="statcontainer">recycling rate: {rateBar}<div className="progressbar">
-					<div className="progress" style={{width: rateBar}}></div></div></div>}
-				<div id="collectionview" className="statcontainer" onClick={(event) => this.showChart(event)}>collection rate: {collectionBar}<div className="progressbar">
+					<div className="progress" style={{width: rateBar}}></div></div>
+						<div id="chartview"><ChartView history={this.props.recyclingRateHistory} day={this.props.day} label='recycling rate:'/></div>
+					</div>}
+				<div className="statcontainer" onClick={(event) => this.showChart(event)}>collection rate: {collectionBar}<div className="progressbar">
 					<div className="progress" style={{width: collectionBar}}></div></div>
-						<div id="chartview"><ChartView history={this.props.collectionRateHistory} day={this.props.day} /></div>
+						<div id="chartview"><ChartView history={this.props.collectionRateHistory} day={this.props.day} label='collection rate:' /></div>
 					</div>
 			</div>
 
@@ -389,16 +395,24 @@ class ChartView extends Component {
 	var data= {
 			labels: days,
 	        datasets: [{
-	        label: "collection rate",
-	        backgroundColor: 'rgb(255, 99, 132)',
-	        borderColor: 'rgb(255, 99, 132)',
-	        data: this.props.history,
-	        }]
+		        backgroundColor: 'rgb(255, 99, 132)',
+		        borderColor: 'rgb(255, 99, 132)',
+		        data: this.props.history,
+		        fill: false,
+		    }]
 	    }
 
+	var options={
+	    legend: {
+            display: false
+       	},
+	}
 		return(
 		<div className="statsbox">
-			<Line data={data} />
+			<div className="menutitle">{this.props.label}</div>
+			<div className="chartcontainer">
+				<Line data={data} options={options}/>
+			</div>
 		</div>
 		);
 	}

@@ -251,11 +251,14 @@
   visibility: hidden;
 }
 
-#collectionview:hover #chartview {
+.statcontainer:hover #chartview {
   visibility: visible;
   opacity: 1;
 }
 
+.chartcontainer {
+  margin: 20px;
+}
 
 /* Tooltip container */
 .tooltip {
