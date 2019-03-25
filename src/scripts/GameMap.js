@@ -82,10 +82,14 @@ class GameMap extends Component{
 				<Repeat numTimes={d.labs}>
 			      {(index) => <div key={index} className='lab'>lab</div>}
 			    </Repeat>
+			</div>)}
+			</div>
+			<div className="container2">
+			{buildings.map((d, i) => <div id={d.building} key={i} className="buildingContainer">
 				<Repeat numTimes={d.faculty}>
 			      {(index) => <div key={index} style={{left: (Math.random()*(d.w - 60))+20, top: (Math.random()*(d.h - 60))+25,
 			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*10 + 6}s`}} className="faculty">
-			      	<span className="speech">{characters.faculty}</span></div>}
+			      	<span className="speech">{characters.facultyList[index%5]}</span></div>}
 			    </Repeat>
 				<Repeat numTimes={d.students}>
 			      {(index) => <div key={index} style={{left: (Math.random()*(d.w - 60))+20, top: (Math.random()*(d.h - 60))+25, 
@@ -95,7 +99,7 @@ class GameMap extends Component{
 				<Repeat numTimes={custodiansPerBuilding}>
 			      {(index) => <div key={index} style={{left: (Math.random()*(d.w - 60))+20, top: (Math.random()*(d.h - 60))+25, 
 			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="custodian">
-			      	<span className="speech">{characters.custodianList[index%5]}</span></div>}
+			      	<span className="speech">{characters.custodianList[index%5]}'aaaaaaaaaaaaaaaaaaaaaaa'</span></div>}
 			    </Repeat>
 			</div>)}
 			</div>

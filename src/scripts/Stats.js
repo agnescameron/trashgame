@@ -399,13 +399,27 @@ class ChartView extends Component {
 		        borderColor: 'rgb(255, 99, 132)',
 		        data: this.props.history,
 		        fill: false,
+		        pointRadius: 0,	
 		    }]
 	    }
 
 	var options={
+		yAxisID: this.props.label + '%',
 	    legend: {
             display: false
        	},
+	    scales: {
+	        xAxes: [{
+	            gridLines: {
+	                display:false
+	            }
+	        }],
+	        yAxes: [{
+	            gridLines: {
+	                display:false
+	            }   
+	        }]
+	    }       	
 	}
 		return(
 		<div className="statsbox">

@@ -44,6 +44,7 @@
 
 /*buildings*/
 .container {
+  position: absolute;
   display: grid;
   width: 100%;
   height: 100%;
@@ -54,11 +55,32 @@
   grid-template-rows: 202px 319px 80px;
 }
 
-.container > div {
+.container2 {
+  position: absolute;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  grid-template-areas: "medialab architecture sloan sloan"
+  "CSAIL architecture broad mcgovern"
+  "studentcenter architecture physics physics";
+  grid-template-columns: 154px 273px 390px 1fr;
+  grid-template-rows: 202px 319px 80px;
+}
+
+
+.building {
   background-color: green;
-  z-index: 10;
   padding: 10px;
   background-color: #69c647;
+  margin: 10px;
+  position: relative;
+}
+
+.buildingContainer {
+/*  background-color: red;*/
+  z-index: 10;
+  padding: 10px;
   margin: 10px;
   position: relative;
 }

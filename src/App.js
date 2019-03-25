@@ -58,11 +58,9 @@ constructor(props){
 		<Stats />
 		<GameMap />
 		<Menu />
-      		<div className="container">
 			<div id="dialog" className="modal">
 			  	<div id="modalcontent" className="modalcontent"></div>
 			  	<div id="modalbutton" className="modalbutton">aaaa</div>
-			</div>
 		</div>
       </div>
     );

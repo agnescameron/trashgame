@@ -116,7 +116,6 @@
 /* Tooltip text */
 .speech {
   visibility: hidden;
-  width: 120px;
   background-color: white;
   text-align: center;
   padding: 10px;
@@ -124,8 +123,8 @@
   border: 2px solid black;
 
   /* Position the tooltip text */
-  position: absolute;
-  z-index: 30;
+  position: fixed;
+  z-index: 100;
   bottom: 100%;
   left: 50%;
   margin-left: 10px;
