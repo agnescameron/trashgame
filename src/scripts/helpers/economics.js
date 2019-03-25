@@ -39,7 +39,7 @@ const economics = {
 	calculateTotalWaste: function(state, props) {
 		//waste proportion varies between 60% and 100%: higher number is worse here, thus inverted
 		var leftoverWaste;
-		if(props.day !==0)
+		if(props.day !==0 && props.day !==1)
 			leftoverWaste = props.leftoverWasteHistory.slice(-1)[0];
 		else
 			leftoverWaste = 0;

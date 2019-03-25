@@ -153,6 +153,11 @@ class Stats extends Component{
 			if(nextState.recyclingCollectionRate !== 100){
 				console.log('running out of space, recyclingcollectionRate is ', nextState.recyclingCollectionRate);
 			}
+
+			this.props.dispatch({
+				type: 'DAYL1',
+				recyclingRate: nextState.recyclingRate,
+			});			
 		}
 
 		//level 3: recycling quality
@@ -161,6 +166,11 @@ class Stats extends Component{
 			nextState.recyclingQuality = economics.calculateRecyclingQuality(nextState, this.props);
 
 			nextState.educationLevel = economics.calculateEducationLevel(nextState, this.props);
+
+			this.props.dispatch({
+				type: 'DAYL2',
+				recyclingQuality: nextState.recyclingQuality,
+			});	
 		}
 
 		//level 4: speciality streams
@@ -169,6 +179,10 @@ class Stats extends Component{
 				nextState.totalCompost = economics.calculateTotalCompost(nextState, this.props);
 				nextState.compostCost = economics.calculateCompostCost(nextState, this.props);
 			}
+
+			this.props.dispatch({
+				type: 'DAYL3',
+			});	
 		}
 
 		//finally, calculate the cost
@@ -197,7 +211,7 @@ class Stats extends Component{
 		    type: 'WEEK',
 		});
 
-		if(this.props.week === 1){
+		if(this.props.week === 0){
 		 	this.runScript('week');
 		}
 
@@ -208,8 +222,6 @@ class Stats extends Component{
 
 		var monthlyCosts = economics.calculateMonthlyCosts(this.state, this.props);
 		console.log('costs for this month were', monthlyCosts);
-
-		this.nextLevel();
 
 	   	this.props.dispatch(
 	   	{
@@ -246,8 +258,13 @@ class Stats extends Component{
 			});
 		}		
 
-		if(this.props.day%21 === 0 && this.props.collectionRate > 98){
+		if(this.props.day%14 === 0 && this.props.collectionRate > 98){
 			this.addBuilding();
+		}
+
+
+		if(this.props.day%17 === 0){
+			this.nextLevel();
 		}
 
 		//check for recycling rate
@@ -298,12 +315,12 @@ class Stats extends Component{
 
 		if(this.props.day%7 === 0){
 			this.eachWeek();
+			console.log('a week')
 		}
 
 		if(this.props.day%30 === 0){
 			this.eachMonth();
 		}
-
 
 		//add Losing event here!!
 	}
@@ -438,6 +455,7 @@ class ChartView extends Component {
 	    legend: {
             display: false
        	},
+       	bezierCurve: false,
 	    scales: {
 	        xAxes: [{
 	            gridLines: {

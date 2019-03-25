@@ -133,6 +133,16 @@ function appReducer (state, action) {
         educationLevel: action.educationLevel
       });
 
+      case 'DAYL1':
+      return Object.assign({}, state, {
+        recyclingRateHistory: [...state.recyclingRateHistory, action.recyclingRate],
+      }); 
+
+      case 'DAYL1':
+      return Object.assign({}, state, {
+        recyclingQualityHistory: [...state.recyclingQualityHistory, action.recyclingQuality],
+      }); 
+
     case 'WEEK':
       return Object.assign({}, state, {
         week: state.week + 1,

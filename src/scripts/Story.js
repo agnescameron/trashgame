@@ -49,6 +49,22 @@ const weekQuality = (quality) => {
 }
 
 
+
+const weekCollection = (rate) => {
+	var message;
+
+	if(rate === 100)
+		message = `That seems good for now!`
+	if(rate < 100)		
+		message = `Things seem OK, but you might need to hire some more custodial staff to\
+	deal with the extra waste: this will only become more of an issue!`
+	if(rate < 85)
+		message = `This is going to turn into a huuuge problem if you can't sort it out!\
+	Hire some more custodial staff!`
+
+	return message;
+}
+
 class Story extends Component{
   constructor(props) {
     super(props);
@@ -73,9 +89,11 @@ class Story extends Component{
 				contents: [`Hello and welcome to 'let's play, waste at MIT'\
 				You are the new head of waste management at the Media Lab.\
 				We're glad to have you on the team!`,
-				"You're in charge of solid waste, which currently just covers trash",
+				"You're in charge of managing the Lab's solid waste stream, \
+				which is currently all going to landfill",
 				`Eventually, we'll want you to start a recycling programme, and maybe even\
-				some speciality streams.`,
+				some speciality streams: but for now, you should just focus on making sure\
+				that everything's getting collected`,
 				"The lab is pretty new, and is set to grow a lot in the coming months\
 				...so you'll need to hire new staff to deal with the extra waste.\
 				Also: if you do a good job here, we'll ask you to expand to more buildings on campus",
@@ -86,7 +104,10 @@ class Story extends Component{
 				or producing much waste",
 				`You'll need to start by hiring some custodians\
 				 -- without them, you won't be able to collect any waste at all!`,
-				 `Hire and train custodial staff in the 'custodial' menu at the bottom.\
+				 `Be careful: if you don't hire enough custodial staff, waste can build up: this gets\
+				 out of control fast! We don't want any more rodent problems...`,
+				 `Why not hire someone right now? Click on the 'custodial' menu at the bottom, and click 'hire'.\
+				 They should appear in the lab.\
 				 After you've got collection under control, we can talk about recycling!`,
 				"That's all from me right now.\
 				...I'll be in touch once you've made some progress",
@@ -106,8 +127,9 @@ class Story extends Component{
 				sender: characters.management,
 				script: 'week',
 				contents: [`it's been a week! Your collection rate is at \
-		    		${Math.round(this.props.collectionRate)}%, and you've hired ${this.props.custodialStaff}`,
-		    		`You've got some leftover waste building up!`
+		    		${Math.round(this.props.collectionRate)}%, and you've hired ${this.props.custodialStaff}
+		    		custodian.`,
+		    		weekCollection(this.props.collectionRate),
 				],
 			},
 
@@ -181,11 +203,11 @@ class Story extends Component{
 			{
 				sender: characters.custodial.name,
 				script: 'conference',
-				contents: [`There's been a big conference going on this week, and the waste quality is/
-				taking a real hit! The caterers don't know what to do with the food waste, so it's all/
+				contents: [`There's been a big conference going on this week, and the waste quality is
+				taking a real hit! The caterers don't know what to do with the food waste, so it's all
 				going into the trash, and attracting a bunch of rodents`,
-				`this also means that our recycling rate and quality have taken a hit: this is going/
-				to be a difficult month! Make sure you keep the collection rate on track, or the rodent/
+				`this also means that our recycling rate and quality have taken a hit: this is going
+				to be a difficult month! Make sure you keep the collection rate on track, or the rodent
 				problem will only get worse!`
 				],
 			},

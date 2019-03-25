@@ -118,6 +118,7 @@
   visibility: hidden;
   background-color: white;
   text-align: center;
+  width: 200px;
   padding: 10px;
   border-radius: 6px;
   border: 2px solid black;
