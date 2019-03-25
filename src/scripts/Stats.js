@@ -249,21 +249,29 @@ class Stats extends Component{
 			this.addBuilding();
 		}
 
-		//check for recycling quality
-		if(this.props.level >= 3){
+		//check for recycling rate
+		if(this.props.level >= 1){
+		}
+
+		//recycling quality related events
+		if(this.props.level >= 2){
 			//contaminant
 			if(this.props.day%13 === 0 && this.props.recyclingQuality < 95){
 				this.runScript('contaminant');
 			}
 
 			//recycling truck rejected
-			if(this.props.day%23 === 0 && this.props.recyclingQuality < 95){
+			if(this.props.day%21 === 0 && this.props.recyclingQuality < 95){
 				this.runScript('truckRejected');
 				this.props.dispatch({
 					type: 'MONEY',
 					money: -1000,
 				})
 			}		
+		}
+
+		//speciality stream events
+		if(this.props.level >= 3){
 		}
 
 		if(this.props.day%7 === 0){

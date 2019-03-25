@@ -89,29 +89,29 @@ class GameMap extends Component{
 				<Repeat numTimes={d.faculty}>
 			      {(index) => <div key={index} style={{left: (Math.random()*(d.w - 60))+20, top: (Math.random()*(d.h - 60))+25,
 			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*10 + 6}s`}} className="faculty">
-			      	<span className="speech">{characters.facultyList[index%5]}</span></div>}
+			      	<span className="speech">{characters.faculty.list[index%5]} {characters.faculty.thoughts[index%5]}</span></div>}
 			    </Repeat>
 				<Repeat numTimes={d.students}>
 			      {(index) => <div key={index} style={{left: (Math.random()*(d.w - 60))+20, top: (Math.random()*(d.h - 60))+25, 
 			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="student">
-			      	<span className="speech">{characters.studentList[index%5]}</span></div>}
+			      	<span className="speech">{characters.students.list[index%5]} {characters.students.thoughts[index%5]}</span></div>}
 			    </Repeat>
 				<Repeat numTimes={custodiansPerBuilding}>
 			      {(index) => <div key={index} style={{left: (Math.random()*(d.w - 60))+20, top: (Math.random()*(d.h - 60))+25, 
 			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="custodian">
-			      	<span className="speech">{characters.custodianList[index%5]}'aaaaaaaaaaaaaaaaaaaaaaa'</span></div>}
+			      	<span className="speech">{characters.custodial.list[index%5]}{characters.custodial.thoughts[index%5]}</span></div>}
 			    </Repeat>
 			</div>)}
 			</div>
 				<Repeat numTimes={custodiansPerCampus}>
 			      {(index) => <div key={index} style={{left: (Math.random()*(960))+20, top: (Math.random()*(720))+25, 
 			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="custodian">
-			      	<span className="speech">{characters.custodianList[index%5]}</span></div>}
+			      	<span className="speech">{characters.custodial.list[index%5]}{characters.custodial.thoughts[index%5]}</span></div>}
 			    </Repeat>			
 				<Repeat numTimes={this.props.recyclingStaff}>
 			      {(index) => <div key={index} style={{left: (Math.random()*(960))+20, top: (Math.random()*(560))+20, 
 			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="recycling">
-			      	<span className="speech">{characters.custodianList[index%5]}</span></div>}
+			      	<span className="speech">{characters.recycling.list[index%5]}{characters.recycling.thoughts[index%5]}</span></div>}
 			    </Repeat>	
 			{this.state.showBuildingInfo && <Child buildingSelected={this.state.buildingSelected} buildingInfo={this.state.buildingInfo} closeInfo={this.closeInfo} />}
 			</div>

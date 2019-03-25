@@ -4,12 +4,45 @@
 export const characters = {
 	management: '👩🏽‍💼 management',
 	processing: '👩🏼‍🔧 processing plant',
-	custodial: '👷🏻‍♂️ custodial staff',
-	recycling: '👷🏿‍♀️ recycling staff',
 	van: '👨🏻‍🔧 recycling van',
-	students: '👨🏿‍💻👩🏻‍💻 students',
-	faculty: '👨🏻‍🔬 faculty',
-	studentList: ['👩🏻‍💻', '👨🏿‍💻','👨🏼‍💻','👩🏽‍💻','👩🏼‍💻'],	
- 	custodianList: ['👷🏻‍♂️', '👷🏿‍♂️', '👷🏾‍♂️', '👷🏼‍♀️', '👷🏽‍♀️'],
- 	facultyList: ['👨🏻‍🔬', '👨🏽‍🔬', '👩🏿‍🔬', '👩🏻‍🔬', '👩🏼‍🔬'],
+	students: {
+		name: '👨🏿‍💻👩🏻‍💻 students',
+		list: ['👩🏻‍💻', '👨🏿‍💻','👨🏼‍💻','👩🏽‍💻','👩🏼‍💻'],
+		thoughts: [
+		'ooooooo',
+		'eeeeeee',
+		'aaaaaaa',
+		'iiiiiii',
+		'uuuuuuuu,']
+		},
+ 	custodial: {	
+ 		name: '👷🏻‍♂️ custodial staff',
+ 		list: ['👷🏻‍♂️', '👷🏿‍♂️', '👷🏾‍♂️', '👷🏼‍♀️', '👷🏽‍♀️'],
+		thoughts: [
+		'ooooooo',
+		'eeeeeee',
+		'aaaaaaa',
+		'iiiiiii',
+		'uuuuuuuu,']
+		},
+ 	recycling: {	
+ 		name: '👷🏿‍♀️ recycling staff',
+ 		list: ['👷🏻‍♂️', '👷🏿‍♂️', '👷🏾‍♂️', '👷🏼‍♀️', '👷🏽‍♀️'],
+		thoughts: [
+		'ooooooo',
+		'eeeeeee',
+		'aaaaaaa',
+		'iiiiiii',
+		'uuuuuuuu,']
+		},		
+ 	faculty: {
+ 		name: '👨🏻‍🔬 faculty',
+ 		list: ['👨🏻‍🔬', '👨🏽‍🔬', '👩🏿‍🔬', '👩🏻‍🔬', '👩🏼‍🔬'],
+		thoughts: [
+		'ooooooo',
+		'eeeeeee',
+		'aaaaaaa',
+		'iiiiiii',
+		'uuuuuuuu,']
+		},
 }

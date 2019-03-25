@@ -124,13 +124,13 @@ class Story extends Component{
 			//character intros/development
 			
 			{
-				sender: characters.custodial,
+				sender: characters.custodial.name,
 				script: 'hiredCustodian',
 				contents: [`Hi there! I'm your new custodial worker.`
 				],
 			},
 			{
-				sender: characters.recycling,
+				sender: characters.recycling.name,
 				script: 'hiredRecycling',
 				contents: [`Hi there! I'm your new recycling worker.`
 				],
@@ -151,7 +151,7 @@ class Story extends Component{
 			},
 
 			{
-				sender: characters.recycling,
+				sender: characters.recycling.name,
 				script: 'truckRejected',
 				contents: [`Our truck just got turned back at the recycling plant! They said that\
 				the contamination level in the trash was too high. We got fined like $1000! Train the custodians\
@@ -160,7 +160,7 @@ class Story extends Component{
 			},
 
 			{
-				sender: characters.recycling,
+				sender: characters.recycling.name,
 				script: 'binsFull',
 				contents: [`People keep dumping random trash in the recycling bins!\
 				It's not our job to clean them, but the custodians don't either. You\
@@ -169,7 +169,7 @@ class Story extends Component{
 			},
 
 			{
-				sender: characters.custodial,
+				sender: characters.custodial.name,
 				script: 'contaminant',
 				contents: [`we keep finding <div class='tooltip'>contaminants in the recycling!\
 				<span class="tooltiptext">recycling contamintation is a big problem at MIT!</span> </div> \
@@ -179,7 +179,7 @@ class Story extends Component{
 			},
 
 			{
-				sender: characters.custodial,
+				sender: characters.custodial.name,
 				script: 'conference',
 				contents: [`There's been a big conference going on this week, and the waste quality is/
 				taking a real hit! The caterers don't know what to do with the food waste, so it's all/
@@ -215,7 +215,7 @@ class Story extends Component{
 			},
 
 			{
-				sender: characters.students,
+				sender: characters.students.name,
 				script: 'studentRodents',
 				contents: [`We keep finding rodents in the office! It's becoming a real problem. \
 				You have to sort this out!`
@@ -223,14 +223,14 @@ class Story extends Component{
 			},
 
 			{
-				sender: characters.students,
+				sender: characters.students.name,
 				script: 'changeInEducation',
 				contents: [`How come we can't recycle lab glass anymore? We've always been able to.`
 				],
 			},
 
 			{
-				sender: characters.faculty,
+				sender: characters.faculty.name,
 				script: 'moreBins',
 				contents: [`We need more bins in our part of the building, we use a lot of \
 				items for research! Please can you get us some by the end of the week. Thanks!`
