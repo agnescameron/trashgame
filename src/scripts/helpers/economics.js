@@ -145,10 +145,17 @@ const economics = {
 		return compostCost;
 	},
 
-	calculateRodents: function(state){
-		//calculate leftover waste
-		// var leftoverWaste = (100-state.collectionRate)*state.totalWaste;
-		var rodents = 100-state.collectionRate;
+	calculateRodents: function(state, props){
+		console.log('leftover waste is');
+		//consider the last 4 days: average to get 
+		var wasteArr = 	props.leftoverWasteHistory.slice(1).slice(-4);
+		console.log('waste arr is ', wasteArr);
+		var sum;
+		if(wasteArr)
+			sum = wasteArr.reduce((x, y) => x + y);
+		else
+			sum = 0;
+		var rodents = Math.round(sum/4);
 		return rodents;
 	},
 

@@ -130,7 +130,8 @@ function appReducer (state, action) {
         money: state.money-action.recyclingCost,
         collectionRateHistory: [...state.collectionRateHistory, action.collectionRate],
         leftoverWasteHistory: [...state.leftoverWasteHistory, action.leftoverWaste],
-        educationLevel: action.educationLevel
+        educationLevel: action.educationLevel,
+        rodents: action.rodents,
       });
 
       case 'DAYL1':

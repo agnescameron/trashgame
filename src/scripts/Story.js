@@ -215,8 +215,8 @@ class Story extends Component{
 			{
 				sender: characters.management,
 				script: 'policyChangeLabGlass',
-				contents: [`There's been a recent policy change from China, and we're having to comply/
-				Lab glass can no longer be recycled: we'll need tell people about this, or our recycling/
+				contents: [`There's been a recent policy change from China, and we're having to comply. 
+				Lab glass can no longer be recycled: we'll need tell people about this, or our recycling
 				will be contaminated!`],
 
 			},

@@ -39,6 +39,7 @@ const mapStateToProps = (state) => {
   	leftoverWasteHistory: state.appReducer.leftoverWasteHistory,
   	recyclingRateHistory: state.appReducer.recyclingRateHistory,
    	recyclingQualityHistory: state.appReducer.recyclingQualityHistory, 	
+   	rodents: state.appReducer.rodents,
   }
 }
 
@@ -90,11 +91,14 @@ class Stats extends Component{
 
 	nextLevel = () => {
 		var nextLevel = (this.props.level+1).toString();	
-		this.runScript(nextLevel);		
-		console.log('next level', nextLevel)
-		this.props.dispatch({
-			type: 'NEXTLEVEL',
-		})
+
+		if(nextLevel <= 5)
+			this.runScript(nextLevel);		
+			console.log('next level', nextLevel)
+			this.props.dispatch({
+				type: 'NEXTLEVEL',
+			})
+		}
 	}
 
 	addBuilding = () => {
@@ -126,8 +130,8 @@ class Stats extends Component{
 		nextState.leftoverWaste = ((100 - nextState.collectionRate)/100)*nextState.totalWaste;
 		console.log('leftover waste is', nextState.leftoverWaste);
 
-		if(nextState.collectionRate !==100){
-			nextState.rodents = economics.calculateRodents(nextState);
+		if(this.props.day>=4){
+			nextState.rodents = economics.calculateRodents(nextState, this.props);
 			console.log('rodents!', nextState.rodents);
 			if(nextState.rodents>10 && this.state.rodentNotification !== true){
 				this.runScript('rodents');
@@ -202,6 +206,7 @@ class Stats extends Component{
 		 	staffHappiness: nextState.staffHappiness,
 		 	wasteCost: nextState.wasteCost,
 		 	educationLevel: nextState.educationLevel,
+		 	rodents: nextState.rodents,
 			});
 	}
 
@@ -394,15 +399,13 @@ class Stats extends Component{
 		var qualityBar = (Math.round(this.state.recyclingQuality)).toString().concat('%');
 		var level = this.props.level;
 
-		console.log('collection rate history is', this.props.collectionRateHistory);
-
 		return(
 			<div>
 
 			<div id="topbar">
 				<div className="statcontainer" onClick={()=>this.startTimer()}>money: {this.props.money}</div>
 				<div className="statcontainer" onClick={(event) => this.showStats(event)}>day: {this.props.day}</div>
-				<div className="statcontainer" onClick={(event) => this.showMessages(event)}>messages: {this.state.messageNumber}</div>
+				<div className="statcontainer" >🐀: {this.props.rodents}</div>
 				<div className="statcontainer" onClick={(event) => this.reset(event)}>reset</div>		
 			</div>
 
