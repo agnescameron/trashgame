@@ -187,6 +187,7 @@ class Stats extends Component{
 		 	leftoverWaste: nextState.leftoverWaste,
 		 	staffHappiness: nextState.staffHappiness,
 		 	wasteCost: nextState.wasteCost,
+		 	educationLevel: nextState.educationLevel,
 			});
 	}
 
@@ -251,9 +252,10 @@ class Stats extends Component{
 
 		//check for recycling rate
 		if(this.props.level >= 1){
+
 		}
 
-		//recycling quality related events
+		//recycling quality/education related events
 		if(this.props.level >= 2){
 			//contaminant
 			if(this.props.day%13 === 0 && this.props.recyclingQuality < 95){
@@ -267,11 +269,31 @@ class Stats extends Component{
 					type: 'MONEY',
 					money: -1000,
 				})
-			}		
+			}
+
+			if(this.props.day%19 === 0 && this.props.recyclingQuality > 95){
+				this.runScript('policyChangeLabGlass');
+				this.props.dispatch({
+					type: 'policyChange'
+				})
+			}
+
+			if(this.props.day%15 === 0 && this.props.educationLevel < 50){
+
+			}
+
 		}
 
 		//speciality stream events
 		if(this.props.level >= 3){
+
+			if(this.props.day%13 === 0 && this.props.recyclingQuality > 95){
+				this.runScript('conference');
+				this.props.dispatch({
+					type: 'conference'
+				})
+			}
+
 		}
 
 		if(this.props.day%7 === 0){

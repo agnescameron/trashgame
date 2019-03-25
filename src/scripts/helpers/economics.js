@@ -46,8 +46,31 @@ const economics = {
 		var wasteProportion = ((1+state.luck)-stats.rollDice(state.luck));
 		var totalWaste = (state.population)*wasteProportion*constant.wastePopMultiplier 
 			+ constant.wasteBuildingConst*props.buildingsVisible + leftoverWaste;
+		console.log('total waste is');
 		return totalWaste;
 	},
+
+	//this is for custodial collection: they cover both recycling and trash
+	//should this scale with number of bins?
+	calculateCollectionRate: function(state, props) {
+		var collectionRate;
+		var collectionPower = props.custodialStaff*constant.custodialCollection;
+		if(props.custodialStaff === 0)
+			collectionRate = 0;
+		else
+			collectionRate = 100 - Math.round(100*((state.totalWaste-collectionPower)/state.totalWaste));
+		console.log('total waste is', state.totalWaste, 'collection rate is', collectionRate, "collectionPower", collectionPower);
+		//sanity check
+		if(collectionRate > 100){
+			collectionRate = 100;
+		}
+		if(collectionRate < 0){
+			collectionRate = 0;
+		}
+
+		return collectionRate;
+	},
+
 
 	//RECYCLING CALCULATIONS
 
@@ -108,26 +131,6 @@ const economics = {
 		var recyclingUnits = state.recyclingRate*state.totalWaste;
 		var recyclingCost = recyclingUnits*recyclingUnitCost;
 		return recyclingUnitCost;
-	},
-
-	//this is for custodial collection: they cover both recycling and trash
-	//should this scale with number of bins?
-	calculateCollectionRate: function(state, props) {
-		var collectionRate;
-		if(props.custodialStaff === 0)
-			collectionRate = 0;
-		else
-			collectionRate = 100-((state.population)-10*props.custodialStaff);
-		
-		//sanity check
-		if(collectionRate > 100){
-			collectionRate = 100;
-		}
-		if(collectionRate < 0){
-			collectionRate = 0;
-		}
-
-		return collectionRate;
 	},
 
 	//compost

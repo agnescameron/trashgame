@@ -84,7 +84,6 @@ function appReducer (state, action) {
         money: state.money-500,
       });
 
-
     //messages
     case 'addMessage':
       return Object.assign({}, state, {
@@ -99,6 +98,12 @@ function appReducer (state, action) {
         }
     });
       return messageArray;
+
+    case 'policyChange':
+      return Object.assign({}, state, {
+        outreach: state.outreach/3,
+        signs: state.signs/3,
+    });
 
     //buildings
     case 'addBuilding':
@@ -125,6 +130,7 @@ function appReducer (state, action) {
         money: state.money-action.recyclingCost,
         collectionRateHistory: [...state.collectionRateHistory, action.collectionRate],
         leftoverWasteHistory: [...state.leftoverWasteHistory, action.leftoverWaste],
+        educationLevel: action.educationLevel
       });
 
     case 'WEEK':
@@ -166,6 +172,7 @@ function appReducer (state, action) {
         runScript: true,
         staffHappiness: 100,
         level: 0,
+        educationLevel: 0,
         collectionRateHistory: [],
         recyclingRateHistory: [],
         recyclingQualityHistory: [],
