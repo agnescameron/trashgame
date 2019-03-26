@@ -83,7 +83,6 @@ const economics = {
 		}
 		//insufficient bins
 		else {
-			console.log('not enough bins')
 			recyclingRate = (props.bins/state.population)*10*
 				constant.proportionRecyclables*stats.rollDice(state.luck);
 		}

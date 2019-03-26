@@ -11,6 +11,8 @@ const mapStateToProps = (state) => {
   	buildingsVisible: state.appReducer.buildingsVisible,
   	custodialStaff: state.appReducer.custodialStaff,  
   	recyclingStaff: state.appReducer.recyclingStaff,  
+  	students: state.appReducer.students,
+  	faculty: state.appReducer.faculty,
   }
 }
 
@@ -57,7 +59,10 @@ class GameMap extends Component{
 
 	componentDidUpdate(prevProps) {
 		if (this.props.buildingsVisible !== prevProps.buildingsVisible) {
-	  		console.log('change');
+	    	this.componentDidMount();
+	  	} 
+		else if (this.props.students !== prevProps.students) {
+	    	console.log('more students')
 	    	this.componentDidMount();
 	  	} 
 	}
@@ -71,8 +76,9 @@ class GameMap extends Component{
 		var buildings = this.state.buildings.slice(0, visible);
 		var custodiansPerBuilding = Math.floor(this.props.custodialStaff/this.props.buildingsVisible);
 		var custodiansPerCampus = this.props.custodialStaff%this.props.buildingsVisible;
-		// var buildings = this.state.buildings;
-		console.log('recycling staff is ', this.props.recyclingStaff);
+		var extraPop = false;
+		if(this.props.students > 3)
+			extraPop = true;
 
 		return(
 			<div id="map">
@@ -96,6 +102,11 @@ class GameMap extends Component{
 			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="student">
 			      	<span className="speech">{characters.students.list[index%5]} {characters.students.thoughts[index%5]}</span></div>}
 			    </Repeat>
+			    {extraPop===true && <Repeat numTimes={2}>
+			      {(index) => <div key={index} style={{left: (Math.random()*(d.w - 60))+20, top: (Math.random()*(d.h - 60))+25, 
+			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="student">
+			      	<span className="speech">{characters.students.list[index%5]} {characters.students.thoughts[index%5]}</span></div>}
+			    </Repeat>}
 				<Repeat numTimes={custodiansPerBuilding}>
 			      {(index) => <div key={index} style={{left: (Math.random()*(d.w - 60))+20, top: (Math.random()*(d.h - 60))+25, 
 			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="custodian">

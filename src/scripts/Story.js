@@ -54,7 +54,7 @@ const weekCollection = (rate) => {
 	var message;
 
 	if(rate === 100)
-		message = `That seems good for now!`
+		message = `All good so far!`
 	if(rate < 100)		
 		message = `Things seem OK, but you might need to hire some more custodial staff to\
 	deal with the extra waste: this will only become more of an issue!`
@@ -130,6 +130,8 @@ class Story extends Component{
 		    		${Math.round(this.props.collectionRate)}%, and you've hired ${this.props.custodialStaff}
 		    		custodian.`,
 		    		weekCollection(this.props.collectionRate),
+		    		`There's a new research group joining the lab: 10 new students, and another 2 faculty`,
+		    		`Good luck!`,
 				],
 			},
 
@@ -228,8 +230,8 @@ class Story extends Component{
 				`you've got the recycling and waste collection under control, and your staff are ${this.props.staffHappiness}% happy`,
 				"It's time we gave you some more responsibilities!",
 				`We're asking you to take charge of ${buildings[this.props.buildingsVisible-1].building}. They have a budget\
-				of ${buildings[this.props.buildingsVisible-1].budget}, with ${buildings[this.props.buildingsVisible-1].faculty} faculty,\
-				with ${buildings[this.props.buildingsVisible-1].students} students, and with ${buildings[this.props.buildingsVisible-1].labs} \
+				of ${buildings[this.props.buildingsVisible-1].budget}, with ${buildings[this.props.buildingsVisible-1].faculty*10} faculty,\
+				with ${buildings[this.props.buildingsVisible-1].students*10} students, and with ${buildings[this.props.buildingsVisible-1].labs} \
 				specialised labs.`,
 				`We think you'll do great! Let me know if you need any help`,
 				`thanks!`
@@ -239,7 +241,7 @@ class Story extends Component{
 			{
 				sender: characters.students.name,
 				script: 'studentRodents',
-				contents: [`We keep finding rodents in the office! It's becoming a real problem. \
+				contents: [`We keep finding rodents in the office! It's becoming a real problem.
 				You have to sort this out!`
 				],
 			},
@@ -254,7 +256,7 @@ class Story extends Component{
 			{
 				sender: characters.faculty.name,
 				script: 'moreBins',
-				contents: [`We need more bins in our part of the building, we use a lot of \
+				contents: [`We need more recycling bins in our part of the building, we use a lot of
 				items for research! Please can you get us some by the end of the week. Thanks!`
 				],
 			},

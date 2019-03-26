@@ -19,30 +19,30 @@ export const characters = {
  		name: '👷🏻‍♂️ custodial staff',
  		list: ['👷🏻‍♂️', '👷🏿‍♂️', '👷🏾‍♂️', '👷🏼‍♀️', '👷🏽‍♀️'],
 		thoughts: [
-		'ooooooo',
-		'eeeeeee',
-		'aaaaaaa',
-		'iiiiiii',
-		'uuuuuuuu,']
+		`there's so much trash in the building these days...`,
+		`I hope they hire some more staff soon`,
+		`Recycling's fine I guess, but it's a lot of extra work`,
+		`I hope they hire some more staff soon`,
+		`another conference?!`]
 		},
  	recycling: {	
  		name: '👷🏿‍♀️ recycling staff',
  		list: ['👷🏻‍♂️', '👷🏿‍♂️', '👷🏾‍♂️', '👷🏼‍♀️', '👷🏽‍♀️'],
 		thoughts: [
 		'contaminated again??',
-		'eeeeeee',
-		'aaaaaaa',
-		'iiiiiii',
-		'uuuuuuuu,']
+		`I wish we had some more staff`,
+		'people seem to be recycling more these days',
+		'ugh! more food in the recycling',
+		`I hope this truckload isn't too contaminated...`]
 		},		
  	faculty: {
  		name: '👨🏻‍🔬 faculty',
  		list: ['👨🏻‍🔬', '👨🏽‍🔬', '👩🏿‍🔬', '👩🏻‍🔬', '👩🏼‍🔬'],
 		thoughts: [
-		'ooooooo',
-		'eeeeeee',
-		'aaaaaaa',
-		'iiiiiii',
-		'uuuuuuuu,']
+		'...too many things to do...',
+		'are my students even in???',
+		'need to submit that paper!!',
+		'more bins? I guess so',
+		'...too many things to do...']
 		},
 }

@@ -92,7 +92,7 @@ class Stats extends Component{
 	nextLevel = () => {
 		var nextLevel = (this.props.level+1).toString();	
 
-		if(nextLevel <= 5)
+		if(nextLevel <= 5){
 			this.runScript(nextLevel);		
 			console.log('next level', nextLevel)
 			this.props.dispatch({
@@ -132,11 +132,6 @@ class Stats extends Component{
 
 		if(this.props.day>=4){
 			nextState.rodents = economics.calculateRodents(nextState, this.props);
-			console.log('rodents!', nextState.rodents);
-			if(nextState.rodents>10 && this.state.rodentNotification !== true){
-				this.runScript('rodents');
-				nextState.rodentNotification = true;
-			}
 		}
 		else 
 			nextState.rodents = 0;
@@ -218,6 +213,9 @@ class Stats extends Component{
 
 		if(this.props.week === 0){
 		 	this.runScript('week');
+		 	this.props.dispatch({
+		 		type: 'population'
+		 	});
 		}
 
 		console.log('a week')
@@ -272,9 +270,23 @@ class Stats extends Component{
 			this.nextLevel();
 		}
 
+		if(this.props.rodents/(this.props.faculty+this.props.students) > 10 && this.state.rodentNotification !== true){
+			this.runScript('rodents');
+			this.setState({rodentNotification: true});
+		}
+
+		if(this.props.rodents/(this.props.faculty+this.props.students) > 10 && this.state.day%16===0){
+			this.runScript('studentRodents');
+		}
+
 		//check for recycling rate
 		if(this.props.level >= 1){
-
+			if(this.props.day%12 === 0 && this.props.recyclingRate > 40){
+				this.runScript('moreBins');
+				this.props.dispatch({
+					type: 'moreBins',
+				})
+			}
 		}
 
 		//recycling quality/education related events
@@ -301,8 +313,13 @@ class Stats extends Component{
 			}
 
 			if(this.props.day%15 === 0 && this.props.educationLevel < 50){
-
+				this.runScript('binsFull');
 			}
+
+			if(this.props.day%25 === 0 && this.props.recyclingQuality < 80){
+				this.runScript('contaminationAtPlant');
+			}
+
 
 		}
 
@@ -314,6 +331,10 @@ class Stats extends Component{
 				this.props.dispatch({
 					type: 'conference'
 				})
+			}
+
+			if(this.props.day%18 === 0 && this.props.educationLevel > 70){
+				this.runScript('changeInEducation');
 			}
 
 		}
@@ -398,6 +419,8 @@ class Stats extends Component{
 		var rateBar = (Math.round(this.state.recyclingRate*100)).toString().concat('%');
 		var qualityBar = (Math.round(this.state.recyclingQuality)).toString().concat('%');
 		var level = this.props.level;
+		var rodentWarn = this.props.rodents/population;
+		console.log('rodentwarn is', rodentWarn);
 
 		return(
 			<div>
@@ -458,7 +481,11 @@ class ChartView extends Component {
 	    legend: {
             display: false
        	},
-       	bezierCurve: false,
+	    elements: {
+	        line: {
+	            tension: 0.2
+	        }
+	    },
 	    scales: {
 	        xAxes: [{
 	            gridLines: {

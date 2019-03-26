@@ -99,6 +99,8 @@ function appReducer (state, action) {
     });
       return messageArray;
 
+
+  //events
     case 'policyChange':
       return Object.assign({}, state, {
         outreach: state.outreach/3,
@@ -112,6 +114,17 @@ function appReducer (state, action) {
           faculty: state.faculty + action.faculty,
           students: state.students + action.students,
     });
+
+    case 'moreBins':
+      return Object.assign({}, state, {
+        bins: state.bins*(2/3),
+      })
+
+    case 'population':
+      return Object.assign({}, state, {
+        faculty: state.faculty + 2,
+        students: state.students + 6,
+      })
 
     //main (meta) functions
     case 'NEXTDAY':
