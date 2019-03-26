@@ -56,7 +56,11 @@ constructor(props){
     return (
       <div className="App">
 		<Stats />
-		<GameMap />
+		<div id="centre">
+			<div className="sidebar"></div>
+			<GameMap />
+			<div className="sidebar"></div>
+		</div>	
 		<Menu />
 			<div id="dialog" className="modal">
 			  	<div id="modalcontent" className="modalcontent"></div>

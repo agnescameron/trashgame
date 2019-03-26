@@ -2,18 +2,16 @@
 /*broad page elements*/
 
 #map{
-  position: fixed;
+  position: relative;
   width: 1000px;
-  left: 50%;
-  margin-left: -500px;
+  margin:10px;
   height: 600px;
   background-color: blue;
-  top: 120px;
 }
 
 #topbar{
   top: 20px;
-  width: 1150px;
+  width: 1400px;
   height: 60px;
   background-color: yellow;
   margin-left: auto;
@@ -28,7 +26,7 @@
 }
 
 #menubar{
-  width: 1150px;
+  width: 1400px;
   height: 70px;
   background-color: pink;
   margin-left: auto;
@@ -36,6 +34,24 @@
   display: flex;
   justify-content: center;
 }
+
+#centre {
+  width: 1200px;
+/*  margin-left: -600px;*/
+  left: 50%;
+  display: flex;
+   margin:0 auto;
+}
+
+
+.sidebar{
+  width: 170px;
+  margin: 10px;
+  height: 600px;
+  background-color: aliceblue;
+  position: relative;
+}
+
 
 #container{
   width:100%;
@@ -236,7 +252,7 @@
 
 #statbar{
   top: 80px;
-  width: 1150px;
+  width: 1400px;
   height: 40px;
   background-color: yellow;
   margin-left: auto;
