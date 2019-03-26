@@ -287,7 +287,8 @@ class Story extends Component{
 				according to the amount of bins you have, and recycling staff able to collect\
 				recyclables.`,
 				`That said, you can also only recycle so much before you're trying to recycle\
-				trash: the recycling rate depends a lot on what people are buying, too.`
+				trash: the recycling rate depends a lot on what people are buying, too. So don't worry
+				too much if the rate goes up and down: we can try and deal with purchasing later.`
 				],
 			},
 			{
