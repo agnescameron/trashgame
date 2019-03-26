@@ -102,7 +102,8 @@ const economics = {
 
 	//function of: education, signage, outreach, recycling staff
 	calculateRecyclingQuality: function(state, props) {
-		var recyclingQuality = (state.educationLevel*100 + (props.recyclingStaff*30)/state.population)*50;
+		console.log('education level is', state.educationLevel, 'luck is', state.luck);
+		var recyclingQuality = (state.educationLevel*100*state.luck) + (state.luck*(props.recyclingStaff*30)/state.population)*50;
 		if(recyclingQuality > 100)
 			recyclingQuality = 100;
 		console.log('recyclingQuality is', recyclingQuality);

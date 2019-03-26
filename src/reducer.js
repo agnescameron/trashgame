@@ -152,7 +152,7 @@ function appReducer (state, action) {
         recyclingRateHistory: [...state.recyclingRateHistory, action.recyclingRate],
       }); 
 
-      case 'DAYL1':
+      case 'DAYL2':
       return Object.assign({}, state, {
         recyclingQualityHistory: [...state.recyclingQualityHistory, action.recyclingQuality],
       }); 

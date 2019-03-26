@@ -162,9 +162,10 @@ class Stats extends Component{
 		//level 3: recycling quality
 		if(this.props.level >=2){
 			console.log('calculating level 3')
-			nextState.recyclingQuality = economics.calculateRecyclingQuality(nextState, this.props);
 
 			nextState.educationLevel = economics.calculateEducationLevel(nextState, this.props);
+
+			nextState.recyclingQuality = economics.calculateRecyclingQuality(nextState, this.props);
 
 			this.props.dispatch({
 				type: 'DAYL2',
@@ -281,7 +282,7 @@ class Stats extends Component{
 
 		//check for recycling rate
 		if(this.props.level >= 1){
-			if(this.props.day%12 === 0 && this.props.recyclingRate > 40){
+			if(this.props.day%12 === 0 && this.props.recyclingRate > 30){
 				this.runScript('moreBins');
 				this.props.dispatch({
 					type: 'moreBins',
