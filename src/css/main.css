@@ -11,7 +11,7 @@
 
 #topbar{
   top: 20px;
-  width: 1400px;
+  width: 1200px;
   height: 60px;
   background-color: yellow;
   margin-left: auto;
@@ -26,7 +26,7 @@
 }
 
 #menubar{
-  width: 1400px;
+  width: 1200px;
   height: 70px;
   background-color: pink;
   margin-left: auto;
@@ -76,7 +76,7 @@
   display: grid;
   width: 100%;
   height: 100%;
-  z-index: 100;
+  z-index: 10;
   grid-template-areas: "medialab architecture sloan sloan"
   "CSAIL architecture broad mcgovern"
   "studentcenter architecture physics physics";
@@ -252,7 +252,7 @@
 
 #statbar{
   top: 80px;
-  width: 1400px;
+  width: 1200px;
   height: 40px;
   background-color: yellow;
   margin-left: auto;

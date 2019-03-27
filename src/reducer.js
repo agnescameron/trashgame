@@ -135,9 +135,6 @@ function appReducer (state, action) {
 
     case 'DAY':
       return Object.assign({}, state, {
-        recyclingQuality: action.recyclingQuality,
-        recyclingCost: action.recyclingCost,
-        recyclingRate: action.recyclingRate,
         collectionRate: action.collectionRate,
         wasteCost: action.wasteCost,
         money: state.money-action.recyclingCost,
@@ -190,6 +187,8 @@ function appReducer (state, action) {
         faculty: 1,
         collectionRate: 0,
         recyclingQuality: 0,
+        recyclingCost: 50,
+        recyclingRate: 0,
         messages:[],
         buildingsVisible: 1,
         onboarded: false,
