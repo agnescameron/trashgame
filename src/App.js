@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Stats from './scripts/Stats.js';
 import Menu from './scripts/Menu.js';
 import GameMap from './scripts/GameMap.js';
+import Sidebar from './scripts/Sidebar.js';
 import GameLoop from './GameLoop.js';
 import { connect } from 'react-redux';
 import './css/main.css';
@@ -57,9 +58,8 @@ constructor(props){
       <div className="App">
 		<Stats />
 		<div id="centre">
-			<div className="sidebar"></div>
 			<GameMap />
-			<div className="sidebar"></div>
+			<Sidebar />
 		</div>	
 		<Menu />
 			<div id="dialog" className="modal">

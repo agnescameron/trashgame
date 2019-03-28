@@ -193,6 +193,8 @@ class Stats extends Component{
 		//set updated values
 		this.state = nextState;
 		
+		console.log('collectionRateHistory is  ', this.props.collectionRateHistory)
+
 
 		this.props.dispatch({
 		    type: 'DAY',
@@ -386,7 +388,7 @@ class Stats extends Component{
 		this.setState(prevState => ({showStats: !prevState.showStats}));
 	}
 
-	showChart = (event) => {
+	showChart = (event) => { 
 		event.preventDefault();
 		this.setState(prevState => ({showChart: !prevState.showChart}));
 	}
@@ -461,7 +463,7 @@ class Stats extends Component{
 class ChartView extends Component {
 	render() {
 	var days = [];
-	for(var i=0; i<this.props.day; i++){
+	for(var i=0; i<=this.props.day; i++){
 		days.push(i);
 	}
 	var data= {

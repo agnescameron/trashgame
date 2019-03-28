@@ -45,19 +45,20 @@
 
 
 .sidebar{
-  width: 120px;
+  width: 260px;
   margin: 10px;
   height: 600px;
   background-color: aliceblue;
   position: relative;
-  display: flex;
+  display: block;
 }
 
 .sidebar > div{
-  width: 110px;
-  margin: 5px;
+  width: 240px;
+  height: 140px;
+  margin: 10px;
+  background-color: white;
 }
-
 
 #container{
   width:100%;
@@ -138,6 +139,7 @@
   margin: 10px 0px 10px 0px;
   background-color: red;
 }
+
 .lab > p{
   padding: 15px;
 }
@@ -302,6 +304,11 @@
 
 .chartcontainer {
   margin: 20px;
+}
+
+.sidechartcontainer {
+  margin: 5px;
+  padding: 5px;
 }
 
 /* Tooltip container */

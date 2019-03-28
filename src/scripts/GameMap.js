@@ -82,10 +82,6 @@ class GameMap extends Component{
 		if (this.props.buildingsVisible !== prevProps.buildingsVisible) {
 	    	this.componentDidMount();
 	  	} 
-		else if (this.props.students !== prevProps.students) {
-	    	console.log('more students')
-	    	this.componentDidMount();
-	  	} 
 	}
 
 	render() {
@@ -128,6 +124,11 @@ class GameMap extends Component{
 			      {(index) => <div key={index} style={{left: (Math.random()*(d.w - 60))+20, top: (Math.random()*(d.h - 60))+25, 
 			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="student">
 			      	<span className="speech">{characters.students.list[index%5]} {characters.students.thoughts[thought][index%5]}</span></div>}
+			    </Repeat>}
+			   {extraPop===true && <Repeat numTimes={1}>
+			      {(index) => <div key={index} style={{left: (Math.random()*(d.w - 60))+20, top: (Math.random()*(d.h - 60))+25, 
+			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="faculty">
+			      	<span className="speech">{characters.faculty.list[index%5]} {characters.faculty.thoughts[index%5]}</span></div>}
 			    </Repeat>}
 				<Repeat numTimes={custodiansPerBuilding}>
 			      {(index) => <div key={index} style={{left: (Math.random()*(d.w - 60))+20, top: (Math.random()*(d.h - 60))+25, 
