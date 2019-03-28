@@ -429,7 +429,6 @@ class Stats extends Component{
 			<div id="topbar">
 				<div className="statcontainer" onClick={()=>this.startTimer()}>money: {this.props.money}</div>
 				<div className="statcontainer" onClick={(event) => this.showStats(event)}>day: {this.props.day}</div>
-				<div className="statcontainer" >🐀: {this.props.rodents}</div>
 				<div className="statcontainer" onClick={(event) => this.reset(event)}>reset</div>		
 			</div>
 

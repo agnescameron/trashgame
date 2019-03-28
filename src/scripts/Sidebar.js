@@ -20,6 +20,8 @@ const mapStateToProps = (state) => {
   	level: state.appReducer.level,
   	bins: state.appReducer.bins,
   	day: state.appReducer.day,
+  	rodents: state.appReducer.rodents,
+  	trashbins: state.appReducer.trashbins,
   }
 }
 
@@ -55,15 +57,18 @@ class Sidebar extends Component{
 				<div className="sidebox">
 					<div className="column">
 					{this.props.faculty} faculty: <div className="faculty" style={{margin: '4px'}}></div><br/>
-					{this.props.students} students: <div className="student" style={{margin: '4px'}}></div><br/>
+					{this.props.students} students: <div className="student" style={{margin: '4px'}}></div>
 					</div>
 					<div className="column" style={{marginLeft: '-10px'}}>
-					{this.props.recyclingStaff} recycling staff: <div className="recycling" style={{margin: '4px'}}></div><br/>
-					{this.props.custodialStaff} custodial staff: <div className="custodian" style={{margin: '4px'}}></div>
+					{this.props.custodialStaff} custodial staff: <div className="custodian" style={{margin: '4px'}}></div><br/>
+					{this.props.level >=1 && <div>{this.props.recyclingStaff} recycling staff: <div className="recycling" style={{margin: '4px'}}></div></div>}<br/>
 					</div>
+					🐀: {this.props.rodents} rodents<br/>
+					🗑: {this.props.trashbins} trash bins <br/>
+					{this.props.level >=1 && <div>♻️: {this.props.bins} recycling bins</div>}
 				</div>
 
-				<div className="sidebox">
+				<div>
 				<Chart history={this.props.collectionRateHistory} day={this.props.day} label='% of waste to landfill' />
 				</div>
 				<div className="sidebox">

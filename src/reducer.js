@@ -16,6 +16,12 @@ function appReducer (state, action) {
         money: state.money-100,
       });
 
+    case 'trash bins':
+      return Object.assign({}, state, {
+        trashbins: state.trashbins+1,
+        money: state.money-10,
+      });
+
     case 'fire':
       return Object.assign({}, state, {
         custodialStaff: state.custodialStaff-1,
@@ -59,7 +65,8 @@ function appReducer (state, action) {
         money: state.money-150,
       });
 
-    case 'vans':
+    case 'recycling van':
+    console.log('recycing van')
       return Object.assign({}, state, {
         money: state.money-10000,
         vans: state.vans+1,
@@ -178,6 +185,8 @@ function appReducer (state, action) {
         money: 10000,
         recyclingStaff: 0,
         custodialStaff: 0,
+        trashbins: 1,
+        rodents: 0,
         bins: 1,
         vans: 1,
         signs: 0,

@@ -75,7 +75,8 @@ class Menu extends Component{
 			)}
 			</div>
 			</div>
-			{!this.state.hideMenu && <Child menuSelected={this.state.menuSelected} menuContents={this.state.menuContents} renderMenu={this.renderMenu} menuAction={this.menuAction}/>}
+			{!this.state.hideMenu && <Child menuSelected={this.state.menuSelected} menuContents={this.state.menuContents} 
+			renderMenu={this.renderMenu} menuAction={this.menuAction}/>}
 			</div>
 		);
 	}
