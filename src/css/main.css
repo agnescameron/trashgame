@@ -11,7 +11,7 @@
 
 #topbar{
   top: 20px;
-  width: 1200px;
+  width: 1300px;
   height: 60px;
   background-color: yellow;
   margin-left: auto;
@@ -26,7 +26,7 @@
 }
 
 #menubar{
-  width: 1200px;
+  width: 1300px;
   height: 70px;
   background-color: pink;
   margin-left: auto;
@@ -36,7 +36,7 @@
 }
 
 #centre {
-  width: 1200px;
+  width: 1300px;
 /*  margin-left: -600px;*/
   left: 50%;
   display: flex;
@@ -45,11 +45,17 @@
 
 
 .sidebar{
-  width: 170px;
+  width: 120px;
   margin: 10px;
   height: 600px;
   background-color: aliceblue;
   position: relative;
+  display: flex;
+}
+
+.sidebar > div{
+  width: 110px;
+  margin: 5px;
 }
 
 
@@ -252,7 +258,7 @@
 
 #statbar{
   top: 80px;
-  width: 1200px;
+  width: 1300px;
   height: 40px;
   background-color: yellow;
   margin-left: auto;

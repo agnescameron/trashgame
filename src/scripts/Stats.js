@@ -170,6 +170,8 @@ class Stats extends Component{
 			this.props.dispatch({
 				type: 'DAYL2',
 				recyclingQuality: nextState.recyclingQuality,
+				recyclingCost: nextState.recyclingCost,
+				educationLevel: nextState.educationLevel,
 			});	
 		}
 
@@ -186,7 +188,7 @@ class Stats extends Component{
 		}
 
 		//finally, calculate the cost
-		nextState.wasteCost = economics.calculateWasteCost(nextState, this.props);
+		nextState.wasteCost = Math.round(economics.calculateWasteCost(nextState, this.props));
 		
 		//set updated values
 		this.state = nextState;
@@ -194,14 +196,10 @@ class Stats extends Component{
 
 		this.props.dispatch({
 		    type: 'DAY',
-		 	recyclingQuality: nextState.recyclingQuality,
-		 	recyclingCost: nextState.recyclingCost,
-		 	recyclingRate: nextState.recyclingRate,
 		 	collectionRate: nextState.collectionRate,
 		 	leftoverWaste: nextState.leftoverWaste,
 		 	staffHappiness: nextState.staffHappiness,
 		 	wasteCost: nextState.wasteCost,
-		 	educationLevel: nextState.educationLevel,
 		 	rodents: nextState.rodents,
 			});
 	}
@@ -407,8 +405,8 @@ class Stats extends Component{
 	  	}
 	  	if (this.props.day !== prevProps.day){
 	  		console.log('day');
-	  		this.eachDay();
 			if(this.props.day !== 0){
+				this.eachDay();
 				this.check();
 			}
 	  	}

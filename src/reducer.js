@@ -36,7 +36,7 @@ function appReducer (state, action) {
     case 'signs':
       return Object.assign({}, state, {
         signs: state.signs+1,
-        money: state.money-100,
+        money: state.money-10,
       });
 
     case 'outreach':
@@ -137,7 +137,7 @@ function appReducer (state, action) {
       return Object.assign({}, state, {
         collectionRate: action.collectionRate,
         wasteCost: action.wasteCost,
-        money: state.money-action.recyclingCost,
+        money: state.money-action.wasteCost,
         collectionRateHistory: [...state.collectionRateHistory, action.collectionRate],
         leftoverWasteHistory: [...state.leftoverWasteHistory, action.leftoverWaste],
         educationLevel: action.educationLevel,

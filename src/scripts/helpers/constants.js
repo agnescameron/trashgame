@@ -11,7 +11,7 @@ export const constant = {
 	vanCapacity: 150,
 
 	compostBuildingCost: 500,
-	landfillUnitCost: 250,
+	landfillUnitCost: 12,
 	
 	//do these contribute to total waste until they cause problems?
 	labWasteCost: 1000,

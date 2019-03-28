@@ -160,6 +160,9 @@ const economics = {
 	},
 
 	calculateWasteCost: function(state, props) {
+		//need to adjust for levels (e.g. -- if level ==== 0, else if...)
+		//tweak 'unit costs' to provide a realistic + sustainable picture
+		//++ display costs to player
 		var totalLandfill = (state.totalWaste - state.totalCompost - state.recyclingRate*state.totalWaste); //+ props.labs*100*state.collectionRate;
 		var landfillCost = totalLandfill*constant.landfillUnitCost;
 		return landfillCost;
