@@ -40,6 +40,7 @@ const mapStateToProps = (state) => {
   	recyclingRateHistory: state.appReducer.recyclingRateHistory,
    	recyclingQualityHistory: state.appReducer.recyclingQualityHistory, 	
    	rodents: state.appReducer.rodents,
+   	trashbins: state.appReducer.trashbins,
   }
 }
 
@@ -78,14 +79,12 @@ class Stats extends Component{
 
 	startTimer = () => {
 		this.setState({timerId: setTimeout(() => this.tick(), 5000)})
-		console.log("setting", this.state.timerId);
 		this.props.dispatch({
 			type: 'NEXTDAY',
 		})
 	}
 
 	stopTimer = () => {
-		console.log("stopping", this.state.timerId);
 		clearTimeout(this.state.timerId);
 	}
 
@@ -94,7 +93,6 @@ class Stats extends Component{
 
 		if(nextLevel <= 5){
 			this.runScript(nextLevel);		
-			console.log('next level', nextLevel)
 			this.props.dispatch({
 				type: 'NEXTLEVEL',
 			})
@@ -104,7 +102,6 @@ class Stats extends Component{
 	addBuilding = () => {
 		var newStudents = buildings[this.props.buildingsVisible].students;
 		var newFaculty = buildings[this.props.buildingsVisible].faculty;
-		console.log('new faculty, new students')
 
 			this.props.dispatch({
 		    	type: 'addBuilding',
@@ -128,7 +125,6 @@ class Stats extends Component{
 		nextState.collectionRate = economics.calculateCollectionRate(nextState, this.props);
 
 		nextState.leftoverWaste = ((100 - nextState.collectionRate)/100)*nextState.totalWaste;
-		console.log('leftover waste is', nextState.leftoverWaste);
 
 		if(this.props.day>=4){
 			nextState.rodents = economics.calculateRodents(nextState, this.props);
@@ -140,7 +136,6 @@ class Stats extends Component{
 
 		//level 2: recycling rate
 		if(this.props.level >=1){
-			console.log('calculating level 2')
 			//how much is getting put in recycling
 			nextState.recyclingRate = economics.calculateRecyclingRate(nextState, this.props);
 
@@ -150,7 +145,6 @@ class Stats extends Component{
 			//is all the recycling collected? if not: run out of space
 			nextState.recyclingCollectionRate = economics.calculateRecyclingCollectionRate(nextState, this.props);
 			if(nextState.recyclingCollectionRate !== 100){
-				console.log('running out of space, recyclingcollectionRate is ', nextState.recyclingCollectionRate);
 			}
 
 			this.props.dispatch({
@@ -161,7 +155,6 @@ class Stats extends Component{
 
 		//level 3: recycling quality
 		if(this.props.level >=2){
-			console.log('calculating level 3')
 
 			nextState.educationLevel = economics.calculateEducationLevel(nextState, this.props);
 
@@ -192,10 +185,7 @@ class Stats extends Component{
 		
 		//set updated values
 		this.state = nextState;
-		
-		console.log('collectionRateHistory is  ', this.props.collectionRateHistory)
-
-
+	
 		this.props.dispatch({
 		    type: 'DAY',
 		 	collectionRate: nextState.collectionRate,
@@ -218,8 +208,6 @@ class Stats extends Component{
 		 		type: 'population'
 		 	});
 		}
-
-		console.log('a week')
 	}
 
 	eachMonth = () => {
@@ -342,7 +330,6 @@ class Stats extends Component{
 
 		if(this.props.day%7 === 0){
 			this.eachWeek();
-			console.log('a week')
 		}
 
 		if(this.props.day%30 === 0){
@@ -354,7 +341,6 @@ class Stats extends Component{
 
 	runScript = (script) => {
 		this.stopTimer();
-		console.log('didstop?');
 		this.setState({
 			runScript: true,
 			script: script})
@@ -402,11 +388,9 @@ class Stats extends Component{
 	  //also this is why it keeps ticking even when you reset!!
 	  //need to fix...
 		if (this.props.onboarded !== prevProps.onboarded) {
-	  		console.log('change');
 	    	this.componentDidMount();
 	  	}
 	  	if (this.props.day !== prevProps.day){
-	  		console.log('day');
 			if(this.props.day !== 0){
 				this.eachDay();
 				this.check();
@@ -421,7 +405,6 @@ class Stats extends Component{
 		var qualityBar = (Math.round(this.state.recyclingQuality)).toString().concat('%');
 		var level = this.props.level;
 		var rodentWarn = this.props.rodents/population;
-		console.log('rodentwarn is', rodentWarn);
 
 		return(
 			<div>

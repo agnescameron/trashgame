@@ -69,7 +69,8 @@ class Sidebar extends Component{
 				</div>
 
 				<div>
-				<Chart history={this.props.collectionRateHistory} day={this.props.day} label='% of waste to landfill' />
+				<div className="menutitle">{this.props.collectionRate}% collection rate</div>
+				<Chart history={this.props.collectionRateHistory} day={this.props.day} />
 				</div>
 				<div className="sidebox">
 				

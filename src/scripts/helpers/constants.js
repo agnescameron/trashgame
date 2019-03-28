@@ -3,8 +3,11 @@ export const constant = {
 	wastePopMultiplier: 5,
 	wasteBuildingConst:	10,
 
-	//how many waste units can each custodian collect per day
-	custodialCollection: 35,
+	//how many waste units per bin
+	binCapacity: 2,
+
+	//how many bins can each custodian collect per day
+	custodialCollection: 15,
 	recyclingCollection: 30,
 	
 	//how many units can each van carry

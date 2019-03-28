@@ -26,7 +26,6 @@ const mapStateToProps = (state) => {
 }
 
 const clickRecycling = () => {
-	console.log('recycling');
 }
 
 const weekQuality = (quality) => {
@@ -340,7 +339,6 @@ class Story extends Component{
 		else
 			rand =0; 
 		var contaminant = contaminants[rand];
-		console.log('contaminant is ', contaminant);
 		return contaminant;
 	}
 
@@ -363,16 +361,13 @@ class Story extends Component{
 	selectScript = (script) => {
 		var scriptSelected;
 		var scriptSender;
-		console.log('script is', script);
 		this.state.scripts.forEach(function(element) {
 			if(element.script === script){
 				scriptSender = element.sender;
 				scriptSelected = element.contents;
 			}		
 		});
-		console.log('selected', scriptSelected);
 		if(scriptSelected === undefined){
-			console.log('here', this.state.scripts[0].contents)
 			this.setState({scriptSelected: this.state.scripts[0].contents});
 			this.setState({scriptSender: characters.management});
 		}
