@@ -185,7 +185,6 @@ function appReducer (state, action) {
         money: 10000,
         recyclingStaff: 0,
         custodialStaff: 0,
-        trashbins: 1,
         rodents: 0,
         bins: 1,
         vans: 1,

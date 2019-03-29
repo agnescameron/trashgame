@@ -53,33 +53,12 @@ const economics = {
 	//should this scale with number of bins?
 	calculateCollectionRate: function(state, props) {
 		var collectionRate;
-		var binsToCollect;
-		var trashPerBin;
-		var overflow;
-
-		console.log('calculating collection rate rn', props.trashbins);
-
-		//are there enough bins for all the trash?
-		if(state.totalWaste - props.trashbins*constant.binCapacity <= 0){
-			console.log('no overflow')
-			overflow = 0;
-			trashPerBin = (state.totalWaste)/(props.trashbins*constant.binCapacity);
-			console.log('trashperbin is', trashPerBin);
-		}
-
-		else{
-			trashPerBin = constant.binCapacity;
-			overflow = state.totalWaste - props.trashbins*constant.binCapacity;
-			console.log('overflow is', overflow);
-		}
-
-
 		//are there enough custodians for all the bins + extra trash (penalty for trash not in bins)
 		var collectionPower = props.custodialStaff*constant.custodialCollection;
 		if(props.custodialStaff === 0)
 			collectionRate = 0;
 		else
-			collectionRate = 100 - Math.round(100*(((props.trashbins+overflow)-collectionPower)/props.trashbins)) 
+			collectionRate = 100 - Math.round(100*((state.totalWaste-collectionPower)/state.totalWaste)) 
 		//sanity check
 		if(collectionRate > 100){
 			collectionRate = 100;

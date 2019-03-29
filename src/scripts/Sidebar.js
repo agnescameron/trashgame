@@ -64,8 +64,7 @@ class Sidebar extends Component{
 					{this.props.level >=1 && <div>{this.props.recyclingStaff} recycling staff: <div className="recycling" style={{margin: '4px'}}></div></div>}<br/>
 					</div>
 					🐀: {this.props.rodents} rodents<br/>
-					🗑: {this.props.trashbins} trash bins <br/>
-					{this.props.level >=1 && <div>♻️: {this.props.bins} recycling bins</div>}
+					{this.props.level >=1 && <div>♻️🗑: {this.props.bins} recycling bins</div>}
 				</div>
 
 				<div>
