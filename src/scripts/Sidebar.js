@@ -21,7 +21,7 @@ const mapStateToProps = (state) => {
   	bins: state.appReducer.bins,
   	day: state.appReducer.day,
   	rodents: state.appReducer.rodents,
-  	trashbins: state.appReducer.trashbins,
+  	staffHappiness: state.appReducer.staffHappiness,
   }
 }
 
@@ -37,6 +37,21 @@ class Sidebar extends Component{
 	closeInfo = (event) => {
 		event.preventDefault();
 		this.setState({showBuildingInfo: false});
+	}
+
+	getStaffHappiness = () => {
+		var happiness;
+		if(this.props.staffHappiness <= 100)  happiness = '😀'
+		if(this.props.staffHappiness <= 90)  happiness = '☺️'
+		if(this.props.staffHappiness <= 80) happiness = '🙂'
+		if(this.props.staffHappiness <= 70) happiness = '😐'		
+		if(this.props.staffHappiness <= 60) happiness = '🙁'
+		if(this.props.staffHappiness <= 50) happiness = '😠'
+		if(this.props.staffHappiness <= 60) happiness = '😡'
+
+		console.log('happiness', this.props.staffHappiness, happiness)
+
+		return happiness;
 	}
 
 	componentDidMount() {
@@ -64,6 +79,7 @@ class Sidebar extends Component{
 					{this.props.level >=1 && <div>{this.props.recyclingStaff} recycling staff: <div className="recycling" style={{margin: '4px'}}></div></div>}<br/>
 					</div>
 					🐀: {this.props.rodents} rodents<br/>
+					<div>{this.getStaffHappiness()}: staff happiness</div>
 					{this.props.level >=1 && <div>♻️🗑: {this.props.bins} recycling bins</div>}
 				</div>
 

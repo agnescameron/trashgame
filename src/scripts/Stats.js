@@ -41,6 +41,7 @@ const mapStateToProps = (state) => {
    	recyclingQualityHistory: state.appReducer.recyclingQualityHistory, 	
    	rodents: state.appReducer.rodents,
    	trashbins: state.appReducer.trashbins,
+   	staffHappiness: state.appReducer.staffHappiness,
   }
 }
 
@@ -193,6 +194,7 @@ class Stats extends Component{
 		 	staffHappiness: nextState.staffHappiness,
 		 	wasteCost: nextState.wasteCost,
 		 	rodents: nextState.rodents,
+		 	staffHappiness: nextState.staffHappiness,
 			});
 	}
 

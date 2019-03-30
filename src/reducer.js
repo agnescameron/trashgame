@@ -25,6 +25,7 @@ function appReducer (state, action) {
     case 'fire':
       return Object.assign({}, state, {
         custodialStaff: state.custodialStaff-1,
+        staffHappiness: state.staffHappiness*0.9,
         money: state.money+80,
       });
 
@@ -149,6 +150,7 @@ function appReducer (state, action) {
         leftoverWasteHistory: [...state.leftoverWasteHistory, action.leftoverWaste],
         educationLevel: action.educationLevel,
         rodents: action.rodents,
+        staffHappiness: action.staffHappiness,
       });
 
       case 'DAYL1':

@@ -166,7 +166,19 @@ const economics = {
 	},
 
 	calculateStaffHappiness: function(state, props) {
-		var staffHappiness = 100-state.rodents;
+		//take existing staff happiness and modulate
+		//should be good if: good staff:population ratio
+		//nobody getting fired too rapidly
+		var staffHappiness = 100 - props.staffHappiness*(state.population+props.bins-(props.custodialStaff+props.recyclingStaff)
+			*(constant.custodialCollection/constant.wastePopMultiplier))/state.population;
+		//sanity check
+		if(staffHappiness > 100){
+			staffHappiness = 100;
+		}
+		if(staffHappiness < 0){
+			staffHappiness = 0;
+		}
+		console.log('staffHappiness is', staffHappiness);
 		return staffHappiness;
 	},
 
