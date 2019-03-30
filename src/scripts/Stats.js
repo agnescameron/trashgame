@@ -72,6 +72,18 @@ class Stats extends Component{
 		leftoverWaste: '',
 	}
 }
+
+	rollDice = (prob) => {
+		var rand = Math.random();
+
+		if(rand < prob){
+			return true;
+		}
+
+		else{
+			return false;
+		}
+	}
 	
 	tick = () => {
 		this.setState({currentCount: this.props.day});
@@ -280,20 +292,33 @@ class Stats extends Component{
 			}
 		}
 
+		//strike?
+		if(this.props.staffHappiness < 50){
+			if(this.rollDice(0.3)) {
+				this.runScript('strike');
+				this.props.dispatch({
+					type: 'strike',
+
+				})
+			}
+		}
+
 		//recycling quality/education related events
 		if(this.props.level >= 2){
 			//contaminant
-			if(this.props.day%13 === 0 && this.props.recyclingQuality < 95){
-				this.runScript('contaminant');
+			if(this.props.recyclingQuality < 95){
+				if(this.rollDice(0.08)) this.runScript('contaminant');
 			}
 
 			//recycling truck rejected
-			if(this.props.day%21 === 0 && this.props.recyclingQuality < 95){
-				this.runScript('truckRejected');
-				this.props.dispatch({
-					type: 'MONEY',
-					money: -1000,
-				})
+			if(this.props.recyclingQuality < 95){
+				if(this.rollDice(0.03)){
+					this.runScript('truckRejected');
+					this.props.dispatch({
+						type: 'MONEY',
+						money: -1000,
+					})
+				}
 			}
 
 			if(this.props.day%19 === 0 && this.props.recyclingQuality > 95){

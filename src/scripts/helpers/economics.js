@@ -55,7 +55,7 @@ const economics = {
 		var collectionRate;
 		//are there enough custodians for all the bins + extra trash (penalty for trash not in bins)
 		var collectionPower = props.custodialStaff*constant.custodialCollection;
-		if(props.custodialStaff === 0)
+		if(props.custodialStaff === 0 || props.strike === true)
 			collectionRate = 0;
 		else
 			collectionRate = 100 - Math.round(100*((state.totalWaste-collectionPower)/state.totalWaste)) 
@@ -143,10 +143,8 @@ const economics = {
 	},
 
 	calculateRodents: function(state, props){
-		console.log('leftover waste is');
 		//consider the last 4 days: average to get 
 		var wasteArr = 	props.leftoverWasteHistory.slice(1).slice(-4);
-		console.log('waste arr is ', wasteArr);
 		var sum;
 		if(wasteArr)
 			sum = wasteArr.reduce((x, y) => x + y);
@@ -178,7 +176,6 @@ const economics = {
 		if(staffHappiness < 0){
 			staffHappiness = 0;
 		}
-		console.log('staffHappiness is', staffHappiness);
 		return staffHappiness;
 	},
 

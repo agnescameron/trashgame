@@ -115,6 +115,12 @@ function appReducer (state, action) {
         signs: state.signs/3,
     });
 
+    case 'strike':
+      return Object.assign({}, state, {
+        strike: true,
+        
+      });
+
     //buildings
     case 'addBuilding':
       return Object.assign({}, state, {
@@ -151,6 +157,7 @@ function appReducer (state, action) {
         educationLevel: action.educationLevel,
         rodents: action.rodents,
         staffHappiness: action.staffHappiness,
+        strike: false,
       });
 
       case 'DAYL1':
@@ -195,6 +202,7 @@ function appReducer (state, action) {
         outreach: 0,
         students: 3,
         faculty: 1,
+        strike: false,
         collectionRate: 0,
         recyclingQuality: 0,
         recyclingCost: 50,

@@ -163,6 +163,15 @@ class Story extends Component{
 			//events
 
 			{
+				sender: characters.custodial.name,
+				script: 'strike',
+				contents: [`We can't work under these conditions! You need to hire more staff,\
+				if you want all these bins to be collected. And stop firing people without
+				warning! We're calling a 1-day strike: no trash collected tonight! Sort it out!!`
+				],
+			},
+
+			{
 				sender: characters.processing,
 				script: 'contaminationAtPlant',
 				contents: [`Hi there, I'm calling from the processing plant. We've had a bunch of\
