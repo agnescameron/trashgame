@@ -158,6 +158,8 @@ function appReducer (state, action) {
         rodents: action.rodents,
         staffHappiness: action.staffHappiness,
         strike: false,
+        totalLandfill: action.totalLandfill,
+        totalWaste: action.totalWaste,
       });
 
       case 'DAYL1':
@@ -219,6 +221,7 @@ function appReducer (state, action) {
         recyclingRateHistory: [],
         recyclingQualityHistory: [],
         leftoverWasteHistory: [],
+        isFired: false,
       });
 
     case 'NEXTLEVEL':
@@ -246,6 +249,16 @@ function appReducer (state, action) {
       return Object.assign({}, state, {
         money: state.money+action.money,
       });  
+
+    case 'endgame':
+      console.log('game ended');
+      return state;
+
+    case 'fired':
+      return Object.assign({}, state, {
+        isFired: true,
+      });  
+     
 
     default:
       return state;

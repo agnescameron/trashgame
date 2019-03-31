@@ -71,6 +71,7 @@ class Stats extends Component{
 		showChart: '',
 		leftoverWaste: '',
 		totalLandfill: '',
+		totalWaste: '',
 		compostRate: '',
 	}
 }
@@ -215,6 +216,8 @@ class Stats extends Component{
 		 	wasteCost: nextState.wasteCost,
 		 	rodents: nextState.rodents,
 		 	staffHappiness: nextState.staffHappiness,
+		 	totalLandfill: nextState.totalLandfill,
+		 	totalWaste: nextState.totalWaste,
 			});
 	}
 
@@ -367,6 +370,9 @@ class Stats extends Component{
 		}
 
 		//add Losing event here!!
+		if(this.props.day > 120){
+			this.runScript('scoring');
+		}
 	}
 
 	runScript = (script) => {

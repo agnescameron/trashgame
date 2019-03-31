@@ -22,6 +22,10 @@ const mapStateToProps = (state) => {
   	month: state.appReducer.month,
   	onboarded: state.appReducer.onboarded,
   	day: state.appReducer.day,
+  	money: state.appReducer.money,
+  	totalLandfill: state.appReducer.totalLandfill,
+  	totalWaste: state.appReducer.totalWaste,
+  	isFired: state.appReducer.isFired,
   }
 }
 
@@ -72,6 +76,7 @@ class Story extends Component{
 		runScript: true,
 		scriptSelected: [],
 		scriptSender: '',
+		isFired: false,
 		scripts: [
 
 			//general information
@@ -335,9 +340,97 @@ class Story extends Component{
 				contents: [`speciality: e-watste, clothing, etc`
 				],
 			},
+
+			//endgame
+			{
+				sender: characters.management,
+				script: 'scoring',
+				contents: [`It's been 4 months now, and it's time we went over the staff review.`,
+				`${this.isFired()}`,
+				`${this.scoring()}`,
+				],
+			},
+
 		],
 		progress: 0,
 	}
+	}
+
+	isFired = () => {
+		//are they fired?
+		var firedReasons = [];
+		if(this.props.staffHappiness < 30) firedReasons.push(' the staff are super unhappy with you');
+		if(this.props.money < -10000) firedReasons.push(` you've gone way waaaaay over budget`);
+		if(this.props.rodents/(this.props.students+this.props.faculty) > 2) firedReasons.push(` there are a *lot* of rodents`);
+		if(this.props.collectionRate < 70) firedReasons.push(` barely any of the waste is getting collected`);
+
+		//if more than one reason, add an and
+		if(firedReasons.length >= 2) 
+			firedReasons[firedReasons.length-1] = ' and' + firedReasons[firedReasons.length-1];
+
+		//you're fired
+		if(firedReasons.length !== 0){
+			firedReasons[0] = `We regret to inform you, but you're fired. It's nothing personal, but ` + firedReasons[0];
+			this.props.dispatch({
+				type: 'fired',
+			})
+		}	
+		
+		//not fired
+		else
+			firedReasons.push(`We're glad to inform you that we'd like to keep you on!`)
+
+		console.log(firedReasons);
+		//how they do?
+		return firedReasons;
+	}
+
+	scoring = () => {
+		var scoring;
+		console.log('landfill over waste', this.props.totalLandfill/this.props.totalWaste);
+		var isFired = this.props.isFired;
+		//0-40% diverted
+		if(this.props.totalLandfill/this.props.totalWaste < 1){
+			if(isFired) scoring = `You've really not done much about diverting waste either!\
+				All in all, we're pretty disappointed.`
+			else scoring = `However, you've barely made a dent in our landfill issues\
+				We brought you on to make a change, not just to pick up more bags!\
+				In the future, we'd like to see more of a focus on sustainability.`
+		}
+		//>40% diverted
+		if(this.props.totalLandfill/this.props.totalWaste < 0.6){
+			if(isFired) scoring = `You did start to make some progress with diverting waste\
+				from landfill, but didn't get very far!`
+			else scoring = `You've started to make some progress with diverting waste\
+				from landfill, but you haven't yet got very far!\
+				In the future, we'd like to see more of a focus on sustainability.`
+		}
+		//getting there
+		if(this.props.totalLandfill/this.props.totalWaste < 0.4){
+			if(isFired) scoring = `However, you did manage to make something of a dent\
+				in our landfill issue! We will continue to implement some of the\
+				programs you've initiated.`
+			else scoring = `You've made good progress on getting to Zero Waste, though\
+				there's still some way to go!`
+		}
+		//close
+		if(this.props.totalLandfill/this.props.totalWaste < 0.2){
+			if(isFired) scoring = `That said, you made a great effort on our landfill\
+				waste issue! We'll be continuing with a number of the programs you implemented`
+			else scoring = `You're almost there with zero waste! I'm confident we'll get there\
+				in a couple of months, great work!`
+		}
+		//you win
+		if(this.props.totalLandfill/this.props.totalWaste < 0.1){
+			if(isFired) scoring = `That said, you've done a fantastic job getting us to zero\
+				waste: though we can't keep you on, we will be trying to keep the\
+				program running!`;
+			else scoring = `You did it!! The campus is now at zero waste, diverting 90% or more of\
+				all the waste generated from landfill. Fantastic work!`
+		}
+		return scoring;
+
+
 	}
 
 	randomContaminant = () => {
@@ -361,7 +454,12 @@ class Story extends Component{
 				this.props.dispatch({
 			    type: 'ONBOARD',
 			})
+			if(this.props.script === 'scoring'){
+				this.props.dispatch({
+			    type: 'ENDGAME',
+			})
 			}
+		}	
 		this.props.startTimer();
 		}
 		else (this.setState({progress: this.state.progress+1}))
