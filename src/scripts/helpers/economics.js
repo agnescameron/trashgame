@@ -130,15 +130,18 @@ const economics = {
 		return recyclingUnitCost;
 	},
 
+	calculateCompostRate: function(state, props){
+		return props.buildingsVisible*state.educationLevel*constant.proportionFoodWaste;		
+	},
+
 	//compost
 	calculateTotalCompost: function(state, props){
-		var compostRate = props.buildingsVisible*state.educationLevel*constant.proportionFoodWaste;
-		var totalCompost = compostRate*state.totalWaste;
-		return totalCompost;
+		return state.compostRate*state.totalWaste;
 	},
 
 	calculateCompostCost: function(state, props){
 		var compostCost = props.buildingsVisible*constant.compostBuildingCost;
+		console.log('compost costs', compostCost);
 		return compostCost;
 	},
 
@@ -154,21 +157,15 @@ const economics = {
 		return rodents;
 	},
 
-	calculateWasteCost: function(state, props) {
-		//need to adjust for levels (e.g. -- if level ==== 0, else if...)
-		//tweak 'unit costs' to provide a realistic + sustainable picture
-		//++ display costs to player
-		var totalLandfill = (state.totalWaste - state.totalCompost - state.recyclingRate*state.totalWaste); //+ props.labs*100*state.collectionRate;
-		var landfillCost = totalLandfill*constant.landfillUnitCost;
-		return landfillCost;
-	},
-
 	calculateStaffHappiness: function(state, props) {
 		//take existing staff happiness and modulate
 		//should be good if: good staff:population ratio
 		//nobody getting fired too rapidly
-		var staffHappiness = 100 - props.staffHappiness*(state.population+props.bins-(props.custodialStaff+props.recyclingStaff)
-			*(constant.custodialCollection/constant.wastePopMultiplier))/state.population;
+		if(props.custodialStaff){
+			var staffHappiness = 100 - props.staffHappiness*(state.population+props.bins+state.rodents/(props.custodialStaff+props.recyclingStaff)
+				-(props.custodialStaff+props.recyclingStaff)*(constant.custodialCollection/constant.wastePopMultiplier))/state.population;
+		}
+		else staffHappiness = 0;
 		//sanity check
 		if(staffHappiness > 100){
 			staffHappiness = 100;
@@ -179,14 +176,38 @@ const economics = {
 		return staffHappiness;
 	},
 
-	calculateMonthlyCosts: function(state, props) {
+	calculateWeeklyCosts: function(state, props) {
 		var wages = props.custodialStaff*100 + props.recyclingStaff*250;
-		return wages;
+		if(state.compostCost) return (state.compostCost + wages);
+		else return wages;
 	},
 
-	// calculateTotalLandfill: function(state, props){
-	// 	//landfill - uncollected - recycling - compost - other speciality
-	// },
+	//after you've calculated waste, recycling, compost, etc
+	calculateTotalLandfill: function(state, props){
+			var totalLandfill = state.totalWaste;
+			if(props.level  >=1){
+				totalLandfill = state.totalWaste - 
+					state.totalWaste*state.recyclingRate*props.recyclingQuality;
+			}
+			if(props.level >=2){
+				totalLandfill = state.totalWaste - 
+					state.totalWaste*state.recyclingRate*state.recyclingQuality;				
+			}
+			if(props.level >=3){
+				totalLandfill = state.totalWaste - 
+					state.totalWaste*state.recyclingRate*state.recyclingQuality - 
+					state.compostRate*state.totalWaste;				
+			}
+			return totalLandfill;
+	},
+
+	calculateWasteCost: function(state, props) {
+		//need to adjust for levels (e.g. -- if level ==== 0, else if...)
+		//tweak 'unit costs' to provide a realistic + sustainable picture
+		//++ display costs to player
+		var landfillCost = state.totalLandfill*constant.landfillUnitCost;
+		return landfillCost;
+	},
 
 }
 

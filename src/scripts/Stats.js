@@ -70,6 +70,8 @@ class Stats extends Component{
 		timerId: '',
 		showChart: '',
 		leftoverWaste: '',
+		totalLandfill: '',
+		compostRate: '',
 	}
 }
 
@@ -183,15 +185,21 @@ class Stats extends Component{
 
 		//level 4: speciality streams
 		if(this.props.level >=3){
+			nextState.compostRate = economics.calculateCompostRate(nextState, this.props);
+
 			if(this.props.compost === true){
 				nextState.totalCompost = economics.calculateTotalCompost(nextState, this.props);
 				nextState.compostCost = economics.calculateCompostCost(nextState, this.props);
+				console.log('compost cost is ', nextState.compostCost)
 			}
 
 			this.props.dispatch({
 				type: 'DAYL3',
 			});	
 		}
+
+		//calculate the amount of landfill waste
+		nextState.totalLandfill = Math.round(economics.calculateTotalLandfill(nextState, this.props));
 
 		//finally, calculate the cost
 		nextState.wasteCost = Math.round(economics.calculateWasteCost(nextState, this.props));
@@ -212,8 +220,13 @@ class Stats extends Component{
 
 
 	eachWeek = () => {
+
+		var weeklyCosts = economics.calculateWeeklyCosts(this.state, this.props);
+		console.log('costs for this month were', weeklyCosts);
+
 	   	this.props.dispatch({
 		    type: 'WEEK',
+		    costs: weeklyCosts,
 		});
 
 		if(this.props.week === 0){
@@ -225,16 +238,6 @@ class Stats extends Component{
 	}
 
 	eachMonth = () => {
-
-		var monthlyCosts = economics.calculateMonthlyCosts(this.state, this.props);
-		console.log('costs for this month were', monthlyCosts);
-
-	   	this.props.dispatch(
-	   	{
-		    type: 'MONTH',
-		    wages: monthlyCosts,
-		    budget: 10000,
-		});
 
 		this.props.dispatch({
 	    	type: 'addMessage',

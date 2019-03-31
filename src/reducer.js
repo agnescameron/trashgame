@@ -173,6 +173,7 @@ function appReducer (state, action) {
     case 'WEEK':
       return Object.assign({}, state, {
         week: state.week + 1,
+        money: state.money-action.costs,
       });
 
     case 'MONTH':
