@@ -370,6 +370,9 @@ class Story extends Component{
 	selectScript = (script) => {
 		var scriptSelected;
 		var scriptSender;
+		this.setState({xpos: this.state.xpos+10});
+		this.setState({ypos: this.state.ypos+10});
+
 		this.state.scripts.forEach(function(element) {
 			if(element.script === script){
 				scriptSender = element.sender;
@@ -401,7 +404,7 @@ class Story extends Component{
 
 		return(
 			<div>
-				<div className="menu"> 
+				<div className="script"> 
 				<h1 className="menutitle">{this.state.scriptSender}</h1>
 				<div className="scriptText"  dangerouslySetInnerHTML={this.messageText()} ></div>
 				<button className="nextButton" onClick={(event) => this.nextPage(event)}> > </button>

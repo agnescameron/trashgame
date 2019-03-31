@@ -138,7 +138,7 @@ class GameMap extends Component{
 			</div>)}
 			</div>
 				<Repeat numTimes={custodiansPerCampus}>
-			      {(index) => <div key={index} style={{left: (Math.random()*(960))+20, top: (Math.random()*(720))+25, 
+			      {(index) => <div key={index} style={{left: (Math.random()*(960))+20, top: (Math.random()*(560))+25, 
 			      	animationName:'agent'+(index%6).toString(), animationDuration: `${Math.random()*8 + 6}s`}} className="custodian">
 			      	<span className="speech">{characters.custodial.list[index%5]}{characters.custodial.thoughts[thought][index%5]}</span></div>}
 			    </Repeat>			

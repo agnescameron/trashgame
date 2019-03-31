@@ -27,6 +27,8 @@ class Menu extends Component{
 	  menuSelected: [],
 	  menuContents: [],
 	  menus: menus,
+	  xpos: '',
+	  ypos: '',
 	}
 	this.menuAction = this.menuAction.bind(this);
 }
@@ -34,6 +36,8 @@ class Menu extends Component{
 	renderMenu = (menu, event) => {
 		event.preventDefault();
 		var menuContents = [];
+		this.setState({xpos: document.getElementById(menu).getBoundingClientRect().left});
+		this.setState({ypos: document.getElementById(menu).getBoundingClientRect().top});
 		this.state.menus.forEach(function(element) {
 		if(element.menu === menu)
 			menuContents=element.items;
@@ -76,7 +80,7 @@ class Menu extends Component{
 			</div>
 			</div>
 			{!this.state.hideMenu && <Child menuSelected={this.state.menuSelected} menuContents={this.state.menuContents} 
-			renderMenu={this.renderMenu} menuAction={this.menuAction}/>}
+			renderMenu={this.renderMenu} menuAction={this.menuAction} xpos={this.state.xpos} ypos={this.state.ypos}/>}
 			</div>
 		);
 	}
@@ -86,7 +90,7 @@ class Child extends Component {
 	render() {
 	let menuList = this.props.menuContents;	
 		return(
-			<div id="menubox" className='menu'>
+			<div id="menubox" className='menu' style={{left: this.props.xpos-100, top: this.props.ypos-320}}>
 				<button onClick={(event) => this.props.renderMenu(0, event)}> x </button>
 				<h1 className="menuTitle">{this.props.menuSelected}</h1>
 				{menuList.map((d, i) =>
