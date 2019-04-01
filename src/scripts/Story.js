@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {characters} from './helpers/characters.js'
 import { connect } from 'react-redux';
 import {buildings} from './helpers/buildings.js'
+import {Redirect} from 'react-router'
 import '../css/main.css'
 
 
@@ -26,6 +27,7 @@ const mapStateToProps = (state) => {
   	totalLandfill: state.appReducer.totalLandfill,
   	totalWaste: state.appReducer.totalWaste,
   	isFired: state.appReducer.isFired,
+  	endgame: state.appReducer.endgame,
   }
 }
 
@@ -77,6 +79,7 @@ class Story extends Component{
 		scriptSelected: [],
 		scriptSender: '',
 		isFired: false,
+		endgame: false,
 		scripts: [
 
 			//general information
@@ -354,6 +357,7 @@ class Story extends Component{
 		],
 		progress: 0,
 	}
+	    this.nextPage = this.nextPage.bind(this);
 	}
 
 	isFired = () => {
@@ -390,7 +394,7 @@ class Story extends Component{
 		console.log('landfill over waste', this.props.totalLandfill/this.props.totalWaste);
 		var isFired = this.props.isFired;
 		//0-40% diverted
-		if(this.props.totalLandfill/this.props.totalWaste < 1){
+		if(this.props.totalLandfill/this.props.totalWaste < 1.1){
 			if(isFired) scoring = `You've really not done much about diverting waste either!\
 				All in all, we're pretty disappointed.`
 			else scoring = `However, you've barely made a dent in our landfill issues\
@@ -449,17 +453,18 @@ class Story extends Component{
 		if(this.state.scriptSelected[this.state.progress + 1]===undefined){
 			this.props.dispatch({
 			    type: 'ENDSCRIPT',
-			})
+			});
 			if(this.props.script === 'onboard'){
 				this.props.dispatch({
 			    type: 'ONBOARD',
-			})
-			if(this.props.script === 'scoring'){
-				this.props.dispatch({
-			    type: 'ENDGAME',
-			})
+				});
 			}
-		}	
+			if(this.props.script === 'scoring'){
+				console.log('ending...')
+				this.props.dispatch({
+				    type: 'ENDGAME',
+				});	
+			}
 		this.props.startTimer();
 		}
 		else (this.setState({progress: this.state.progress+1}))
@@ -496,8 +501,17 @@ class Story extends Component{
 		this.selectScript(this.props.script);
 	}
 
+	componentDidUpdate(prevProps) {
+		if(this.props.endgame !== prevProps.endgame){
+			this.componentDidMount();
+		}
+	}
 
 	render() {
+      if (this.props.endgame === true) {
+        return <Redirect to='/Endgame' />;
+      }
+
 		let contaminant = this.state.contaminant;
 
 		return(

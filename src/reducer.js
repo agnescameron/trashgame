@@ -222,6 +222,7 @@ function appReducer (state, action) {
         recyclingQualityHistory: [],
         leftoverWasteHistory: [],
         isFired: false,
+        endgame: false,
       });
 
     case 'NEXTLEVEL':
@@ -250,9 +251,12 @@ function appReducer (state, action) {
         money: state.money+action.money,
       });  
 
-    case 'endgame':
+    case 'ENDGAME':
       console.log('game ended');
-      return state;
+       return Object.assign({}, state, {
+        endgame: true,
+      });  
+
 
     case 'fired':
       return Object.assign({}, state, {

@@ -10,6 +10,8 @@
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.7.0",
     "react-game-kit": "^1.0.6",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0",
     "react-scripts": "^2.1.8",
     "react-tooltip": "^3.10.0",
     "redux-thunk": "^2.3.0"
