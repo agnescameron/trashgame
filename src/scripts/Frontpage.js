@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {Redirect} from 'react-router'
-import '../css/main.css'
+import '../css/frontpage.css'
 import { connect } from 'react-redux';
 
 //gets the stored username+uuid from the state
@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 }
 
 
-class Endgame extends Component{
+class Frontpage extends Component{
   constructor(props) {
     super(props);
 	this.state = {
@@ -23,14 +23,16 @@ class Endgame extends Component{
 
 	startGame = (event) => {
 		event.preventDefault();
-		console.log('oooooo')
 		this.props.dispatch({
 		   type: 'INITIALISE',
 		});
 	}
 
+	renderAbout = (event) => {
+		console.log('about')
+	}
+
 	componentDidMount() {
-		console.log('mounting')
 	}
 
 
@@ -47,11 +49,15 @@ class Endgame extends Component{
 
       console.log('rendering, endgame is', this.props.endgame)
 		return(
-			<div>
-				<div className="endgame"></div>
-				<button onClick={(event) => this.startGame(event)}>start {this.props.endgame}</button>
+			<div className="frontpagebody">
+			<div className="frontpagecentre"> Let's play: Waste at MIT </div>
+				<div className="frontpagecentre">
+					<button className="button" onClick={(event) => this.startGame(event)}>start</button>
+					<button className="button" onClick={(event) => this.renderAbout(event)}>about</button>
+				</div>
+			<div className="image"></div>
 			</div>
 		);
 	}
 }
-export default connect(mapStateToProps)(Endgame);
+export default connect(mapStateToProps)(Frontpage);

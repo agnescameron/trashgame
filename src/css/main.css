@@ -377,13 +377,6 @@
   background-color: green;
 }
 
-/*endgame*/
-
-.endgame{
-  width: 500px;
-  height: 500px;
-  background-color: yellow;
-}
 
 /*typeface*/
 body { font-family: Nunito; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 20px; } 

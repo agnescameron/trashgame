@@ -503,13 +503,13 @@ class Story extends Component{
 
 	componentDidUpdate(prevProps) {
 		if(this.props.endgame !== prevProps.endgame){
-			this.componentDidMount();
+			this.render();
 		}
 	}
 
 	render() {
       if (this.props.endgame === true) {
-        return <Redirect to='/Endgame' />;
+        return <Redirect to='/Frontpage' />;
       }
 
 		let contaminant = this.state.contaminant;
