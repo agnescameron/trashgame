@@ -19,6 +19,7 @@ const mapStateToProps = (state) => {
   	faculty: state.appReducer.faculty,
   	level: state.appReducer.level,
   	bins: state.appReducer.bins,
+  	signs: state.appReducer.signs,
   	day: state.appReducer.day,
   	rodents: state.appReducer.rodents,
   	staffHappiness: state.appReducer.staffHappiness,
@@ -81,6 +82,7 @@ class Sidebar extends Component{
 					🐀: {this.props.rodents} rodents<br/>
 					<div>{this.getStaffHappiness()}: staff happiness</div>
 					{this.props.level >=1 && <div>♻️🗑: {this.props.bins} recycling bins</div>}
+					{this.props.level >=2 && <div>♻️ℹ️: {this.props.signs} signs</div>}
 				</div>
 
 				<div>

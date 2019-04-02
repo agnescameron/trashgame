@@ -48,7 +48,6 @@
   width: 260px;
   margin: 10px;
   height: 600px;
-  background-color: aliceblue;
   position: relative;
   display: block;
 }
@@ -200,14 +199,14 @@
 
 .script{
   position: fixed;
-  width: 300px;
-  height: 300px;
-  top:200px;
+  width: 400px;
+  min-height: 200px;
+  top:250px;
   left: 50%;
-  margin-left: -150px;
+  margin-left: -200px;
   z-index: 20;
-  overflow-y:scroll;
   background-color: white;
+  border: 2px solid black;
 }
 /*menu items*/
 
@@ -223,7 +222,10 @@
 .menu{
   position: fixed;
   width: 300px;
+  top:200px;
   height: 300px;
+  left: 50%;
+  margin-left: -150px;
   z-index: 20;
   overflow-y:scroll;
   background-color: white;
@@ -257,6 +259,7 @@
 .boxpic{
   margin: 0px 90px 0px 50px;
   z-index:20;
+  display: inline-block;
 }
 
 .boxpic > img {

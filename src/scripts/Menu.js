@@ -90,7 +90,7 @@ class Child extends Component {
 	render() {
 	let menuList = this.props.menuContents;	
 		return(
-			<div id="menubox" className='menu' style={{left: this.props.xpos-100, top: this.props.ypos-320}}>
+			<div id="menubox" className='menu'>
 				<button onClick={(event) => this.props.renderMenu(0, event)}> x </button>
 				<h1 className="menuTitle">{this.props.menuSelected}</h1>
 				{menuList.map((d, i) =>
