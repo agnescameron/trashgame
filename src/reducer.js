@@ -223,6 +223,7 @@ function appReducer (state, action) {
         leftoverWasteHistory: [],
         isFired: false,
         endgame: false,
+        runScript: true,
       });
 
     case 'NEXTLEVEL':

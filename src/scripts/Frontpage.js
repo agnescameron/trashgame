@@ -24,6 +24,9 @@ class Frontpage extends Component{
 	startGame = (event) => {
 		event.preventDefault();
 		this.props.dispatch({
+			type: 'PURGE'
+		});		
+		this.props.dispatch({
 		   type: 'INITIALISE',
 		});
 	}
@@ -50,7 +53,7 @@ class Frontpage extends Component{
       console.log('rendering, endgame is', this.props.endgame)
 		return(
 			<div className="frontpagebody">
-			<div className="frontpagecentre"> Let's play: Waste at MIT </div>
+			<div className="frontpagecentre"> <p>Let's play: Waste at MIT</p> </div>
 				<div className="frontpagecentre">
 					<button className="button" onClick={(event) => this.startGame(event)}>start</button>
 					<button className="button" onClick={(event) => this.renderAbout(event)}>about</button>

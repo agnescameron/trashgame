@@ -12,8 +12,6 @@
 
 .frontpagecentre {
 	padding-top: 30px;
-	font-size: 40px;
-	font-weight: bold;
   	width: 500px;
   	height: 70px;
 	left: 50%;
@@ -38,4 +36,10 @@
 	left: 50%;
    	margin:0 auto;
    	background-image: url('./img/spinningtrash.gif');
+}
+
+p {
+	margin: auto;
+	font-size: 40px;
+	font-weight: bold;
 }

@@ -11,7 +11,6 @@ import '../css/main.css'
 const mapStateToProps = (state) => {
   return{
   	runScript: state.appReducer.runScript,
-  	onboarded: state.appReducer.onboarded,
   	buildingsVisible: state.appReducer.buildingsVisible,
   	recyclingQuality: state.appReducer.recyclingQuality,
   	recyclingCost: state.appReducer.recyclingCost,
@@ -454,9 +453,9 @@ class Story extends Component{
 			this.props.dispatch({
 			    type: 'ENDSCRIPT',
 			});
-			if(this.props.script === 'onboard'){
+			if(this.props.onboarded === false){
 				this.props.dispatch({
-			    type: 'ONBOARD',
+			    	type: 'ONBOARD',
 				});
 			}
 			if(this.props.script === 'scoring'){
@@ -482,7 +481,11 @@ class Story extends Component{
 				scriptSelected = element.contents;
 			}		
 		});
-		if(scriptSelected === undefined){
+		if(this.props.onboarded === false){
+			this.setState({scriptSelected: this.state.scripts[1].contents});
+			this.setState({scriptSender: characters.management});
+		}
+		else if(scriptSelected === undefined){
 			this.setState({scriptSelected: this.state.scripts[0].contents});
 			this.setState({scriptSender: characters.management});
 		}
