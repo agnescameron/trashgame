@@ -24,13 +24,13 @@ export const menus = [
 		  			info: "Hire a custodian to join the team! They will help\
 		  			boost your collection rate. You'll need to pay them a monthly\
 		  			wage of $100"
-		  		},
+		  		},		  		
 		  		{
 		  			item: "fire",
 		  			cost: -80, 
 		  			info: "Low on money? Your personnel costs might be eating away\
-		  			at your finances. Getting rid of staff is risky, but will\
-		  			save on costs"
+		  			at your finances. Getting rid of staff is risky, and can make\
+		  			you pretty unpopular, but will save on weekly costs."
 		  		},
 		  		{
 		  			item: "train",

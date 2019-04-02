@@ -16,9 +16,16 @@ function appReducer (state, action) {
         money: state.money-100,
       });
 
+    case 'trash bins':
+      return Object.assign({}, state, {
+        trashbins: state.trashbins+1,
+        money: state.money-10,
+      });
+
     case 'fire':
       return Object.assign({}, state, {
         custodialStaff: state.custodialStaff-1,
+        staffHappiness: state.staffHappiness*0.9,
         money: state.money+80,
       });
 
@@ -36,7 +43,7 @@ function appReducer (state, action) {
     case 'signs':
       return Object.assign({}, state, {
         signs: state.signs+1,
-        money: state.money-100,
+        money: state.money-10,
       });
 
     case 'outreach':
@@ -59,7 +66,8 @@ function appReducer (state, action) {
         money: state.money-150,
       });
 
-    case 'vans':
+    case 'recycling van':
+    console.log('recycing van')
       return Object.assign({}, state, {
         money: state.money-10000,
         vans: state.vans+1,
@@ -107,6 +115,12 @@ function appReducer (state, action) {
         signs: state.signs/3,
     });
 
+    case 'strike':
+      return Object.assign({}, state, {
+        strike: true,
+        
+      });
+
     //buildings
     case 'addBuilding':
       return Object.assign({}, state, {
@@ -135,16 +149,17 @@ function appReducer (state, action) {
 
     case 'DAY':
       return Object.assign({}, state, {
-        recyclingQuality: action.recyclingQuality,
-        recyclingCost: action.recyclingCost,
-        recyclingRate: action.recyclingRate,
         collectionRate: action.collectionRate,
         wasteCost: action.wasteCost,
-        money: state.money-action.recyclingCost,
+        money: state.money-action.wasteCost,
         collectionRateHistory: [...state.collectionRateHistory, action.collectionRate],
         leftoverWasteHistory: [...state.leftoverWasteHistory, action.leftoverWaste],
         educationLevel: action.educationLevel,
         rodents: action.rodents,
+        staffHappiness: action.staffHappiness,
+        strike: false,
+        totalLandfill: action.totalLandfill,
+        totalWaste: action.totalWaste,
       });
 
       case 'DAYL1':
@@ -160,6 +175,7 @@ function appReducer (state, action) {
     case 'WEEK':
       return Object.assign({}, state, {
         week: state.week + 1,
+        money: state.money-action.costs,
       });
 
     case 'MONTH':
@@ -181,6 +197,7 @@ function appReducer (state, action) {
         money: 10000,
         recyclingStaff: 0,
         custodialStaff: 0,
+        rodents: 0,
         bins: 1,
         vans: 1,
         signs: 0,
@@ -188,8 +205,11 @@ function appReducer (state, action) {
         outreach: 0,
         students: 3,
         faculty: 1,
+        strike: false,
         collectionRate: 0,
         recyclingQuality: 0,
+        recyclingCost: 50,
+        recyclingRate: 0,
         messages:[],
         buildingsVisible: 1,
         onboarded: false,
@@ -201,6 +221,9 @@ function appReducer (state, action) {
         recyclingRateHistory: [],
         recyclingQualityHistory: [],
         leftoverWasteHistory: [],
+        isFired: false,
+        endgame: false,
+        runScript: true,
       });
 
     case 'NEXTLEVEL':
@@ -228,6 +251,19 @@ function appReducer (state, action) {
       return Object.assign({}, state, {
         money: state.money+action.money,
       });  
+
+    case 'ENDGAME':
+      console.log('game ended');
+       return Object.assign({}, state, {
+        endgame: true,
+      });  
+
+
+    case 'fired':
+      return Object.assign({}, state, {
+        isFired: true,
+      });  
+     
 
     default:
       return state;

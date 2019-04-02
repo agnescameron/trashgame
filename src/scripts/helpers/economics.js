@@ -46,7 +46,6 @@ const economics = {
 		var wasteProportion = ((1+state.luck)-stats.rollDice(state.luck));
 		var totalWaste = (state.population)*wasteProportion*constant.wastePopMultiplier 
 			+ constant.wasteBuildingConst*props.buildingsVisible + leftoverWaste;
-		console.log('total waste is');
 		return totalWaste;
 	},
 
@@ -54,12 +53,12 @@ const economics = {
 	//should this scale with number of bins?
 	calculateCollectionRate: function(state, props) {
 		var collectionRate;
+		//are there enough custodians for all the bins + extra trash (penalty for trash not in bins)
 		var collectionPower = props.custodialStaff*constant.custodialCollection;
-		if(props.custodialStaff === 0)
+		if(props.custodialStaff === 0 || props.strike === true)
 			collectionRate = 0;
 		else
-			collectionRate = 100 - Math.round(100*((state.totalWaste-collectionPower)/state.totalWaste));
-		console.log('total waste is', state.totalWaste, 'collection rate is', collectionRate, "collectionPower", collectionPower);
+			collectionRate = 100 - Math.round(100*((state.totalWaste-collectionPower)/state.totalWaste)) 
 		//sanity check
 		if(collectionRate > 100){
 			collectionRate = 100;
@@ -102,11 +101,9 @@ const economics = {
 
 	//function of: education, signage, outreach, recycling staff
 	calculateRecyclingQuality: function(state, props) {
-		console.log('education level is', state.educationLevel, 'luck is', state.luck);
 		var recyclingQuality = (state.educationLevel*100*state.luck) + (state.luck*(props.recyclingStaff*30)/state.population)*50;
 		if(recyclingQuality > 100)
 			recyclingQuality = 100;
-		console.log('recyclingQuality is', recyclingQuality);
 		return recyclingQuality;
 	},
 
@@ -133,23 +130,24 @@ const economics = {
 		return recyclingUnitCost;
 	},
 
+	calculateCompostRate: function(state, props){
+		return props.buildingsVisible*state.educationLevel*constant.proportionFoodWaste;		
+	},
+
 	//compost
 	calculateTotalCompost: function(state, props){
-		var compostRate = props.buildingsVisible*state.educationLevel*constant.proportionFoodWaste;
-		var totalCompost = compostRate*state.totalWaste;
-		return totalCompost;
+		return state.compostRate*state.totalWaste;
 	},
 
 	calculateCompostCost: function(state, props){
 		var compostCost = props.buildingsVisible*constant.compostBuildingCost;
+		console.log('compost costs', compostCost);
 		return compostCost;
 	},
 
 	calculateRodents: function(state, props){
-		console.log('leftover waste is');
 		//consider the last 4 days: average to get 
 		var wasteArr = 	props.leftoverWasteHistory.slice(1).slice(-4);
-		console.log('waste arr is ', wasteArr);
 		var sum;
 		if(wasteArr)
 			sum = wasteArr.reduce((x, y) => x + y);
@@ -159,25 +157,57 @@ const economics = {
 		return rodents;
 	},
 
-	calculateWasteCost: function(state, props) {
-		var totalLandfill = (state.totalWaste - state.totalCompost - state.recyclingRate*state.totalWaste); //+ props.labs*100*state.collectionRate;
-		var landfillCost = totalLandfill*constant.landfillUnitCost;
-		return landfillCost;
-	},
-
 	calculateStaffHappiness: function(state, props) {
-		var staffHappiness = 100-state.rodents;
+		//take existing staff happiness and modulate
+		//should be good if: good staff:population ratio
+		//nobody getting fired too rapidly
+		if(props.custodialStaff){
+			var staffHappiness = 100 - props.staffHappiness*(state.population+props.bins+state.rodents/(props.custodialStaff+props.recyclingStaff)
+				-(props.custodialStaff+props.recyclingStaff)*(constant.custodialCollection/constant.wastePopMultiplier))/state.population;
+		}
+		else staffHappiness = 0;
+		//sanity check
+		if(staffHappiness > 100){
+			staffHappiness = 100;
+		}
+		if(staffHappiness < 0){
+			staffHappiness = 0;
+		}
 		return staffHappiness;
 	},
 
-	calculateMonthlyCosts: function(state, props) {
+	calculateWeeklyCosts: function(state, props) {
 		var wages = props.custodialStaff*100 + props.recyclingStaff*250;
-		return wages;
+		if(state.compostCost) return (state.compostCost + wages);
+		else return wages;
 	},
 
-	// calculateTotalLandfill: function(state, props){
-	// 	//landfill - uncollected - recycling - compost - other speciality
-	// },
+	//after you've calculated waste, recycling, compost, etc
+	calculateTotalLandfill: function(state, props){
+			var totalLandfill = state.totalWaste;
+			if(props.level  >=1){
+				totalLandfill = state.totalWaste - 
+					state.totalWaste*state.recyclingRate*props.recyclingQuality;
+			}
+			if(props.level >=2){
+				totalLandfill = state.totalWaste - 
+					state.totalWaste*state.recyclingRate*state.recyclingQuality;				
+			}
+			if(props.level >=3){
+				totalLandfill = state.totalWaste - 
+					state.totalWaste*state.recyclingRate*state.recyclingQuality - 
+					state.compostRate*state.totalWaste;				
+			}
+			return totalLandfill;
+	},
+
+	calculateWasteCost: function(state, props) {
+		//need to adjust for levels (e.g. -- if level ==== 0, else if...)
+		//tweak 'unit costs' to provide a realistic + sustainable picture
+		//++ display costs to player
+		var landfillCost = state.totalLandfill*constant.landfillUnitCost;
+		return landfillCost;
+	},
 
 }
 

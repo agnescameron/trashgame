@@ -24,7 +24,7 @@
             budget: 10000,
             labs: 0,
             w: 252,
-            h: 580,            
+            h: 580,
           },
           {
             building: 'CSAIL',

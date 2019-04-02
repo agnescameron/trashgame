@@ -85,6 +85,7 @@
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   border-bottom: 10px solid pink;
+  display: inline-block;
   animation-duration: 10s;
   animation-iteration-count: infinite;
 }

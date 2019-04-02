@@ -2,18 +2,16 @@
 /*broad page elements*/
 
 #map{
-  position: fixed;
+  position: relative;
   width: 1000px;
-  left: 50%;
-  margin-left: -500px;
+  margin:10px;
   height: 600px;
   background-color: blue;
-  top: 120px;
 }
 
 #topbar{
   top: 20px;
-  width: 1150px;
+  width: 1300px;
   height: 60px;
   background-color: yellow;
   margin-left: auto;
@@ -28,13 +26,38 @@
 }
 
 #menubar{
-  width: 1150px;
+  width: 1300px;
   height: 70px;
   background-color: pink;
   margin-left: auto;
   margin-right: auto;
   display: flex;
   justify-content: center;
+}
+
+#centre {
+  width: 1300px;
+/*  margin-left: -600px;*/
+  left: 50%;
+  display: flex;
+   margin:0 auto;
+}
+
+
+.sidebar{
+  width: 260px;
+  margin: 10px;
+  height: 600px;
+  background-color: aliceblue;
+  position: relative;
+  display: block;
+}
+
+.sidebar > div{
+  width: 240px;
+  height: 140px;
+  margin: 10px;
+  background-color: white;
 }
 
 #container{
@@ -60,7 +83,7 @@
   display: grid;
   width: 100%;
   height: 100%;
-  z-index: 100;
+  z-index: 10;
   grid-template-areas: "medialab architecture sloan sloan"
   "CSAIL architecture broad mcgovern"
   "studentcenter architecture physics physics";
@@ -116,6 +139,7 @@
   margin: 10px 0px 10px 0px;
   background-color: red;
 }
+
 .lab > p{
   padding: 15px;
 }
@@ -173,6 +197,18 @@
   margin: 10px;
 }
 
+
+.script{
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  top:200px;
+  left: 50%;
+  margin-left: -150px;
+  z-index: 20;
+  overflow-y:scroll;
+  background-color: white;
+}
 /*menu items*/
 
 .menubutton{
@@ -188,12 +224,10 @@
   position: fixed;
   width: 300px;
   height: 300px;
-  top:200px;
-  left: 50%;
-  margin-left: -150px;
   z-index: 20;
   overflow-y:scroll;
   background-color: white;
+  border: 2px solid;
 }
 
 .menutitle {
@@ -236,7 +270,7 @@
 
 #statbar{
   top: 80px;
-  width: 1150px;
+  width: 1300px;
   height: 40px;
   background-color: yellow;
   margin-left: auto;
@@ -265,6 +299,7 @@
 .column {
   float: left;
   width: 50%;
+  margin-bottom: 10px;
 }
 
 /*charts*/
@@ -280,6 +315,11 @@
 
 .chartcontainer {
   margin: 20px;
+}
+
+.sidechartcontainer {
+  margin: 5px;
+  padding: 5px;
 }
 
 /* Tooltip container */
@@ -336,6 +376,7 @@
   height: 15px;
   background-color: green;
 }
+
 
 /*typeface*/
 body { font-family: Nunito; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 20px; } 
