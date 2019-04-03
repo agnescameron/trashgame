@@ -183,7 +183,7 @@ function appReducer (state, action) {
         money: state.money-action.wasteCost,
         collectionRateHistory: [...state.collectionRateHistory, action.collectionRate],
         leftoverWasteHistory: [...state.leftoverWasteHistory, action.leftoverWaste],
-        landfillWasteHistory: [...state.landfillWasteHistory, action.landfillWaste],
+        // landfillWasteHistory: [...state.landfillWasteHistory, action.landfillWaste],
         landfillWaste: action.landfillWaste,
         educationLevel: action.educationLevel,
         rodents: action.rodents,

@@ -351,15 +351,15 @@ class Stats extends Component{
 
 		//speciality stream events
 		if(this.props.level >= 3){
-
-			if(this.props.day%13 === 0 && this.props.recyclingQuality > 95){
+			console.log('recycling quality is', this.props.recyclingQuality)
+			if(this.props.day%13 === 0 && this.props.recyclingQuality > 70){
 				this.runScript('conference');
 				this.props.dispatch({
 					type: 'conference'
 				})
 			}
 
-			if(this.props.day%18 === 0 && this.props.educationLevel > 70){
+			if(this.props.day%18 === 0 && this.props.educationLevel > 0.7){
 				this.runScript('changeInEducation');
 			}
 
