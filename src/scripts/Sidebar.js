@@ -23,6 +23,8 @@ const mapStateToProps = (state) => {
   	day: state.appReducer.day,
   	rodents: state.appReducer.rodents,
   	staffHappiness: state.appReducer.staffHappiness,
+  	landfillWasteHistory: state.appReducer.landfillWasteHistory,
+  	landfillWaste: state.appReducer.landfillWaste,
   }
 }
 
@@ -49,7 +51,7 @@ class Sidebar extends Component{
 		if(this.props.staffHappiness <= 60) happiness = '🙁'
 		if(this.props.staffHappiness <= 50) happiness = '😠'
 		if(this.props.staffHappiness <= 60) happiness = '😡'
-		
+
 		console.log('happiness', this.props.staffHappiness, happiness)
 
 		return happiness;
@@ -86,8 +88,8 @@ class Sidebar extends Component{
 				</div>
 
 				<div>
-				<div className="menutitle">{this.props.collectionRate}% collection rate</div>
-				<Chart history={this.props.collectionRateHistory} day={this.props.day} />
+				<Chart history={this.props.collectionRateHistory} day={this.props.day} label={`collection rate ${this.props.collectionRate}%`} />
+				{this.props.level >=2 && <Chart history={this.props.landfillWasteHistory} day={this.props.day} label={`solid waste to landfill ${Math.round(this.props.landfillWaste*100)}%`} />}
 				</div>
 				<div className="sidebox">
 				

@@ -220,7 +220,7 @@ class Stats extends Component{
 		 	wasteCost: nextState.wasteCost,
 		 	rodents: nextState.rodents,
 		 	staffHappiness: nextState.staffHappiness,
-		 	totalLandfill: nextState.totalLandfill,
+		 	landfillWaste: nextState.totalLandfill/nextState.totalWaste,
 		 	totalWaste: nextState.totalWaste,
 			});
 	}
