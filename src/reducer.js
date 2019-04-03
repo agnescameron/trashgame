@@ -155,6 +155,7 @@ function appReducer (state, action) {
           buildingsVisible: state.buildingsVisible + 1,
           faculty: state.faculty + action.faculty,
           students: state.students + action.students,
+          money: state.money+action.budget,
     });
 
     case 'moreBins':

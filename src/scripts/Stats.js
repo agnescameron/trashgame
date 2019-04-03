@@ -120,11 +120,13 @@ class Stats extends Component{
 	addBuilding = () => {
 		var newStudents = buildings[this.props.buildingsVisible].students;
 		var newFaculty = buildings[this.props.buildingsVisible].faculty;
+		var budget = buildings[this.props.buildingsVisible].budget;
 
 			this.props.dispatch({
 		    	type: 'addBuilding',
 		    	students: newStudents,
 		    	faculty: newFaculty,
+		    	budget: budget,
 			});
 			this.runScript('addBuilding');
 	}
