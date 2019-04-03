@@ -270,7 +270,7 @@ class Stats extends Component{
 			});
 		}		
 
-		if(this.props.day%14 === 0 && this.props.collectionRate > 98){
+		if(this.props.day%14 === 0 && ( this.props.collectionRate > 98 && this.props.staffHappiness > 80)){
 			this.addBuilding();
 		}
 
@@ -299,8 +299,8 @@ class Stats extends Component{
 		}
 
 		//strike?
-		if(this.props.staffHappiness < 50){
-			if(this.rollDice(0.3)) {
+		if(this.props.staffHappiness < 40 && this.props.day > 10){
+			if(this.rollDice(0.1)) {
 				this.runScript('strike');
 				this.props.dispatch({
 					type: 'strike',
@@ -396,7 +396,7 @@ class Stats extends Component{
 			type: 'PURGE'
 		});
 		this.props.dispatch({
-			type: 'INITIALISE'
+			type: 'RESET'
 		});
 	}
 

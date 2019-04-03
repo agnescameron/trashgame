@@ -188,6 +188,44 @@ function appReducer (state, action) {
     case 'PURGE':
       return {};
 
+    case 'RESET': 
+      return Object.assign({}, state, {
+        labs: 0,
+        day: 0,
+        week: 0,
+        month: 0,
+        money: 10000,
+        recyclingStaff: 0,
+        custodialStaff: 0,
+        rodents: 0,
+        bins: 1,
+        vans: 1,
+        signs: 0,
+        workshops: 0,
+        outreach: 0,
+        students: 3,
+        faculty: 1,
+        strike: false,
+        collectionRate: 0,
+        recyclingQuality: 0,
+        recyclingCost: 50,
+        recyclingRate: 0,
+        messages:[],
+        buildingsVisible: 1,
+        onboarded: false,
+        runScript: true,
+        staffHappiness: 100,
+        level: 0,
+        educationLevel: 0,
+        collectionRateHistory: [],
+        recyclingRateHistory: [],
+        recyclingQualityHistory: [],
+        leftoverWasteHistory: [],
+        isFired: false,
+        runScript: true, 
+        endgame: true,
+      });
+
     case 'INITIALISE':
       return Object.assign({}, state, {
         labs: 0,

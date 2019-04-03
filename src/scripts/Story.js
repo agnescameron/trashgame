@@ -27,6 +27,7 @@ const mapStateToProps = (state) => {
   	totalWaste: state.appReducer.totalWaste,
   	isFired: state.appReducer.isFired,
   	endgame: state.appReducer.endgame,
+  	staffHappiness: state.appReducer.staffHappiness,
   }
 }
 
@@ -242,7 +243,7 @@ class Story extends Component{
 				sender: characters.management,
 				script: 'addBuilding',
 				contents: ["Things seem to be going pretty well here!",
-				`you've got the recycling and waste collection under control, and your staff are ${this.props.staffHappiness}% happy`,
+				`you've got the waste collection under control, and your staff are ${this.props.staffHappiness}% happy`,
 				"It's time we gave you some more responsibilities!",
 				`We're asking you to take charge of ${buildings[this.props.buildingsVisible-1].building}. They have a solid waste management budget\
 				of $${buildings[this.props.buildingsVisible-1].budget} per month, with ${buildings[this.props.buildingsVisible-1].faculty*10} faculty,\

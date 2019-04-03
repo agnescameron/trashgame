@@ -55,7 +55,7 @@
 .sidebar > div{
   width: 240px;
   height: 140px;
-  margin: 10px;
+  margin: 40px 10px 10px 10px;
   background-color: white;
 }
 

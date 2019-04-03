@@ -35,22 +35,26 @@ class Frontpage extends Component{
 		console.log('about')
 	}
 
+	redirect = () => {
+		console.log('redirecting')
+        return <Redirect to='/' />;
+	}
+
 	componentDidMount() {
 	}
 
 
-	componentDidUpdate(prevProps) {
-		if(this.props.endgame !== prevProps.endgame){
-			this.componentDidMount();
-		}
-	}
+	// componentDidUpdate(prevProps) {
+	// 	if(this.props.endgame !== prevProps.endgame){
+	// 		this.componentDidMount();
+	// 	}
+	// }
 
 	render() {
-      if (this.props.endgame === false) {
+	if (this.props.endgame === false) {
         return <Redirect to='/' />;
       }
 
-      console.log('rendering, endgame is', this.props.endgame)
 		return(
 			<div className="frontpagebody">
 			<div className="frontpagecentre"> <p>Let's play: Waste at MIT</p> </div>

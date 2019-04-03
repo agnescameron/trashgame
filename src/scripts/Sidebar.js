@@ -49,7 +49,7 @@ class Sidebar extends Component{
 		if(this.props.staffHappiness <= 60) happiness = '🙁'
 		if(this.props.staffHappiness <= 50) happiness = '😠'
 		if(this.props.staffHappiness <= 60) happiness = '😡'
-
+		
 		console.log('happiness', this.props.staffHappiness, happiness)
 
 		return happiness;
