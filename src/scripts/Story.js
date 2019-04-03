@@ -54,10 +54,10 @@ const weekQuality = (quality) => {
 }
 
 const getS = (num) => {
-	if(num > 1)
-		return 's'
-	else
+	if(num === 1)
 		return ''
+	else
+		return 's'
 }
 
 
@@ -519,6 +519,10 @@ class Story extends Component{
 
 	render() {
 		let contaminant = this.state.contaminant;
+
+    if (this.props.endgame === true) {
+      return <Redirect to='/Frontpage' />;
+    }
 
 		return(
 			<div>

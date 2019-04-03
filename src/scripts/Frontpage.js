@@ -44,13 +44,6 @@ class Frontpage extends Component{
 	componentDidMount() {
 	}
 
-
-	// componentDidUpdate(prevProps) {
-	// 	if(this.props.endgame !== prevProps.endgame){
-	// 		this.componentDidMount();
-	// 	}
-	// }
-
 	render() {
 	if (this.props.endgame === false) {
         return <Redirect to='/' />;

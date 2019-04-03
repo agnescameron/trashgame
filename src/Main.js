@@ -5,6 +5,7 @@ import GameMap from './scripts/GameMap.js';
 import Sidebar from './scripts/Sidebar.js';
 import GameLoop from './GameLoop.js';
 import { connect } from 'react-redux';
+import {Redirect} from 'react-router'
 import './css/main.css';
 
 const mapStateToProps = (state) => {

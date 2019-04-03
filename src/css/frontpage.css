@@ -41,9 +41,9 @@
 .about {
   position: fixed;
   width: 500px;
-  height: 400px;
+  height: 700px;
   overflow-y: scroll;
-  top:100px;
+  top:30px;
   left: 50%;
   margin-left: -250px;
   z-index: 20;
@@ -54,7 +54,7 @@
 .textwrap {
 	position: fixed;
 	width: 350px;
-	margin: 25px;
+	margin: 50px 0px 0px 70px;
 }
 
 .close {
