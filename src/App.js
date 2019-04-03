@@ -23,8 +23,8 @@ constructor(props){
     return (   
     <div>
 	    <Switch>
-	    <Route path="/Frontpage" component={Frontpage}/>	    
-	    <Route exact path="/" component={Main}/>
+	    <Route exact path="/" component={Frontpage}/>	    
+	    <Route path="/Main" component={Main}/>
 	  	</Switch>
    	</div> 
     );

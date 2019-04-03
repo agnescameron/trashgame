@@ -38,7 +38,7 @@ class Frontpage extends Component{
 
 	redirect = () => {
 		console.log('redirecting')
-        return <Redirect to='/' />;
+        return <Redirect to='/Main' />;
 	}
 
 	componentDidMount() {
@@ -46,7 +46,7 @@ class Frontpage extends Component{
 
 	render() {
 	if (this.props.endgame === false) {
-        return <Redirect to='/' />;
+        return <Redirect to='/Main' />;
       }
 
 		return(

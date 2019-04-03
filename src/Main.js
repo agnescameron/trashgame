@@ -25,7 +25,7 @@ constructor(props){
   render() {
     
     if (this.props.endgame === true) {
-      return <Redirect to='/Frontpage' />;
+      return <Redirect to='/' />;
     }
 
     return (     

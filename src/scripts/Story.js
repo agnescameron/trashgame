@@ -537,7 +537,7 @@ class Story extends Component{
 		let contaminant = this.state.contaminant;
 
     if (this.props.endgame === true) {
-      return <Redirect to='/Frontpage' />;
+      return <Redirect to='/' />;
     }
 
 		return(
