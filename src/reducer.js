@@ -206,7 +206,7 @@ function appReducer (state, action) {
 
       case 'DAYL3':
       return Object.assign({}, state, {
-        compostRateHistory: [...state.compostRateHistory, action.compostRate],
+        // compostRateHistory: [...state.compostRateHistory, action.compostRate],
         compostRate: action.compostRate,
       }); 
 
