@@ -204,6 +204,8 @@ class Stats extends Component{
 				nextState.totalCompost = 0;
 			}
 
+			console.log('compost rate is', nextState.compostRate)
+
 			this.props.dispatch({
 				type: 'DAYL3',
 				compostRate: nextState.compostRate,
@@ -451,7 +453,7 @@ class Stats extends Component{
 		var collectionBar = (Math.round(this.state.collectionRate)).toString().concat('%');
 		var rateBar = (Math.round(this.state.recyclingRate*100)).toString().concat('%');
 		var qualityBar = (Math.round(this.state.recyclingQuality)).toString().concat('%');
-		var compostBar = (Math.round(this.props.compostRate*100)).toString().concat('%');
+		// var compostBar = (Math.round(this.props.compostRate*100)).toString().concat('%');
 		var level = this.props.level;
 		var rodentWarn = this.props.rodents/population;
 
@@ -465,10 +467,6 @@ class Stats extends Component{
 			</div>
 
 			<div id="statbar">
-				{this.props.compost === true && <div className="statcontainer">compost rate: {compostBar}<div className="progressbar">
-					<div className="progress" style={{width: compostBar}}></div></div>
-						<div id="chartview"><ChartView history={this.props.compostRateHistory} day={this.props.day} label='compost rate:' /></div>
-					</div>}
 				{level>=2 && <div className="statcontainer" >recycling quality: {qualityBar}<div className="progressbar">
 					<div className="progress" style={{width: qualityBar}}></div></div>
 						<div id="chartview"><ChartView history={this.props.recyclingQualityHistory} day={this.props.day} label='recycling quality:' /></div>

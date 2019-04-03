@@ -77,8 +77,6 @@ class Sidebar extends Component{
 	}
 
 	render() {
-		//super hacky, gets buildings visible from props
-
 		return(
 			<div className="sidebar">
 				<div className="sidebox">
