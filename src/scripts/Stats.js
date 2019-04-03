@@ -42,6 +42,8 @@ const mapStateToProps = (state) => {
    	rodents: state.appReducer.rodents,
    	trashbins: state.appReducer.trashbins,
    	staffHappiness: state.appReducer.staffHappiness,
+   	proportionCompostable: state.appReducer.proportionCompostable,
+   	proportionRecyclables: state.appReducer.proportionRecyclables,
   }
 }
 
@@ -107,7 +109,7 @@ class Stats extends Component{
 	nextLevel = () => {
 		var nextLevel = (this.props.level+1).toString();	
 
-		if(nextLevel <= 5){
+		if(nextLevel <= 4){
 			this.runScript(nextLevel);		
 			this.props.dispatch({
 				type: 'NEXTLEVEL',

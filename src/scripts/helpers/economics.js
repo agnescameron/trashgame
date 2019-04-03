@@ -78,12 +78,12 @@ const economics = {
 		var recyclingRate
 		//check there are enough bins
 		if (props.bins/state.population > 0.1){
-			recyclingRate = constant.proportionRecyclables*stats.rollDice(state.luck);
+			recyclingRate = props.proportionRecyclables*stats.rollDice(state.luck);
 		}
 		//insufficient bins
 		else {
 			recyclingRate = (props.bins/state.population)*10*
-				constant.proportionRecyclables*stats.rollDice(state.luck);
+				props.proportionRecyclables*stats.rollDice(state.luck);
 		}
 		return recyclingRate;
 	},
@@ -131,7 +131,7 @@ const economics = {
 	},
 
 	calculateCompostRate: function(state, props){
-		return props.buildingsVisible*state.educationLevel*constant.proportionFoodWaste;		
+		return state.educationLevel*props.proportionCompostable;		
 	},
 
 	//compost
@@ -174,6 +174,10 @@ const economics = {
 			staffHappiness = 0;
 		}
 		return staffHappiness;
+	},
+
+	calculatePurchasingQuality: function(state, props) {
+
 	},
 
 	calculateWeeklyCosts: function(state, props) {

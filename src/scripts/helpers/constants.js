@@ -16,7 +16,4 @@ export const constant = {
 	//do these contribute to total waste until they cause problems?
 	labWasteCost: 1000,
 	labWaste: 40,
-
-	proportionFoodWaste: 0.3,
-	proportionRecyclables: 0.5,
 }

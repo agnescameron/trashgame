@@ -67,8 +67,10 @@ class Menu extends Component{
 			menuBar = this.state.menus[1].items;
 		else if (this.props.level === 2)
 			menuBar = this.state.menus[2].items;
-		else
+		else if (this.props.level === 3)
 			menuBar = this.state.menus[3].items;
+		else
+			menuBar = this.state.menus[4].items;
 
 		return(
 			<div>

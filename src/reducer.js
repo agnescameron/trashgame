@@ -73,7 +73,7 @@ function appReducer (state, action) {
         vans: state.vans+1,
       });
 
-    //recycling menu
+    //speciality menu
     case 'compost':
       return Object.assign({}, state, {
         compost: true,
@@ -91,6 +91,34 @@ function appReducer (state, action) {
         clothing: true,
         money: state.money-500,
       });
+
+    case 'lab waste':
+      return Object.assign({}, state, {
+        labwaste: true,
+        money: state.money-5000,
+      });      
+
+    //purchasing menu
+    case 'memo':
+      return Object.assign({}, state, {
+        proportionRecyclables: state.proportionRecyclables*1.02,
+        proportionCompostable: state.proportionCompostable*1.02,
+        money: state.money-10,
+      });
+
+    case 'purchasing training':
+      return Object.assign({}, state, {
+        proportionRecyclables: state.proportionRecyclables*1.1,
+        proportionCompostable: state.proportionCompostable*1.1,
+        money: state.money-500,
+      });
+
+    case 'new policy':
+      return Object.assign({}, state, {
+        proportionRecyclables: state.proportionRecyclables*1.5,
+        proportionCompostable: state.proportionCompostable*1.5,
+        money: state.money-5000,
+      });  
 
     //messages
     case 'addMessage':
@@ -215,6 +243,8 @@ function appReducer (state, action) {
         onboarded: false,
         runScript: true,
         staffHappiness: 100,
+        proportionRecyclables: 0.4,
+        proportionCompostable: 0.3,
         level: 0,
         educationLevel: 0,
         collectionRateHistory: [],
@@ -249,6 +279,8 @@ function appReducer (state, action) {
         recyclingCost: 50,
         recyclingRate: 0,
         messages:[],
+        proportionRecyclables: 0.4,
+        proportionCompostable: 0.3,
         buildingsVisible: 1,
         onboarded: false,
         runScript: true,

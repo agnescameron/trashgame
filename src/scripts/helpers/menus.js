@@ -16,6 +16,10 @@ export const menus = [
 	  		items: ["custodial", "recycling", "education", "speciality"],
 	  	},
 	  	{
+	  		menu: 'main5', 
+	  		items: ["custodial", "recycling", "education", "speciality", "purchasing"],
+	  	},
+	  	{
 	  		menu: 'custodial', 
 	  		items: [
 		  		{
@@ -111,8 +115,33 @@ export const menus = [
 		  			info: "A specialist clothing stream is a great idea! This will cost about $500/month to run"
 		  		},
 	  		],
+	  	},
+	  	{
+	  		menu: 'purchasing', 
+	  		items: [
+		  		{
+		  			item: "memo",
+		  			cost: 10,
+		  			info: "Draft an email to remind staff to purchase sustainably,\
+		  			and to re-use items that they may already have."
+		  		},
+		  		{
+		  			item: "purchasing training",
+		  			cost: 500,
+		  			info: "Training sessions on sustainable purchasing can help to\
+		  			increase the amount of materials that are recyclable or compostable.\
+		  			This helps both the recycling and compost rates, and the recycling\
+		  			quality."
+		  		},
+		  		{
+		  			item: "new policy",
+		  			cost: 5000, 
+		  			info: "Work with administration to come up with new purchasing\
+		  			policy recommendations! This can take a while, but can really\
+		  			help staff to take up more sustainable practices"
+		  		},
+	  		],
 	  	}
-
 	  ]
 
 

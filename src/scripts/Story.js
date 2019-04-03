@@ -101,7 +101,6 @@ class Story extends Component{
 		isFired: false,
 		endgame: false,
 		scripts: [
-
 			//general information
 
 			{
@@ -326,7 +325,7 @@ class Story extends Component{
 			{
 				sender: characters.management,
 				script: '2',
-				contents: [`your recycling rate is getting there, but we need to talk about something else:\
+				contents: [`Your recycling rate is getting there, but we need to talk about something else:\
 				quality!`,
 				`An issue common in recycling is that of contamination: if just 1 or 2 items that are meant \
 				to go in the trash end up in the recycling, then it can spoil the whole load`,
@@ -341,25 +340,32 @@ class Story extends Component{
 			{
 				sender: characters.management,
 				script: '3',
-				contents: [`a number of students have been asking about the possibilities\
+				contents: [`A number of students have been asking about the possibilities\
 				for disposing of food waste. Currently, it's all just being put in the trash`,
 				`If you could arrange some kind of composting programme, that would be great. You'll\
-				need to find funding for it though, and also make sure people know how to use it!`
+				need to find funding for it though, and also make sure people know how to use it!`,
+				`There's also stuff like e-waste, clothing, and lab waste... if you could think about\
+				managing these too we'd really appreciate it.`,
+				`Great! That's all for now.`
 				],
 			},
 			{
 				sender: characters.management,
 				script: '4',
-				contents: [`Lab waste is a biiiig problem for the institute right now!`
-				],
-			},
-			{
-				sender: characters.management,
-				script: '5',
-				contents: [`speciality: e-watste, clothing, etc`
+				contents: [`Hi there, me again. One thing that might improve the campus sustainability\
+				is if the things we're buying were more easy to compost and recycle.`,
+				`Right now, the composting and recycling rates are low because there's no guidance\
+				on how to purchase sustainably. We think you're a great person to head up our new\
+				purchasing policy initiative!`
 				],
 			},
 
+			// {
+			// 	sender: characters.management,
+			// 	script: '5',
+			// 	contents: [`lab wasye`
+			// 	],
+			// },			
 			//endgame
 			{
 				sender: characters.management,
