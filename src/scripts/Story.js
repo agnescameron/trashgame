@@ -27,7 +27,6 @@ const mapStateToProps = (state) => {
   	totalWaste: state.appReducer.totalWaste,
   	isFired: state.appReducer.isFired,
   	endgame: state.appReducer.endgame,
-  	staffHappiness: state.appReducer.staffHappiness,
   }
 }
 
@@ -60,6 +59,21 @@ const getS = (num) => {
 		return 's'
 }
 
+
+const level1 = (collectionRate) => {
+	if(collectionRate > 90){
+		return `Good job getting the garbage collection up and running!\
+		Now, it's time to get onto making some real changes round here.`
+	}
+	else if(collectionRate < 90 && collectionRate > 60){
+		return `You're getting there with the collection rate, though
+		you should really be hiring some more custodial staff.`
+	}
+	else{
+		return 'You *really* need to get caught up on the collection rate!\
+		Hire some more custodial staff.'
+	}
+}
 
 const weekCollection = (rate) => {
 	var message;
@@ -111,10 +125,7 @@ class Story extends Component{
 				...so you'll need to hire new staff to deal with the extra waste.\
 				Also: if you do a good job here, we'll ask you to expand to more buildings on campus",
 				"The map in the centre represents the whole campus:\
-				right now, the only building you have to worry about is the Media Lab.\
-				The only people in the building are 10 faculty and 30 students --\
-				they've not got a lot of funding yet, so won't be ordering a lot of materials, \
-				or producing much waste",
+				right now, the only building you have to worry about is the Media Lab.",
 				`You'll need to start by hiring some custodians\
 				 -- without them, you won't be able to collect any waste at all!`,
 				 `Be careful: if you don't hire enough custodial staff, waste can build up: this gets\
@@ -249,7 +260,7 @@ class Story extends Component{
 				sender: characters.management,
 				script: 'addBuilding',
 				contents: ["Things seem to be going pretty well here!",
-				`you've got the waste collection under control, and your staff are ${this.props.staffHappiness}% happy`,
+				`you've got the waste collection under control, and your staff are pretty happy`,
 				"It's time we gave you some more responsibilities!",
 				`We're asking you to take charge of ${buildings[this.props.buildingsVisible-1].building}. They have a solid waste management budget\
 				of $${buildings[this.props.buildingsVisible-1].budget} per month, with ${buildings[this.props.buildingsVisible-1].faculty*10} faculty,\
@@ -300,8 +311,7 @@ class Story extends Component{
 			{
 				sender: characters.management,
 				script: '1',
-				contents: [`good job getting the garbage collection up and running!\
-				Now, it's time to get onto making some real changes round here`,
+				contents: [`${level1(this.props.collectionRate)}`,
 				`The reason we hired you was to improve our recycling programme, and\
 				to help the campus achieve 'zero waste' status`,
 				`The first step of that is getting the recycling rate up: this is the total\

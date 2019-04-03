@@ -37,7 +37,7 @@ function appReducer (state, action) {
     case 'workshop':
       return Object.assign({}, state, {
         workshops: state.workshops+1,
-        money: state.money+80,
+        money: state.money-2000,
       });
 
     case 'signs':

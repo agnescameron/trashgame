@@ -187,15 +187,16 @@ const economics = {
 			var totalLandfill = state.totalWaste;
 			if(props.level  >=1){
 				totalLandfill = state.totalWaste - 
-					state.totalWaste*state.recyclingRate*props.recyclingQuality;
+					state.totalWaste*state.recyclingRate*props.recyclingQuality/100;
 			}
 			if(props.level >=2){
 				totalLandfill = state.totalWaste - 
-					state.totalWaste*state.recyclingRate*state.recyclingQuality;				
+					state.totalWaste*state.recyclingRate*state.recyclingQuality/100;				
 			}
 			if(props.level >=3){
+				console.log('compost rate is', state.compostRate)
 				totalLandfill = state.totalWaste - 
-					state.totalWaste*state.recyclingRate*state.recyclingQuality - 
+					state.totalWaste*state.recyclingRate*state.recyclingQuality/100 - 
 					state.compostRate*state.totalWaste;				
 			}
 			return totalLandfill;
@@ -206,6 +207,10 @@ const economics = {
 		//tweak 'unit costs' to provide a realistic + sustainable picture
 		//++ display costs to player
 		var landfillCost = state.totalLandfill*constant.landfillUnitCost;
+		//sanity check
+		if(landfillCost < 0){
+			landfillCost = 0;
+		}
 		return landfillCost;
 	},
 
