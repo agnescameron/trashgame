@@ -53,6 +53,12 @@ const weekQuality = (quality) => {
 	return message;
 }
 
+const getS = (num) => {
+	if(num > 1)
+		return 's'
+	else
+		return ''
+}
 
 
 const weekCollection = (rate) => {
@@ -135,7 +141,7 @@ class Story extends Component{
 				script: 'week',
 				contents: [`it's been a week! Your collection rate is at \
 		    		${Math.round(this.props.collectionRate)}%, and you've hired ${this.props.custodialStaff}
-		    		custodian.`,
+		    		custodian${getS(this.props.custodialStaff)}.`,
 		    		weekCollection(this.props.collectionRate),
 		    		`There's a new research group joining the lab: 10 new students, and another 2 faculty`,
 		    		`Good luck!`,
@@ -512,10 +518,6 @@ class Story extends Component{
 	}
 
 	render() {
-      if (this.props.endgame === true) {
-        return <Redirect to='/Frontpage' />;
-      }
-
 		let contaminant = this.state.contaminant;
 
 		return(

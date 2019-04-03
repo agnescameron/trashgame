@@ -10,6 +10,7 @@ import './css/main.css';
 const mapStateToProps = (state) => {
   return {
     username: state.appReducer.username,
+    endgame: state.appReducer.endgame,
   };
 }
 
@@ -21,8 +22,12 @@ constructor(props){
 }
 
   render() {
+    
+    if (this.props.endgame === true) {
+      return <Redirect to='/Frontpage' />;
+    }
 
-    return (   
+    return (     
     <div className="App">
 		<div>
 			<Stats />
