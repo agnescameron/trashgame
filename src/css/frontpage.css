@@ -5,6 +5,7 @@
 	  top: 0;
 	  left: 0;
 	  bottom: 0;
+	  padding-top: 80px;
     height: auto !important;
     height: 100%;
 	background-color: yellow;
@@ -23,6 +24,7 @@
 	width:150px;
 	margin: auto;
 	height: 50px;
+	font-size: 15px;
 	background-color: blue;
 	border-radius: 5px;
 	border: 3px white;
@@ -32,7 +34,8 @@
 .image {
 	padding-top: 30px;
   	width: 500px;
-  	height: 500px;
+  	height: 400px;
+  	background-position: 50% 50%;
 	left: 50%;
    	margin:0 auto;
    	background-image: url('./img/spinningtrash.gif');
@@ -41,9 +44,9 @@
 .about {
   position: fixed;
   width: 500px;
-  height: 700px;
+  height: 500px;
   overflow-y: scroll;
-  top:30px;
+  top:200px;
   left: 50%;
   margin-left: -250px;
   z-index: 20;

@@ -52,19 +52,31 @@ class Frontpage extends Component{
 		return(
 			<div className="frontpagebody">
 			<div className="frontpagecentre"> <p>Let's play: Waste at MIT</p> </div>
-				<div className="frontpagecentre">
-					<button className="button" onClick={(event) => this.startGame(event)}>start</button>
-					<button className="button" onClick={(event) => this.renderAbout(event)}>about</button>
-				</div>
+			<div className="frontpagecentre">
+				<button className="button" onClick={(event) => this.startGame(event)}>start</button>
+				<button className="button" onClick={(event) => this.renderAbout(event)}>about</button>
+			</div>
 			<div className="image"></div>
 			{this.state.showAbout && 
 				<div className="about">
 					<div className="close" onClick={(event) => this.renderAbout(event)}>x</div>
 					<div className="textwrap">
 					Let's play: Waste at MIT is a game about trash. Specifically, 
-					it's about where our trash comes from, and where it goes, and
-					who deals with it when it gets there. 
-
+					it's about where our trash comes from, who deals with it, and
+					where it goes after it leaves the bin. This game does not seek
+					to represent an entire waste system, but instead, a small segment
+					of one: solid waste management on the MIT Campus.
+					<br/><br/>
+					Let's play: Waste at MIT was developed from a series of interviews
+					with the people that manage waste at MIT. Not all of the numbers
+					are real (and neither are the buildings to scale), but the intention
+					is to paint a picture of the challenges and considerations of managing
+					solid waste on a large campus.
+					<br/><br/>
+					Let's play: Waste at MIT has been developed as research for a thesis project
+					at the MIT Media Lab. It is a work in progress, and if you have
+					any comments or questions, please direct them to: <b>agnescam at media
+					. mit . edu </b>
 					</div></div>}
 			</div>
 		);
