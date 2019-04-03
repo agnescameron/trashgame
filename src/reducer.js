@@ -183,9 +183,8 @@ function appReducer (state, action) {
         money: state.money-action.wasteCost,
         collectionRateHistory: [...state.collectionRateHistory, action.collectionRate],
         leftoverWasteHistory: [...state.leftoverWasteHistory, action.leftoverWaste],
-        // landfillWasteHistory: [...state.landfillWasteHistory, action.landfillWaste],
+        landfillWasteHistory: [...state.landfillWasteHistory, 1-action.landfillWaste],
         landfillWaste: action.landfillWaste,
-        educationLevel: action.educationLevel,
         rodents: action.rodents,
         staffHappiness: action.staffHappiness,
         strike: false,
@@ -199,8 +198,16 @@ function appReducer (state, action) {
       }); 
 
       case 'DAYL2':
+      console.log('dispatching, educationLevel is', action.educationLevel)
       return Object.assign({}, state, {
         recyclingQualityHistory: [...state.recyclingQualityHistory, action.recyclingQuality],
+        educationLevel: action.educationLevel,
+      }); 
+
+      case 'DAYL3':
+      return Object.assign({}, state, {
+        compostRateHistory: [...state.compostRateHistory, action.compostRate],
+        compostRate: state.compostRate,
       }); 
 
     case 'WEEK':
@@ -246,12 +253,14 @@ function appReducer (state, action) {
         onboarded: false,
         runScript: true,
         staffHappiness: 100,
+        compost: false,
         proportionRecyclables: 0.4,
         proportionCompostable: 0.3,
         level: 0,
         educationLevel: 0,
         collectionRateHistory: [],
         recyclingRateHistory: [],
+        compostRateHistory: [],
         recyclingQualityHistory: [],
         leftoverWasteHistory: [],
         landfillWasteHistory: [],
@@ -277,6 +286,7 @@ function appReducer (state, action) {
         outreach: 0,
         students: 3,
         faculty: 1,
+        compost: false,
         strike: false,
         collectionRate: 0,
         recyclingQuality: 0,
@@ -294,6 +304,7 @@ function appReducer (state, action) {
         collectionRateHistory: [],
         recyclingRateHistory: [],
         recyclingQualityHistory: [],
+        compostRateHistory: [],
         leftoverWasteHistory: [],
         landfillWasteHistory: [],
         isFired: false,

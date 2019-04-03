@@ -25,6 +25,7 @@ const mapStateToProps = (state) => {
   	staffHappiness: state.appReducer.staffHappiness,
   	landfillWasteHistory: state.appReducer.landfillWasteHistory,
   	landfillWaste: state.appReducer.landfillWaste,
+  	educationLevel: state.appReducer.educationLevel,
   }
 }
 
@@ -52,9 +53,17 @@ class Sidebar extends Component{
 		if(this.props.staffHappiness <= 50) happiness = '😠'
 		if(this.props.staffHappiness <= 60) happiness = '😡'
 
-		console.log('happiness', this.props.staffHappiness, happiness)
-
 		return happiness;
+	}
+
+	getEducation = () => {
+		var education;
+		if(this.props.educationLevel < 1.1) education = "expert in"
+		if(this.props.educationLevel < 0.8) education = "informed about"
+		if(this.props.educationLevel < 0.6) education = "confused about"
+		if(this.props.educationLevel < 0.3) education = "totally clueless about"
+
+		return education;
 	}
 
 	componentDidMount() {
@@ -85,11 +94,12 @@ class Sidebar extends Component{
 					<div>{this.getStaffHappiness()}: staff happiness</div>
 					{this.props.level >=1 && <div>♻️🗑: {this.props.bins} recycling bins</div>}
 					{this.props.level >=2 && <div>♻️ℹ️: {this.props.signs} signs</div>}
+					{this.props.level >=2 && <div>♻️👩‍💻: students feel {this.getEducation()} recycling </div>}
 				</div>
 
 				<div>
 				<Chart history={this.props.collectionRateHistory} day={this.props.day} label={`collection rate ${this.props.collectionRate}%`} />
-				{this.props.level >=2 && <Chart history={this.props.landfillWasteHistory} day={this.props.day} label={`solid waste to landfill ${Math.round(this.props.landfillWaste*100)}%`} />}
+				{this.props.level >=2 && <Chart history={this.props.landfillWasteHistory} day={this.props.day} label={`waste diverted from landfill ${100 - Math.round(this.props.landfillWaste*100)}%`} />}
 				</div>
 				<div className="sidebox">
 				

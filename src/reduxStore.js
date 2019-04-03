@@ -17,6 +17,7 @@ let store = createStore(persistReducer(persistOptions, combineReducers({
         recyclingQualityHistory: [],
         leftoverWasteHistory: [],
         landfillWasteHistory: [], 
+        compostRateHistory: [], 
     }), applyMiddleware(thunk));
 //let persistor = persistStore(store);
 let persistor = persistStore(store);

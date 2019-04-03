@@ -33,6 +33,13 @@ const economics = {
 
 		//calculate education level
 		educationLevel = (signRate+outreachRate+workshopRate)/3;
+
+		if(educationLevel > 1)
+			educationLevel = 1;
+
+		if(educationLevel < 0)
+			educationLevel = 0;
+
 		return educationLevel;
 	},
 
@@ -85,6 +92,13 @@ const economics = {
 			recyclingRate = (props.bins/state.population)*10*
 				props.proportionRecyclables*stats.rollDice(state.luck);
 		}
+		//sanity check
+		if(recyclingRate > 1){
+			recyclingRate = 1;
+		}
+		if(recyclingRate < 0){
+			recyclingRate = 0;
+		}		
 		return recyclingRate;
 	},
 
@@ -131,6 +145,16 @@ const economics = {
 	},
 
 	calculateCompostRate: function(state, props){
+		//sanity check
+		var proportionCompostable
+		if(props.proportionCompostable > 1){
+			proportionCompostable = 1;
+		}
+		else if(props.proportionCompostable < 0){
+			proportionCompostable = 0;
+		}
+		else proportionCompostable = props.proportionCompostable;
+
 		return state.educationLevel*props.proportionCompostable;		
 	},
 

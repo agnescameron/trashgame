@@ -101,7 +101,7 @@ export const menus = [
 		  			item: "compost",
 		  			cost: 1000,
 		  			info: "Want to start diverting food waste from landfill? Good shout!\
-		  			Compost collection costs $500 per building each month (+ some starting costs), \
+		  			Compost collection costs $500 per building each week (+ some startup costs), \
 		  			and you'll need to tell people about it before they use it!"
 		  		},
 		  		{

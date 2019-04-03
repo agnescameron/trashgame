@@ -21,6 +21,7 @@ const mapStateToProps = (state) => {
   	recyclingStaff: state.appReducer.recyclingStaff,
   	custodialStaff: state.appReducer.custodialStaff,
   	compost: state.appReducer.compost,
+  	compostRate: state.appReducer.compostRate,
   	bins: state.appReducer.bins,
   	vans: state.appReducer.vans,
   	money: state.appReducer.money,
@@ -190,17 +191,23 @@ class Stats extends Component{
 
 		//level 4: speciality streams
 		if(this.props.level >=3){
-			nextState.compostRate = economics.calculateCompostRate(nextState, this.props);
 
 			if(this.props.compost === true){
+				nextState.compostRate = economics.calculateCompostRate(nextState, this.props);
 				nextState.totalCompost = economics.calculateTotalCompost(nextState, this.props);
 				nextState.compostCost = economics.calculateCompostCost(nextState, this.props);
 				console.log('compost cost is ', nextState.compostCost)
 			}
+			else {
+				nextState.compostRate = 0;
+				nextState.compostCost = 0;
+				nextState.totalCompost = 0;
+			}
 
 			this.props.dispatch({
 				type: 'DAYL3',
-			});	
+				compostRate: nextState.compostRate,
+			});
 		}
 
 		//calculate the amount of landfill waste
@@ -444,6 +451,7 @@ class Stats extends Component{
 		var collectionBar = (Math.round(this.state.collectionRate)).toString().concat('%');
 		var rateBar = (Math.round(this.state.recyclingRate*100)).toString().concat('%');
 		var qualityBar = (Math.round(this.state.recyclingQuality)).toString().concat('%');
+		var compostBar = (Math.round(this.props.compostRate*100)).toString().concat('%');
 		var level = this.props.level;
 		var rodentWarn = this.props.rodents/population;
 
@@ -457,7 +465,11 @@ class Stats extends Component{
 			</div>
 
 			<div id="statbar">
-				{level>=2 && <div className="statcontainer" onClick={()=>this.stopTimer()}>recycling quality: {qualityBar}<div className="progressbar">
+				{this.props.compost === true && <div className="statcontainer">compost rate: {compostBar}<div className="progressbar">
+					<div className="progress" style={{width: compostBar}}></div></div>
+						<div id="chartview"><ChartView history={this.props.compostRateHistory} day={this.props.day} label='compost rate:' /></div>
+					</div>}
+				{level>=2 && <div className="statcontainer" >recycling quality: {qualityBar}<div className="progressbar">
 					<div className="progress" style={{width: qualityBar}}></div></div>
 						<div id="chartview"><ChartView history={this.props.recyclingQualityHistory} day={this.props.day} label='recycling quality:' /></div>
 					</div>}
