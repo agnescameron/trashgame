@@ -11,7 +11,7 @@ let persistOptions = {
 
 let store = createStore(persistReducer(persistOptions, combineReducers({
   appReducer,
-}, { endgame: true })), applyMiddleware(thunk));
+}), { endgame: true }), applyMiddleware(thunk));
 //let persistor = persistStore(store);
 let persistor = persistStore(store);
 export {store, persistor};
