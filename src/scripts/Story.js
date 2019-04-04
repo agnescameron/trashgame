@@ -25,6 +25,7 @@ const mapStateToProps = (state) => {
   	money: state.appReducer.money,
   	totalLandfill: state.appReducer.totalLandfill,
   	totalWaste: state.appReducer.totalWaste,
+  	landfillWaste: state.appReducer.landfillWaste,
   	isFired: state.appReducer.isFired,
   	endgame: state.appReducer.endgame,
   }
@@ -413,10 +414,10 @@ class Story extends Component{
 
 	scoring = () => {
 		var scoring;
-		console.log('landfill over waste', this.props.totalLandfill/this.props.totalWaste);
+		console.log('landfill over waste', this.props.landfillWaste);
 		var isFired = this.props.isFired;
 		//0-40% diverted
-		if(this.props.totalLandfill/this.props.totalWaste < 1.1){
+		if(this.props.landfillWaste < 10){
 			if(isFired) scoring = `You've really not done much about diverting waste either!\
 				All in all, we're pretty disappointed.`
 			else scoring = `However, you've barely made a dent in our landfill issues\
@@ -424,7 +425,7 @@ class Story extends Component{
 				In the future, we'd like to see more of a focus on sustainability.`
 		}
 		//>40% diverted
-		if(this.props.totalLandfill/this.props.totalWaste < 0.6){
+		if(this.props.landfillWaste < 0.6){
 			if(isFired) scoring = `You did start to make some progress with diverting waste\
 				from landfill, but didn't get very far!`
 			else scoring = `You've started to make some progress with diverting waste\
@@ -432,7 +433,7 @@ class Story extends Component{
 				In the future, we'd like to see more of a focus on sustainability.`
 		}
 		//getting there
-		if(this.props.totalLandfill/this.props.totalWaste < 0.4){
+		if(this.props.landfillWaste < 0.4){
 			if(isFired) scoring = `However, you did manage to make something of a dent\
 				in our landfill issue! We will continue to implement some of the\
 				programs you've initiated.`
@@ -440,14 +441,14 @@ class Story extends Component{
 				there's still some way to go!`
 		}
 		//close
-		if(this.props.totalLandfill/this.props.totalWaste < 0.2){
+		if(this.props.landfillWaste < 0.2){
 			if(isFired) scoring = `That said, you made a great effort on our landfill\
 				waste issue! We'll be continuing with a number of the programs you implemented`
 			else scoring = `You're almost there with zero waste! I'm confident we'll get there\
 				in a couple of months, great work!`
 		}
 		//you win
-		if(this.props.totalLandfill/this.props.totalWaste < 0.1){
+		if(this.props.landfillWaste < 0.1){
 			if(isFired) scoring = `That said, you've done a fantastic job getting us to zero\
 				waste: though we can't keep you on, we will be trying to keep the\
 				program running!`;

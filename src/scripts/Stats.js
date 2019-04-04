@@ -284,7 +284,8 @@ class Stats extends Component{
 		}		
 
 		if(this.props.day%14 === 0 && ( this.props.collectionRate > 98 && this.props.staffHappiness > 80)){
-			this.addBuilding();
+			if(this.props.buildingsVisible < 8)
+				this.addBuilding();
 		}
 
 
@@ -383,7 +384,7 @@ class Stats extends Component{
 		}
 
 		//add Losing event here!!
-		if(this.props.day%120 === 0){
+		if(this.props.day%2 === 0){
 			this.runScript('scoring');
 		}
 	}
