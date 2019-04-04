@@ -18,6 +18,7 @@ class Frontpage extends Component{
 	this.state = {
 		username: '',
 		showAbout: false,
+		showParticipate: false,
 		}
 	}
 
@@ -34,6 +35,12 @@ class Frontpage extends Component{
 	renderAbout = (event) => {
 		console.log('about')
 		this.setState({showAbout: !this.state.showAbout})
+	}
+
+
+	renderParticipate = (event) => {
+		console.log('about')
+		this.setState({showParticipate: !this.state.showParticipate})
 	}
 
 	redirect = () => {
@@ -55,6 +62,7 @@ class Frontpage extends Component{
 			<div className="frontpagecentre">
 				<button className="button" onClick={(event) => this.startGame(event)}>start</button>
 				<button className="button" onClick={(event) => this.renderAbout(event)}>about</button>
+				<button className="button" onClick={(event) => this.renderParticipate(event)}>participate!</button>
 			</div>
 			<div className="image"></div>
 			{this.state.showAbout && 
@@ -78,6 +86,28 @@ class Frontpage extends Component{
 					any comments or questions, please direct them to: <b>agnescam at media
 					. mit . edu </b>
 					</div></div>}
+			{this.state.showParticipate && 
+				<div className="about">
+					<div className="close" onClick={(event) => this.renderParticipate(event)}>x</div>
+					<div className="textwrap">
+					This work is part of an ongoing study of attitudes toward waste management.
+					As part of this, I am seeking participation in a study on how attitudes
+					toward waste systems can be influenced by playing civic games.
+					<br/><br/>
+					This study consists of two short surveys, one to be completed before playing the 
+					game, and one after. The data from these surveys will be anonymously aggregated,
+					and presented as part of a thesis project. Participation is voluntary, and can be
+					withdrawn at any time. If you would like to support this work, the surveys can
+					be found here:
+					<br/><br/>
+					<a href="https://docs.google.com/forms/d/e/1FAIpQLSc7TAT-doERtu8B9A5ed1raXcu7Fyi1k-Hqt1uJNOADktA5Mw/viewform?usp=sf_link">
+					pre-game survey</a><br/>
+					<a href="https://docs.google.com/forms/d/e/1FAIpQLScWeryvPPWx7Y3tUKBPYqfCWK24aTZ_VPnu9AbHeE3UvCjYfw/viewform?usp=sf_link">
+					post-game survey</a><br/><br/>
+					If taking part, please take both sections of the survey! 
+					Any participation is greatly appreciated, and if you have further feedback (or questions)
+					please contact me at <b>agnescam at media . mit . edu</b>
+					</div></div>}					
 			</div>
 		);
 	}
