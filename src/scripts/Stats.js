@@ -384,7 +384,7 @@ class Stats extends Component{
 		}
 
 		//add Losing event here!!
-		if(this.props.day%2 === 0){
+		if(this.props.day%120 === 0){
 			this.runScript('scoring');
 		}
 	}
