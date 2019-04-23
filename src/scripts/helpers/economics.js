@@ -227,6 +227,12 @@ const economics = {
 					state.totalWaste*state.recyclingRate*state.recyclingQuality/100 - 
 					state.compostRate*state.totalWaste;				
 			}
+
+			//sanity check
+			if(totalLandfill < 0) {
+				totalLandfill = 0;
+			}
+
 			return totalLandfill;
 	},
 
